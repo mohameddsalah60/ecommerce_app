@@ -1,4 +1,5 @@
 import 'package:ecommerce_app/core/utils/app_images.dart';
+import 'package:ecommerce_app/features/auth/presentation/views/sign_in_view.dart';
 import 'package:flutter/material.dart';
 
 class SplashViewBody extends StatefulWidget {
@@ -9,6 +10,17 @@ class SplashViewBody extends StatefulWidget {
 }
 
 class _SplashViewBodyState extends State<SplashViewBody> {
+  @override
+  void initState() {
+    Future.delayed(
+      const Duration(seconds: 3),
+      () {
+        Navigator.of(context).pushReplacementNamed(SignInView.routeName);
+      },
+    );
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
