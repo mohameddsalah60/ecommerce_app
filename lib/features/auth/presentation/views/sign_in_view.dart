@@ -5,6 +5,10 @@ class SignInView extends StatelessWidget {
   static const routeName = 'signIn';
   @override
   Widget build(BuildContext context) {
-    return const Scaffold();
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('data'),
+      ),
+    );
   }
 }

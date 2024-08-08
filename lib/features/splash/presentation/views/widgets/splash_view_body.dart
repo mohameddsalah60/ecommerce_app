@@ -1,5 +1,5 @@
 import 'package:ecommerce_app/core/utils/app_images.dart';
-import 'package:ecommerce_app/widgets/select_lang_bottom_sheet.dart';
+import 'package:ecommerce_app/core/widgets/select_lang_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 
 class SplashViewBody extends StatefulWidget {
