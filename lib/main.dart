@@ -11,7 +11,14 @@ class EcommerceApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
+      theme: ThemeData(
+        fontFamily: 'Cairo',
+        scaffoldBackgroundColor:
+            Brightness.light.index == 0 ? Colors.white : null,
+        brightness:
+            Brightness.light.index != 0 ? Brightness.light : Brightness.dark,
+      ),
       debugShowCheckedModeBanner: false,
       initialRoute: SplashView.routeName,
       onGenerateRoute: onGenerateRoutes,
