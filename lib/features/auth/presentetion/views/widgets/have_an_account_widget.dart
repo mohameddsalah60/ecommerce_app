@@ -1,10 +1,9 @@
 import 'package:ecommerce_app/core/utils/app_colors.dart';
 import 'package:ecommerce_app/core/utils/app_text_styles.dart';
-import 'package:ecommerce_app/features/auth/presentetion/views/sign_up_view.dart';
 import 'package:flutter/material.dart';
 
-class DonthHaveAnAccountWidget extends StatelessWidget {
-  const DonthHaveAnAccountWidget({
+class HaveAnAccountWidget extends StatelessWidget {
+  const HaveAnAccountWidget({
     super.key,
   });
 
@@ -14,17 +13,17 @@ class DonthHaveAnAccountWidget extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text(
-          "Don't have an account?  ",
+          'Already have an Account? ',
           style: AppTextStyles.semiBold16.copyWith(
             color: const Color(0xff949D9E),
           ),
         ),
         GestureDetector(
           onTap: () {
-            Navigator.of(context).pushNamed(SignUpView.routeName);
+            Navigator.of(context).pop();
           },
           child: Text(
-            'Create an account',
+            'Log In',
             style: AppTextStyles.semiBold16.copyWith(
               color: AppColors.primaryColor,
             ),
