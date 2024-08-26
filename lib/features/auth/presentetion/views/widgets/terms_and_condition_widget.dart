@@ -3,10 +3,8 @@ import 'package:ecommerce_app/core/utils/app_text_styles.dart';
 import 'package:flutter/material.dart';
 
 class TermsAndConditionWidget extends StatelessWidget {
-  const TermsAndConditionWidget(
-      {super.key, required this.value, required this.onChanged});
-  final bool value;
-  final void Function(bool?) onChanged;
+  const TermsAndConditionWidget({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Transform.translate(
