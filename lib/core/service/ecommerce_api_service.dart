@@ -26,4 +26,22 @@ class EcommerceApiService {
       rethrow;
     }
   }
+
+  Future<Map<String, dynamic>> loginUserWithEmailAndPassword(
+    String email,
+    String password,
+  ) async {
+    try {
+      var data = await apiService.post(
+        endPoint: 'login',
+        data: {
+          'email': email,
+          'password': password,
+        },
+      );
+      return data;
+    } catch (e) {
+      rethrow;
+    }
+  }
 }

@@ -1,13 +1,11 @@
-import 'package:dio/dio.dart';
-import 'package:ecommerce_app/core/service/api_service.dart';
-import 'package:ecommerce_app/core/service/ecommerce_api_service.dart';
 import 'package:ecommerce_app/core/utils/app_colors.dart';
 import 'package:ecommerce_app/core/utils/app_text_styles.dart';
 import 'package:ecommerce_app/core/widgets/custom_button.dart';
 import 'package:ecommerce_app/core/widgets/custom_password_field.dart';
 import 'package:ecommerce_app/core/widgets/custom_text_field.dart';
-import 'package:ecommerce_app/features/auth/data/repos/auth_repo_impl.dart';
+import 'package:ecommerce_app/features/auth/presentetion/cubits/sign_in_cubit/sign_in_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'dont_have_an_account_widget.dart';
 
@@ -104,14 +102,18 @@ class _SignInViewBodyState extends State<SignInViewBody> {
               CustomButton(
                 text: 'Login',
                 onPressed: () {
-                  AuthRepoImpl(
-                          ecommerceApiService: EcommerceApiService(
-                              apiService: ApiService(dio: Dio())))
-                      .createUserWithEmailAndPassword(
-                          'mohamedSa',
-                          'mohamedsadasdasdaSa@gmail.com',
-                          '1as1asd4asdada',
-                          '01215564422');
+                  if (fromKey.currentState!.validate()) {
+                    fromKey.currentState!.save();
+
+                    context.read<SignInCubit>().loginUserWithEmailAndPassword(
+                          email,
+                          password,
+                        );
+                  } else {
+                    setState(() {
+                      autovalidateMode = AutovalidateMode.always;
+                    });
+                  }
                 },
               ),
               const SizedBox(
