@@ -5,6 +5,7 @@ import 'package:dio/dio.dart';
 import 'package:ecommerce_app/core/errors/exceptions.dart';
 import 'package:ecommerce_app/core/errors/failures.dart';
 import 'package:ecommerce_app/core/service/ecommerce_api_service.dart';
+import 'package:ecommerce_app/core/service/shared_preferences_service.dart';
 import 'package:ecommerce_app/features/auth/data/models/user_model.dart';
 import 'package:ecommerce_app/features/auth/domain/entites/user_entite.dart';
 import 'package:ecommerce_app/features/auth/domain/repos/auth_repo.dart';
@@ -29,13 +30,11 @@ class AuthRepoImpl extends AuthRepo {
         phone,
       );
 
-      final data = response['data'];
-
       if (response['status'] == false) {
         throw CustomException(message: response['message']);
+      } else {
+        return right(UserModel.fromJsonData(response['data']));
       }
-
-      return right(UserModel.fromJsonData(data));
     } on DioException catch (e) {
       log('DioException in AuthRepoImpl : ${e.toString()}');
       return left(ServerFailure.fromDioError(e));
@@ -57,13 +56,16 @@ class AuthRepoImpl extends AuthRepo {
         password,
       );
 
-      final data = response['data'];
-
       if (response['status'] == false) {
         throw CustomException(message: response['message']);
-      }
+      } else {
+        await SharedPreferencesService.saveData(
+          key: 'userToken',
+          value: response['data']['token'],
+        );
 
-      return right(UserModel.fromJsonData(data));
+        return right(UserModel.fromJsonData(response['data']));
+      }
     } on DioException catch (e) {
       log('DioException in AuthRepoImpl : ${e.toString()}');
       return left(ServerFailure.fromDioError(e));
