@@ -1,3 +1,4 @@
+import 'package:ecommerce_app/core/utils/app_colors.dart';
 import 'package:ecommerce_app/core/utils/app_text_styles.dart';
 import 'package:flutter/material.dart';
 
@@ -30,7 +31,7 @@ class CustomTextFromField extends StatelessWidget {
         suffixIcon: suffixIcon,
         suffixIconColor: const Color(0XffC9CECF),
         filled: true,
-        fillColor: const Color(0xffF9FAFA),
+        fillColor: const Color(0xffF9FAFA), // لون التيكست فيلد من جوا الابيض
         hintText: hintText,
         hintStyle: AppTextStyles.bold13.copyWith(
           color: const Color(0xff949D9E),
@@ -49,7 +50,7 @@ class CustomTextFromField extends StatelessWidget {
     return OutlineInputBorder(
       borderSide: const BorderSide(
         width: 1,
-        color: Color(0xffE6E9E9),
+        color: AppColors.greyLightColor,
       ),
       borderRadius: BorderRadius.circular(4),
     );

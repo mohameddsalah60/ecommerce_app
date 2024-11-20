@@ -20,10 +20,8 @@ class EcommerceApp extends StatelessWidget {
     return MaterialApp(
       theme: ThemeData(
         fontFamily: 'Cairo',
-        scaffoldBackgroundColor:
-            Brightness.light.index == 0 ? Colors.white : null,
-        brightness:
-            Brightness.light.index != 0 ? Brightness.light : Brightness.dark,
+        scaffoldBackgroundColor: Colors.white,
+        brightness: Brightness.light,
       ),
       debugShowCheckedModeBanner: false,
       initialRoute: SplashView.routeName,

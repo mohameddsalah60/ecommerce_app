@@ -1,5 +1,6 @@
 import 'package:ecommerce_app/core/service/shared_preferences_service.dart';
 import 'package:ecommerce_app/core/utils/app_images.dart';
+import 'package:ecommerce_app/core/widgets/hypermart_text_widget.dart';
 import 'package:ecommerce_app/features/auth/presentetion/views/sign_in_view.dart';
 import 'package:ecommerce_app/features/home/presentetion/views/home_view.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +16,7 @@ class _SplashViewBodyState extends State<SplashViewBody> {
   @override
   void initState() {
     navigateToHome();
+
     super.initState();
   }
 
@@ -22,15 +24,16 @@ class _SplashViewBodyState extends State<SplashViewBody> {
   Widget build(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        AspectRatio(
-          aspectRatio: 1.5,
-          child: Image.asset(
-            Assets.imagesAppLogo,
-            alignment: Alignment.center,
-          ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset(
+              Assets.imagesAppLogo,
+            ),
+          ],
         ),
+        const HyperMartTextWidget(),
       ],
     );
   }
