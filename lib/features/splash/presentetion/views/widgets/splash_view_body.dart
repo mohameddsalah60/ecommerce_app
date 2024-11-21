@@ -1,4 +1,4 @@
-import 'package:ecommerce_app/core/service/shared_preferences_service.dart';
+import 'package:ecommerce_app/core/helper_functions/get_user.dart';
 import 'package:ecommerce_app/core/utils/app_images.dart';
 import 'package:ecommerce_app/core/widgets/hypermart_text_widget.dart';
 import 'package:ecommerce_app/features/auth/presentetion/views/sign_in_view.dart';
@@ -42,16 +42,20 @@ class _SplashViewBodyState extends State<SplashViewBody> {
     Future.delayed(
       const Duration(seconds: 3),
       () {
-        String isLoginUserToken =
-            SharedPreferencesService.getDataString(key: 'userToken');
+        String isLoginUserToken = getUser().token;
+
         if (isLoginUserToken.isEmpty || isLoginUserToken == '') {
-          Navigator.of(context).pushReplacementNamed(
-            SignInView.routeName,
-          );
+          if (mounted) {
+            Navigator.of(context).pushReplacementNamed(
+              SignInView.routeName,
+            );
+          }
         } else {
-          Navigator.of(context).pushReplacementNamed(
-            HomeView.routeName,
-          );
+          if (mounted) {
+            Navigator.of(context).pushReplacementNamed(
+              HomeView.routeName,
+            );
+          }
         }
       },
     );

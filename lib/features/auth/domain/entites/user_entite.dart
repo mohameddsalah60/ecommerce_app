@@ -1,15 +1,19 @@
-class UserEntite {
+class UserEntity {
   final String name;
   final String phone;
   final String email;
-  final String tokin;
+  final String token;
+  final int points, credit, id;
   String image;
 
-  UserEntite({
+  UserEntity({
     required this.name,
+    required this.id,
     required this.phone,
     required this.email,
-    required this.tokin,
+    required this.token,
+    required this.points,
+    required this.credit,
     required this.image,
   });
 }

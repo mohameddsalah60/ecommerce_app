@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:developer';
 
 import 'package:dartz/dartz.dart';
@@ -16,7 +17,7 @@ class AuthRepoImpl extends AuthRepo {
   AuthRepoImpl({required this.ecommerceApiService});
 
   @override
-  Future<Either<Failure, UserEntite>> createUserWithEmailAndPassword(
+  Future<Either<Failure, UserEntity>> createUserWithEmailAndPassword(
     String name,
     String email,
     String password,
@@ -48,7 +49,7 @@ class AuthRepoImpl extends AuthRepo {
   }
 
   @override
-  Future<Either<Failure, UserEntite>> loginUserWithEmailAndPassword(
+  Future<Either<Failure, UserEntity>> loginUserWithEmailAndPassword(
       String email, String password) async {
     try {
       var response = await ecommerceApiService.loginUserWithEmailAndPassword(
@@ -59,12 +60,9 @@ class AuthRepoImpl extends AuthRepo {
       if (response['status'] == false) {
         throw CustomException(message: response['message']);
       } else {
-        await SharedPreferencesService.saveData(
-          key: 'userToken',
-          value: response['data']['token'],
-        );
-
-        return right(UserModel.fromJsonData(response['data']));
+        UserEntity userEntity = UserModel.fromJsonData(response['data']);
+        await saveUserData(userEntity: userEntity);
+        return right(userEntity);
       }
     } on DioException catch (e) {
       log('DioException in AuthRepoImpl : ${e.toString()}');
@@ -83,5 +81,14 @@ class AuthRepoImpl extends AuthRepo {
       log('Exception in AuthRepoImpl: ${e.toString()}');
       return left(ServerFailure('Oops There was an error, try again!'));
     }
+  }
+
+  @override
+  Future<void> saveUserData({required UserEntity userEntity}) async {
+    var jsonData = jsonEncode(UserModel.fromEntity(userEntity).toMap());
+    await SharedPreferencesService.saveData(
+      key: 'userData',
+      value: jsonData,
+    );
   }
 }

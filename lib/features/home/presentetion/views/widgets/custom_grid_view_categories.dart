@@ -12,7 +12,7 @@ class CustomGridViewCategories extends StatelessWidget {
     return SizedBox(
       height: MediaQuery.sizeOf(context).height * .33,
       child: GridView.builder(
-        physics: NeverScrollableScrollPhysics(),
+        physics: const NeverScrollableScrollPhysics(),
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 4,
           crossAxisSpacing: 10,
