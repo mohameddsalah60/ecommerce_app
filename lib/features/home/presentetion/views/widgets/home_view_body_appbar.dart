@@ -20,22 +20,26 @@ class HomeViewBodyAppBar extends StatelessWidget {
             Text(
               'Delivery Address,',
               textAlign: TextAlign.start,
-              style: AppTextStyles.regular13
-                  .copyWith(color: const Color(0xffC8C8CB)),
+              style: AppTextStyles.regular13.copyWith(color: Colors.white),
             ),
             GestureDetector(
               onTap: () {},
               child: Row(
                 children: [
-                  const Text(
+                  Text(
                     'Salatiga City, Central Java',
-                    style: AppTextStyles.semiBold16,
+                    style:
+                        AppTextStyles.semiBold16.copyWith(color: Colors.white),
                   ),
                   const SizedBox(
                     width: 6,
                   ),
                   SvgPicture.asset(
                     Assets.imagesArrowDown,
+                    colorFilter: const ColorFilter.mode(
+                      Colors.white,
+                      BlendMode.srcIn,
+                    ),
                     width: 16,
                   ),
                 ],
@@ -50,6 +54,10 @@ class HomeViewBodyAppBar extends StatelessWidget {
               Assets.imagesNotification,
               width: 26,
               height: 26,
+              colorFilter: const ColorFilter.mode(
+                Colors.white,
+                BlendMode.srcIn,
+              ),
             ),
             Positioned(
               right: 0,

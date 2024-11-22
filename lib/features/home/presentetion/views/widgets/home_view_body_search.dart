@@ -10,11 +10,11 @@ class HomeViewBodySearch extends StatelessWidget {
     return TextField(
       decoration: InputDecoration(
         prefixIcon: const Icon(Icons.search),
-        prefixIconColor: const Color(0Xff939393),
+        prefixIconColor: const Color(0xffFFFFFF),
         fillColor: const Color(0xffFFFFFF),
         hintText: 'Search here ...',
         hintStyle: AppTextStyles.bold13.copyWith(
-          color: const Color(0xffC8C8CB),
+          color: Colors.white54,
         ),
         focusedBorder: buildBorder(),
         enabledBorder: buildBorder(),
@@ -23,7 +23,7 @@ class HomeViewBodySearch extends StatelessWidget {
             const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
       ),
       style: AppTextStyles.semiBold16.copyWith(
-        color: const Color(0xff000000),
+        color: const Color(0xffFFFFFF),
       ),
     );
   }

@@ -1,4 +1,3 @@
-import 'package:ecommerce_app/core/utils/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class CustomDotIndicator extends StatelessWidget {
@@ -13,7 +12,7 @@ class CustomDotIndicator extends StatelessWidget {
       width: isActive ? 30 : 8,
       height: 8,
       decoration: ShapeDecoration(
-        color: isActive ? AppColors.primaryColor : const Color(0xffE8E8E8),
+        color: isActive ? Colors.white : Colors.white30,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(12),
         ),
