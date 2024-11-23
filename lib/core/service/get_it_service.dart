@@ -3,8 +3,11 @@ import 'package:ecommerce_app/core/service/api_service.dart';
 import 'package:ecommerce_app/core/service/ecommerce_api_service.dart';
 import 'package:ecommerce_app/features/auth/data/repos/auth_repo_impl.dart';
 import 'package:ecommerce_app/features/auth/domain/repos/auth_repo.dart';
+import 'package:ecommerce_app/features/home/domin/repos/home_repo.dart';
 
 import 'package:get_it/get_it.dart';
+
+import '../../features/home/data/repos/home_repo_impl.dart';
 
 final getIt = GetIt.instance;
 
@@ -17,6 +20,11 @@ void setupGetIt() {
   );
   getIt.registerSingleton<AuthRepo>(
     AuthRepoImpl(
+      ecommerceApiService: getIt<EcommerceApiService>(),
+    ),
+  );
+  getIt.registerSingleton<HomeRepo>(
+    HomeRepoImpl(
       ecommerceApiService: getIt<EcommerceApiService>(),
     ),
   );

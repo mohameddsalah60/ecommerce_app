@@ -44,4 +44,15 @@ class EcommerceApiService {
       rethrow;
     }
   }
+
+  Future<Map<String, dynamic>> getCategories() async {
+    try {
+      var data = await apiService.get(
+        endPoint: 'categories',
+      );
+      return data;
+    } catch (e) {
+      rethrow;
+    }
+  }
 }
