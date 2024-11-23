@@ -29,11 +29,11 @@ class CustomCategoriesItem extends StatelessWidget {
         const SizedBox(
           height: 8,
         ),
-        Expanded(
+        FittedBox(
+          fit: BoxFit.scaleDown,
           child: Text(
             title,
             style: AppTextStyles.bold16,
-            textAlign: TextAlign.center,
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
           ),

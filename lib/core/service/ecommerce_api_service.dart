@@ -55,4 +55,15 @@ class EcommerceApiService {
       rethrow;
     }
   }
+
+  Future<Map<String, dynamic>> getBanners() async {
+    try {
+      var data = await apiService.get(
+        endPoint: 'banners',
+      );
+      return data;
+    } catch (e) {
+      rethrow;
+    }
+  }
 }

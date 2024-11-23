@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../../core/utils/app_colors.dart';
 import 'home_view_body_appbar.dart';
-import 'home_view_body_pageview.dart';
+import 'home_view_body_banners.dart';
 import 'home_view_body_search.dart';
 
 class HomeViewBodyHeader extends StatelessWidget {
@@ -31,7 +31,7 @@ class HomeViewBodyHeader extends StatelessWidget {
           SizedBox(
             height: 16,
           ),
-          HomeViewBodyPageview(),
+          HomeViewBodyBanners(),
           SizedBox(
             height: 16,
           ),
