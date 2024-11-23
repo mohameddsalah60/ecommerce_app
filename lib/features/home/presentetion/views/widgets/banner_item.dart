@@ -55,7 +55,7 @@ class _BannerItemState extends State<BannerItem> {
           ),
         ),
         const SizedBox(
-          height: 8,
+          height: 16,
         ),
         DotsIndicator(
           currnetPageIndex: currnetPageIndex,
