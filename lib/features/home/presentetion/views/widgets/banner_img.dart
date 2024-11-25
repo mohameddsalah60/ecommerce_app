@@ -17,6 +17,18 @@ class BannerImg extends StatelessWidget {
       aspectRatio: 1,
       child: CachedNetworkImage(
         imageUrl: img,
+        imageBuilder: (context, imageProvider) => GestureDetector(
+          onTap: () {},
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(16),
+              image: DecorationImage(
+                image: imageProvider,
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
+        ),
         placeholder: (context, url) =>
             const Center(child: CustomLoadingIndicator()),
         errorWidget: (context, url, error) => const Icon(Icons.error),
