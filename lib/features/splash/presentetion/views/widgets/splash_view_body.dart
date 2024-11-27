@@ -2,7 +2,7 @@ import 'package:ecommerce_app/core/helper_functions/get_user.dart';
 import 'package:ecommerce_app/core/utils/app_images.dart';
 import 'package:ecommerce_app/core/widgets/hypermart_text_widget.dart';
 import 'package:ecommerce_app/features/auth/presentetion/views/sign_in_view.dart';
-import 'package:ecommerce_app/features/home/presentetion/views/home_view.dart';
+import 'package:ecommerce_app/features/home/presentetion/views/main_view.dart';
 import 'package:flutter/material.dart';
 
 class SplashViewBody extends StatefulWidget {
@@ -53,7 +53,7 @@ class _SplashViewBodyState extends State<SplashViewBody> {
         } else {
           if (mounted) {
             Navigator.of(context).pushReplacementNamed(
-              HomeView.routeName,
+              MainView.routeName,
             );
           }
         }

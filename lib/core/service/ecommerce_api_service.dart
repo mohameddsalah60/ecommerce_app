@@ -66,4 +66,29 @@ class EcommerceApiService {
       rethrow;
     }
   }
+
+  Future<Map<String, dynamic>> fetchAllProductsByCategoryId(
+      {required String categoryId}) async {
+    try {
+      var data = await apiService.get(
+        endPoint: 'products',
+        endPoint2: '?category_id=',
+        id: categoryId,
+      );
+      return data;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<Map<String, dynamic>> fetchAllProducts() async {
+    try {
+      var data = await apiService.get(
+        endPoint: 'products',
+      );
+      return data;
+    } catch (e) {
+      rethrow;
+    }
+  }
 }

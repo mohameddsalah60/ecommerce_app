@@ -20,6 +20,8 @@ class BannerImg extends StatelessWidget {
         imageBuilder: (context, imageProvider) => GestureDetector(
           onTap: () {},
           child: Container(
+            width: MediaQuery.sizeOf(context).width,
+            margin: const EdgeInsets.only(left: 8),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(16),
               image: DecorationImage(

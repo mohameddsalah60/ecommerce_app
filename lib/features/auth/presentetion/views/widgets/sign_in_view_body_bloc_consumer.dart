@@ -1,6 +1,6 @@
 import 'package:ecommerce_app/core/helper_functions/custom_snack_bar.dart';
 import 'package:ecommerce_app/core/widgets/custom_progress_hud.dart';
-import 'package:ecommerce_app/features/home/presentetion/views/home_view.dart';
+import 'package:ecommerce_app/features/home/presentetion/views/main_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -22,7 +22,7 @@ class SignInViewBodyBlocConsumer extends StatelessWidget {
             text: 'User logined successfully!',
             color: Colors.green,
           );
-          Navigator.of(context).pushReplacementNamed(HomeView.routeName);
+          Navigator.of(context).pushReplacementNamed(MainView.routeName);
         } else if (state is SignInFailure) {
           customSnackBar(
             context,

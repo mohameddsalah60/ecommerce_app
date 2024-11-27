@@ -3,18 +3,14 @@ import 'package:flutter/material.dart';
 
 import 'custom_bottom_navigation_bar_item.dart';
 
-class CustombottomNavigationBar extends StatefulWidget {
+class CustombottomNavigationBar extends StatelessWidget {
   const CustombottomNavigationBar({
     super.key,
+    required this.selectIndex,
+    required this.onTap,
   });
-
-  @override
-  State<CustombottomNavigationBar> createState() =>
-      _CustombottomNavigationBarState();
-}
-
-class _CustombottomNavigationBarState extends State<CustombottomNavigationBar> {
-  int selectIndex = 0;
+  final int selectIndex;
+  final Function(int) onTap;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -30,11 +26,7 @@ class _CustombottomNavigationBarState extends State<CustombottomNavigationBar> {
           children: List.generate(
             bottomNavigationBarlist.length,
             (index) => GestureDetector(
-              onTap: () {
-                setState(() {
-                  selectIndex = index;
-                });
-              },
+              onTap: () => onTap(index),
               child: CustombottomNavigationBarItem(
                 bottomNavigationBarEntity: bottomNavigationBarlist[index],
                 isSelected: index == selectIndex,

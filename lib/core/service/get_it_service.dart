@@ -1,4 +1,6 @@
 import 'package:dio/dio.dart';
+import 'package:ecommerce_app/core/repos/product_repo.dart';
+import 'package:ecommerce_app/core/repos/product_repo_impl.dart';
 import 'package:ecommerce_app/core/service/api_service.dart';
 import 'package:ecommerce_app/core/service/ecommerce_api_service.dart';
 import 'package:ecommerce_app/features/auth/data/repos/auth_repo_impl.dart';
@@ -25,6 +27,11 @@ void setupGetIt() {
   );
   getIt.registerSingleton<HomeRepo>(
     HomeRepoImpl(
+      ecommerceApiService: getIt<EcommerceApiService>(),
+    ),
+  );
+  getIt.registerSingleton<ProductRepo>(
+    ProductRepoImpl(
       ecommerceApiService: getIt<EcommerceApiService>(),
     ),
   );
