@@ -2,7 +2,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ecommerce_app/core/entites/product_entity.dart';
 import 'package:ecommerce_app/core/utils/app_colors.dart';
 import 'package:ecommerce_app/core/utils/app_text_styles.dart';
-import 'package:ecommerce_app/core/views/product_detiles.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../core/widgets/custom_loading_indicator.dart';
@@ -11,18 +10,14 @@ class CustomProductItem extends StatelessWidget {
   const CustomProductItem({
     super.key,
     required this.productEntity,
+    this.onTap,
   });
   final ProductEntity productEntity;
+  final void Function()? onTap;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        Navigator.pushNamed(
-          context,
-          ProductDetiles.routeName,
-          arguments: productEntity,
-        );
-      },
+      onTap: onTap,
       child: SizedBox(
         height: MediaQuery.sizeOf(context).height * .30,
         width: MediaQuery.sizeOf(context).width * .45,
@@ -63,16 +58,16 @@ class CustomProductItem extends StatelessWidget {
                       left: 0,
                       top: 0,
                       child: Container(
-                        decoration: const BoxDecoration(
-                          color: AppColors.primaryColor,
-                          borderRadius: BorderRadius.only(
+                        decoration: BoxDecoration(
+                          color: Colors.red.shade400,
+                          borderRadius: const BorderRadius.only(
                             topRight: Radius.circular(16),
                             bottomRight: Radius.circular(16),
                           ),
                         ),
                         padding: const EdgeInsets.all(6),
                         child: Text(
-                          '${productEntity.discount}% off ',
+                          'Save ${productEntity.discount}%',
                           style: AppTextStyles.bold16.copyWith(
                             color: Colors.white,
                           ),
@@ -118,16 +113,19 @@ class CustomProductItem extends StatelessWidget {
                   ),
                   Row(
                     children: [
-                      const Text(
-                        'EGP',
-                        style: AppTextStyles.semiBold16,
+                      Text(
+                        "EGP ${productEntity.price.toString()}",
+                        style: AppTextStyles.bold16
+                            .copyWith(color: AppColors.primaryColor),
                       ),
                       const SizedBox(
-                        width: 6,
+                        width: 12,
                       ),
                       Text(
-                        productEntity.price.toString(),
-                        style: AppTextStyles.bold16,
+                        "EGP ${productEntity.oldPrice.toString()}",
+                        style: AppTextStyles.bold16.copyWith(
+                            decoration: TextDecoration.lineThrough,
+                            color: AppColors.secnderyColor),
                       ),
                     ],
                   ),

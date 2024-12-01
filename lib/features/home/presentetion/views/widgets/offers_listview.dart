@@ -1,6 +1,7 @@
 import 'package:ecommerce_app/core/entites/product_entity.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../../core/views/product_detiles_view.dart';
 import '../../../../../core/widgets/custom_product_item.dart';
 
 class OffersListview extends StatelessWidget {
@@ -11,12 +12,22 @@ class OffersListview extends StatelessWidget {
     return SizedBox(
       height: MediaQuery.sizeOf(context).height * .30,
       child: ListView.builder(
-        itemCount: 5,
+        itemCount: products.length,
         scrollDirection: Axis.horizontal,
         itemBuilder: (context, index) {
           return Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: CustomProductItem(
+              onTap: () {
+                Navigator.pushNamed(
+                  context,
+                  ProductDetilesView.routeName,
+                  arguments: {
+                    'index': index,
+                    'products': products,
+                  },
+                );
+              },
               productEntity: products[index],
             ),
           );

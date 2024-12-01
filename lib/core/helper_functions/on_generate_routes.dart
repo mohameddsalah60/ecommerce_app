@@ -5,7 +5,7 @@ import 'package:ecommerce_app/features/splash/presentetion/views/splash_view.dar
 import 'package:flutter/material.dart';
 
 import '../entites/product_entity.dart';
-import '../views/product_detiles.dart';
+import '../views/product_detiles_view.dart';
 
 Route<dynamic> onGenerateRoutes(RouteSettings routeSettings) {
   switch (routeSettings.name) {
@@ -15,12 +15,16 @@ Route<dynamic> onGenerateRoutes(RouteSettings routeSettings) {
       return MaterialPageRoute(builder: (context) => const SignInView());
     case SignUpView.routeName:
       return MaterialPageRoute(builder: (context) => const SignUpView());
-    case ProductDetiles.routeName:
-      final product = routeSettings.arguments as ProductEntity;
+    case ProductDetilesView.routeName:
+      final args = routeSettings.arguments as Map<String, dynamic>;
+      final index = args['index'] as int;
+      final listproducts = args['products'] as List<ProductEntity>;
       return MaterialPageRoute(
-          builder: (context) => ProductDetiles(
-                product: product,
-              ));
+        builder: (context) => ProductDetilesView(
+          index: index,
+          products: listproducts,
+        ),
+      );
 
     case MainView.routeName:
       return MaterialPageRoute(builder: (context) => const MainView());

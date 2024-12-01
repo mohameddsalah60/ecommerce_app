@@ -13,16 +13,17 @@ class UserModel extends UserEntity {
   });
   factory UserModel.fromJsonData(Map<String, dynamic> data) {
     return UserModel(
-      name: data['name'] as String,
-      phone: data['phone'] as String,
-      email: data['email'] as String,
-      image: data['image'] as String,
-      token: data['token'] ?? '',
-      id: data['id'] as int,
-      credit: data['credit'] as int,
-      points: data['points'] as int,
+      name: data['name'] as String? ?? '',
+      phone: data['phone'] as String? ?? '',
+      email: data['email'] as String? ?? '',
+      image: data['image'] as String? ?? '',
+      token: data['token'] as String? ?? '',
+      id: data['id'] as int? ?? 0,
+      credit: data['credit'] as int? ?? 0,
+      points: data['points'] as int? ?? 0,
     );
   }
+
   factory UserModel.fromEntity(UserEntity userEntity) {
     return UserModel(
       name: userEntity.name,

@@ -22,9 +22,9 @@ class ProductModel extends ProductEntity {
       id: data['id'],
       discount: data['discount'] ?? 0,
       price: (data['price'] ?? 0 as num).toInt(),
-      oldPrice: (data['oldPrice'] ?? 0 as num).toInt(),
-      inFavorites: data['inFavorites'] ?? false,
-      inCart: data['inCart'] ?? false,
+      oldPrice: (data['old_price'] ?? 0 as num).toInt(),
+      inFavorites: data['in_favorites'] ?? false,
+      inCart: data['in_cart'] ?? false,
       images: data['images'],
     );
   }

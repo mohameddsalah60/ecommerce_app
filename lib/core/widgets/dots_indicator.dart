@@ -4,9 +4,14 @@ import 'custom_dot_indicator.dart';
 
 class DotsIndicator extends StatelessWidget {
   const DotsIndicator(
-      {super.key, required this.currnetPageIndex, required this.numPages});
+      {super.key,
+      required this.currnetPageIndex,
+      required this.numPages,
+      this.activeColor = Colors.white});
   final int numPages;
   final int currnetPageIndex;
+  final Color activeColor;
+
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -16,6 +21,7 @@ class DotsIndicator extends StatelessWidget {
         (index) => Padding(
           padding: const EdgeInsets.only(right: 8),
           child: CustomDotIndicator(
+            activeColor: activeColor,
             isActive: index == currnetPageIndex,
           ),
         ),
