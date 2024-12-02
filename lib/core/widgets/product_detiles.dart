@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 import '../entites/product_entity.dart';
 import '../utils/app_text_styles.dart';
+import 'normal_price_product.dart';
+import 'price_discount_product.dart';
 import 'product_description_widget.dart';
 
 class ProductDetiles extends StatelessWidget {
@@ -29,6 +31,15 @@ class ProductDetiles extends StatelessWidget {
               color: Colors.black,
             ),
           ),
+          const SizedBox(
+            height: 8,
+          ),
+          product.discount != 0
+              ? IsPriceDiscountProduct(
+                  discount: product.discount,
+                  price: product.price,
+                  oldPrice: product.oldPrice)
+              : NormalPriceProduct(price: product.price),
           const SizedBox(
             height: 16,
           ),
