@@ -24,7 +24,7 @@ class CustomProductItem extends StatelessWidget {
         child: Column(
           children: [
             Expanded(
-              flex: 2,
+              flex: 1,
               child: Container(
                 decoration: const BoxDecoration(
                   color: AppColors.greyLightColor,
@@ -54,26 +54,28 @@ class CustomProductItem extends StatelessWidget {
                             const Icon(Icons.error),
                       ),
                     ),
-                    Positioned(
-                      left: 0,
-                      top: 0,
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Colors.red.shade400,
-                          borderRadius: const BorderRadius.only(
-                            topRight: Radius.circular(16),
-                            bottomRight: Radius.circular(16),
-                          ),
-                        ),
-                        padding: const EdgeInsets.all(6),
-                        child: Text(
-                          'Save ${productEntity.discount}%',
-                          style: AppTextStyles.bold16.copyWith(
-                            color: Colors.white,
-                          ),
-                        ),
-                      ),
-                    ),
+                    productEntity.discount != 0
+                        ? Positioned(
+                            left: 0,
+                            top: 0,
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: Colors.red.shade400,
+                                borderRadius: const BorderRadius.only(
+                                  topRight: Radius.circular(16),
+                                  bottomRight: Radius.circular(16),
+                                ),
+                              ),
+                              padding: const EdgeInsets.all(6),
+                              child: Text(
+                                'Save ${productEntity.discount}%',
+                                style: AppTextStyles.bold16.copyWith(
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                          )
+                        : const SizedBox(),
                     Positioned(
                       right: 10,
                       bottom: 15,
@@ -92,10 +94,8 @@ class CustomProductItem extends StatelessWidget {
                 ),
               ),
             ),
-            Expanded(
-                child: Container(
+            Container(
               decoration: const BoxDecoration(color: Colors.white),
-              padding: const EdgeInsets.symmetric(horizontal: 8),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -109,29 +109,40 @@ class CustomProductItem extends StatelessWidget {
                     style: AppTextStyles.semiBold16,
                   ),
                   const SizedBox(
-                    height: 6,
+                    height: 16,
                   ),
                   Row(
                     children: [
-                      Text(
-                        "EGP ${productEntity.price.toString()}",
-                        style: AppTextStyles.bold16
-                            .copyWith(color: AppColors.primaryColor),
+                      FittedBox(
+                        fit: BoxFit.scaleDown,
+                        child: Text(
+                          "EGP ${productEntity.price.toString()}",
+                          style: AppTextStyles.bold16
+                              .copyWith(color: AppColors.primaryColor),
+                        ),
                       ),
                       const SizedBox(
                         width: 12,
                       ),
-                      Text(
-                        "EGP ${productEntity.oldPrice.toString()}",
-                        style: AppTextStyles.bold16.copyWith(
-                            decoration: TextDecoration.lineThrough,
-                            color: AppColors.secnderyColor),
-                      ),
+                      productEntity.discount != 0
+                          ? FittedBox(
+                              fit: BoxFit.scaleDown,
+                              child: Text(
+                                "EGP ${productEntity.oldPrice.toString()}",
+                                style: AppTextStyles.bold16.copyWith(
+                                    decoration: TextDecoration.lineThrough,
+                                    color: AppColors.secnderyColor),
+                              ),
+                            )
+                          : const SizedBox(),
                     ],
+                  ),
+                  const SizedBox(
+                    height: 16,
                   ),
                 ],
               ),
-            )),
+            ),
           ],
         ),
       ),

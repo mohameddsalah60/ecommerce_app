@@ -1,5 +1,5 @@
 import 'package:ecommerce_app/core/widgets/custom_loading_indicator.dart';
-import 'package:ecommerce_app/features/home/cubits/categories_cubit/categories_cubit.dart';
+import 'package:ecommerce_app/features/home/presentetion/cubits/categories_cubit/categories_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

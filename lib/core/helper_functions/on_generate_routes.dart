@@ -4,6 +4,7 @@ import 'package:ecommerce_app/features/home/presentetion/views/main_view.dart';
 import 'package:ecommerce_app/features/splash/presentetion/views/splash_view.dart';
 import 'package:flutter/material.dart';
 
+import '../../features/categories/presentation/views/categories_details_view.dart';
 import '../entites/product_entity.dart';
 import '../views/product_detiles_view.dart';
 
@@ -24,6 +25,12 @@ Route<dynamic> onGenerateRoutes(RouteSettings routeSettings) {
           index: index,
           products: listproducts,
         ),
+      );
+    case CategoriesDetailsView.routeName:
+      final categoryId = routeSettings.arguments as int;
+
+      return MaterialPageRoute(
+        builder: (context) => CategoriesDetailsView(categoryId: categoryId),
       );
 
     case MainView.routeName:

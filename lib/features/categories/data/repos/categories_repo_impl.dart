@@ -2,39 +2,36 @@ import 'dart:developer';
 
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
+
 import 'package:ecommerce_app/core/entites/product_entity.dart';
+
 import 'package:ecommerce_app/core/errors/failures.dart';
 import 'package:ecommerce_app/core/models/product_model.dart';
-import 'package:ecommerce_app/core/repos/product_repo.dart';
 import 'package:ecommerce_app/core/service/ecommerce_api_service.dart';
 
-import '../errors/exceptions.dart';
+import '../../../../core/errors/exceptions.dart';
+import '../../domin/categories_repo.dart';
 
-class ProductRepoImpl implements ProductRepo {
+class CategoriesRepoImpl implements CategoriesRepo {
   final EcommerceApiService ecommerceApiService;
 
-  ProductRepoImpl({required this.ecommerceApiService});
-
+  CategoriesRepoImpl({required this.ecommerceApiService});
   @override
-  Future<Either<Failure, List<ProductEntity>>> fetchAllProducts(
-      {bool? isOffers}) async {
+  Future<Either<Failure, List<ProductEntity>>> fetchAllProductsByCategoryId(
+      {required int categoryId}) async {
     try {
-      var response = await ecommerceApiService.fetchAllProducts();
+      var response = await ecommerceApiService.fetchAllProductsByCategoryId(
+        categoryId: categoryId,
+      );
       if (response['status'] == false) {
         throw CustomException(message: response['message']);
       } else {
         List<ProductModel> products = [];
-        var data = response['data']['data'];
-        for (var product in data) {
-          if (isOffers == true) {
-            if (product['discount'] != 0) {
-              products.add(ProductModel.fromJson(product));
-              products.sort((a, b) => b.discount.compareTo(a.discount));
-            }
-          } else {
-            products.add(ProductModel.fromJson(product));
-          }
+
+        for (var product in response['data']['data']) {
+          products.add(ProductModel.fromJson(product));
         }
+
         return right(products);
       }
     } on DioException catch (e) {

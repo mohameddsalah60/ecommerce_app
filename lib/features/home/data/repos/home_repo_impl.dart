@@ -17,8 +17,7 @@ class HomeRepoImpl implements HomeRepo {
 
   HomeRepoImpl({required this.ecommerceApiService});
   @override
-  Future<Either<Failure, List<CategoriesModel>>> getCategories(
-      {int? id}) async {
+  Future<Either<Failure, List<CategoriesModel>>> getCategories() async {
     try {
       var response = await ecommerceApiService.getCategories();
       if (response['status'] == false) {

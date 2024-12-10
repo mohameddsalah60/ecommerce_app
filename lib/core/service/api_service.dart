@@ -12,7 +12,7 @@ class ApiService {
   ApiService({required this.dio});
 
   Future<Map<String, dynamic>> get(
-      {required String endPoint, String? endPoint2, String? id}) async {
+      {required String endPoint, String? endPoint2, int? id}) async {
     final Response<dynamic> response;
     if (endPoint2 != null) {
       if (id != null) {

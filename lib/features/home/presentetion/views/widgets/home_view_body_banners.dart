@@ -2,7 +2,7 @@ import 'package:ecommerce_app/core/helper_functions/custom_snack_bar.dart';
 import 'package:ecommerce_app/core/service/get_it_service.dart';
 import 'package:ecommerce_app/core/utils/app_colors.dart';
 import 'package:ecommerce_app/core/widgets/custom_loading_indicator.dart';
-import 'package:ecommerce_app/features/home/cubits/banners_cubit/banners_cubit.dart';
+import 'package:ecommerce_app/features/home/presentetion/cubits/banners_cubit/banners_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

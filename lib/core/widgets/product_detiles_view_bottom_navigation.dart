@@ -1,4 +1,3 @@
-import 'package:ecommerce_app/core/entites/product_entity.dart';
 import 'package:flutter/material.dart';
 
 import 'custom_button.dart';
@@ -6,9 +5,7 @@ import 'custom_button.dart';
 class ProductDetilesbottomNavigation extends StatelessWidget {
   const ProductDetilesbottomNavigation({
     super.key,
-    required this.productEntity,
   });
-  final ProductEntity productEntity;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -24,16 +21,13 @@ class ProductDetilesbottomNavigation extends StatelessWidget {
           ),
         ],
       ),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      child: const Padding(
+        padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         child: Row(
-          crossAxisAlignment: productEntity.discount != 0
-              ? CrossAxisAlignment.end
-              : CrossAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Expanded(
-              flex: productEntity.discount != 0 ? 3 : 2,
-              child: const CustomButton(
+              child: CustomButton(
                 text: 'Add to cart',
                 radius: 8,
               ),

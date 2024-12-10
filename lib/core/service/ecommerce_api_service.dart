@@ -68,7 +68,7 @@ class EcommerceApiService {
   }
 
   Future<Map<String, dynamic>> fetchAllProductsByCategoryId(
-      {required String categoryId}) async {
+      {required int categoryId}) async {
     try {
       var data = await apiService.get(
         endPoint: 'products',
