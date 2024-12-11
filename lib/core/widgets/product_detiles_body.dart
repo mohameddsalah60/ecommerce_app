@@ -56,9 +56,7 @@ class ProductDetilesViewBody extends StatelessWidget {
             height: 14,
           ),
           OffersListview(
-            products: products
-                .where((prod) => prod.id != products[index].id)
-                .toList(),
+            products: products,
           ),
         ],
       ),

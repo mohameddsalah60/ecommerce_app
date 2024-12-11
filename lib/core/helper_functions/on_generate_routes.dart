@@ -1,5 +1,6 @@
 import 'package:ecommerce_app/features/auth/presentetion/views/sign_in_view.dart';
 import 'package:ecommerce_app/features/auth/presentetion/views/sign_up_view.dart';
+import 'package:ecommerce_app/features/categories/domin/entites/categories_entity.dart';
 import 'package:ecommerce_app/features/home/presentetion/views/main_view.dart';
 import 'package:ecommerce_app/features/splash/presentetion/views/splash_view.dart';
 import 'package:flutter/material.dart';
@@ -27,10 +28,15 @@ Route<dynamic> onGenerateRoutes(RouteSettings routeSettings) {
         ),
       );
     case CategoriesDetailsView.routeName:
-      final categoryId = routeSettings.arguments as int;
+      final args = routeSettings.arguments as Map<String, dynamic>;
+      final index = args['index'] as int;
+      final listCategories = args['categories'] as List<CategoriesEntity>;
 
       return MaterialPageRoute(
-        builder: (context) => CategoriesDetailsView(categoryId: categoryId),
+        builder: (context) => CategoriesDetailsView(
+          category: listCategories,
+          index: index,
+        ),
       );
 
     case MainView.routeName:

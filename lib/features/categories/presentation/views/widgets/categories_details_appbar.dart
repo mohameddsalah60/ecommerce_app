@@ -4,11 +4,17 @@ import 'package:flutter_svg/svg.dart';
 import '../../../../../core/utils/app_colors.dart';
 import '../../../../../core/utils/app_images.dart';
 import '../../../../../core/utils/app_text_styles.dart';
+import '../../../domin/entites/categories_entity.dart';
+import 'show_categories_bottom_sheet.dart';
 
 class CategoriesDetailsAppbar extends StatelessWidget {
   const CategoriesDetailsAppbar({
     super.key,
+    required this.categories,
+    required this.index,
   });
+  final List<CategoriesEntity> categories;
+  final int index;
 
   @override
   Widget build(BuildContext context) {
@@ -28,12 +34,14 @@ class CategoriesDetailsAppbar extends StatelessWidget {
             ),
           ),
           title: GestureDetector(
-            onTap: () {},
+            onTap: () {
+              showCategoriesBottomSheet(context, categories);
+            },
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Text(
-                  'Clothes',
+                  categories[index].name,
                   style: AppTextStyles.bold19
                       .copyWith(color: AppColors.primaryColor),
                 ),

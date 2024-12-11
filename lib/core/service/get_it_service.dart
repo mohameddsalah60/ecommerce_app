@@ -5,7 +5,7 @@ import 'package:ecommerce_app/core/service/api_service.dart';
 import 'package:ecommerce_app/core/service/ecommerce_api_service.dart';
 import 'package:ecommerce_app/features/auth/data/repos/auth_repo_impl.dart';
 import 'package:ecommerce_app/features/auth/domain/repos/auth_repo.dart';
-import 'package:ecommerce_app/features/categories/domin/categories_repo.dart';
+import 'package:ecommerce_app/features/categories/domin/repo/categories_repo.dart';
 import 'package:ecommerce_app/features/home/domin/repos/home_repo.dart';
 
 import 'package:get_it/get_it.dart';

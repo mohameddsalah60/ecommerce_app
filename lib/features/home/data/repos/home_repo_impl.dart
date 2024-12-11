@@ -5,7 +5,7 @@ import 'package:dio/dio.dart';
 
 import 'package:ecommerce_app/core/errors/failures.dart';
 import 'package:ecommerce_app/core/service/ecommerce_api_service.dart';
-import 'package:ecommerce_app/features/home/data/models/categories_model.dart';
+import 'package:ecommerce_app/features/categories/data/models/categories_model.dart';
 import 'package:ecommerce_app/features/home/domin/entites/banners_entity.dart';
 
 import '../../../../core/errors/exceptions.dart';

@@ -1,4 +1,4 @@
-import 'package:ecommerce_app/features/home/domin/entites/categories_entity.dart';
+import 'package:ecommerce_app/features/categories/domin/entites/categories_entity.dart';
 
 class CategoriesModel extends CategoriesEntity {
   CategoriesModel({required super.name, required super.img, required super.id});

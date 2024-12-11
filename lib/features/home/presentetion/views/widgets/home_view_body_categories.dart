@@ -1,12 +1,12 @@
 import 'package:ecommerce_app/core/widgets/custom_loading_indicator.dart';
-import 'package:ecommerce_app/features/home/presentetion/cubits/categories_cubit/categories_cubit.dart';
+import 'package:ecommerce_app/features/categories/domin/repo/categories_repo.dart';
+import 'package:ecommerce_app/features/categories/presentation/categories_cubit/categories_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../core/service/get_it_service.dart';
-import '../../../domin/repos/home_repo.dart';
 import 'custom_action_home_view.dart';
-import 'custom_grid_view_categories.dart';
+import '../../../../categories/presentation/views/widgets/custom_grid_view_categories.dart';
 
 class HomeViewBodyCategories extends StatelessWidget {
   const HomeViewBodyCategories({super.key});
@@ -14,7 +14,8 @@ class HomeViewBodyCategories extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => CategoriesCubit(getIt<HomeRepo>())..getCategories(),
+      create: (context) =>
+          CategoriesCubit(getIt<CategoriesRepo>())..getCategories(),
       child: const Column(
         children: [
           CustomActionHomeViewBoy(

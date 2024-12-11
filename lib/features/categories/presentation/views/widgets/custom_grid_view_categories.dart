@@ -1,8 +1,8 @@
-import 'package:ecommerce_app/features/home/domin/entites/categories_entity.dart';
+import 'package:ecommerce_app/features/categories/domin/entites/categories_entity.dart';
 import 'package:ecommerce_app/features/categories/presentation/views/categories_details_view.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../categories/presentation/views/widgets/custom_categories_item.dart';
+import 'custom_categories_item.dart';
 
 class CustomGridViewCategories extends StatelessWidget {
   const CustomGridViewCategories({
@@ -23,9 +23,14 @@ class CustomGridViewCategories extends StatelessWidget {
         itemBuilder: (context, index) {
           return GestureDetector(
             onTap: () {
+              Navigator.of(context).popUntil((route) => route.isFirst);
+
               Navigator.of(context).pushNamed(
                 CategoriesDetailsView.routeName,
-                arguments: categories[index].id,
+                arguments: {
+                  'index': index,
+                  'categories': categories,
+                },
               );
             },
             child: CustomCategoriesItem(
