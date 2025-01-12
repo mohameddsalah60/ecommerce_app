@@ -1,7 +1,5 @@
-import 'package:cached_network_image/cached_network_image.dart';
+import 'package:ecommerce_app/core/widgets/custom_image_network.dart';
 import 'package:flutter/material.dart';
-
-import '../../../../../core/widgets/custom_loading_indicator.dart';
 
 class BannerImg extends StatelessWidget {
   const BannerImg({
@@ -15,25 +13,12 @@ class BannerImg extends StatelessWidget {
   Widget build(BuildContext context) {
     return AspectRatio(
       aspectRatio: 1,
-      child: CachedNetworkImage(
-        imageUrl: img,
-        imageBuilder: (context, imageProvider) => GestureDetector(
-          onTap: () {},
-          child: Container(
-            width: MediaQuery.sizeOf(context).width,
-            margin: const EdgeInsets.only(left: 8),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(16),
-              image: DecorationImage(
-                image: imageProvider,
-                fit: BoxFit.cover,
-              ),
-            ),
-          ),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 6.0),
+        child: CustomImageNetwork(
+          image: img,
+          borderRadius: 16,
         ),
-        placeholder: (context, url) =>
-            const Center(child: CustomLoadingIndicator()),
-        errorWidget: (context, url, error) => const Icon(Icons.error),
       ),
     );
   }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../entites/product_entity.dart';
-import '../utils/app_text_styles.dart';
+import '../../../../../core/entites/product_entity.dart';
+import '../../../../../core/utils/app_text_styles.dart';
 import 'normal_price_product.dart';
 import 'price_discount_product.dart';
 import 'product_description_widget.dart';

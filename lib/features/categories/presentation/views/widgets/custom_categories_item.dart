@@ -1,7 +1,6 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ecommerce_app/core/utils/app_colors.dart';
 import 'package:ecommerce_app/core/utils/app_text_styles.dart';
-import 'package:ecommerce_app/core/widgets/custom_loading_indicator.dart';
+import 'package:ecommerce_app/core/widgets/custom_image_network.dart';
 import 'package:flutter/material.dart';
 
 class CustomCategoriesItem extends StatelessWidget {
@@ -19,12 +18,7 @@ class CustomCategoriesItem extends StatelessWidget {
             color: AppColors.greyLightColor,
             borderRadius: BorderRadius.circular(16),
           ),
-          child: CachedNetworkImage(
-            imageUrl: imageUrl,
-            placeholder: (context, url) =>
-                const Center(child: CustomLoadingIndicator()),
-            errorWidget: (context, url, error) => const Icon(Icons.error),
-          ),
+          child: CustomImageNetwork(image: imageUrl),
         ),
         const SizedBox(
           height: 8,

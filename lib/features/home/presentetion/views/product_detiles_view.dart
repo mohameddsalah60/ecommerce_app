@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../entites/product_entity.dart';
-import '../widgets/product_detiles_body.dart';
-import '../widgets/product_detiles_view_bottom_navigation.dart';
+import '../../../../core/entites/product_entity.dart';
+import 'widgets/product_detiles_body.dart';
+import 'widgets/add_product_to_cart_button.dart';
 
 class ProductDetilesView extends StatelessWidget {
   const ProductDetilesView({
@@ -16,7 +16,9 @@ class ProductDetilesView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: const ProductDetilesbottomNavigation(),
+      bottomNavigationBar: AddProductToCartButton(
+        productEntity: products[index],
+      ),
       body: SafeArea(
         child: ProductDetilesViewBody(
           products: products,

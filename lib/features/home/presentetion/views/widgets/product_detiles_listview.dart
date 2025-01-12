@@ -1,12 +1,19 @@
-import 'package:ecommerce_app/core/entites/product_entity.dart';
 import 'package:flutter/material.dart';
 
-import '../product_detiles_view.dart';
+import '../../../../../core/entites/product_entity.dart';
 import '../../../../../core/widgets/custom_product_item.dart';
+import '../product_detiles_view.dart';
 
-class OffersListview extends StatelessWidget {
-  const OffersListview({super.key, required this.products});
+class ProductDetilesListView extends StatelessWidget {
+  const ProductDetilesListView({
+    super.key,
+    required this.products,
+    required this.index,
+  });
+
   final List<ProductEntity> products;
+  final int index;
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -14,7 +21,10 @@ class OffersListview extends StatelessWidget {
       child: ListView.builder(
         itemCount: products.length,
         scrollDirection: Axis.horizontal,
-        itemBuilder: (context, index) {
+        itemBuilder: (context, i) {
+          if (index == i) {
+            return const SizedBox();
+          }
           return Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: CustomProductItem(
@@ -23,12 +33,12 @@ class OffersListview extends StatelessWidget {
                   context,
                   ProductDetilesView.routeName,
                   arguments: {
-                    'index': index,
+                    'index': i,
                     'products': products,
                   },
                 );
               },
-              productEntity: products[index],
+              productEntity: products[i],
             ),
           );
         },

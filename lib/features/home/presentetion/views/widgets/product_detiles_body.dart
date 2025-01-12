@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-import '../../features/home/presentetion/views/widgets/offers_listview.dart';
-import '../entites/product_entity.dart';
-import '../utils/app_text_styles.dart';
+import '../../../../../core/entites/product_entity.dart';
+import '../../../../../core/utils/app_text_styles.dart';
 import 'product_detiles.dart';
 import 'product_detiles_header.dart';
+import 'product_detiles_listview.dart';
 
 class ProductDetilesViewBody extends StatelessWidget {
   const ProductDetilesViewBody({
@@ -55,9 +55,7 @@ class ProductDetilesViewBody extends StatelessWidget {
           const SizedBox(
             height: 14,
           ),
-          OffersListview(
-            products: products,
-          ),
+          ProductDetilesListView(products: products, index: index)
         ],
       ),
     );

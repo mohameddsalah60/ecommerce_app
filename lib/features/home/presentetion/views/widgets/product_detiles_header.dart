@@ -1,10 +1,9 @@
-import 'package:cached_network_image/cached_network_image.dart';
+import 'package:ecommerce_app/core/widgets/custom_image_network.dart';
 import 'package:flutter/material.dart';
 
-import '../utils/app_colors.dart';
+import '../../../../../core/utils/app_colors.dart';
 import 'actions_header_product_detiles.dart';
-import 'custom_loading_indicator.dart';
-import 'dots_indicator.dart';
+import '../../../../../core/widgets/dots_indicator.dart';
 
 class ProductDetilesHeader extends StatefulWidget {
   const ProductDetilesHeader({super.key, required this.images});
@@ -45,24 +44,7 @@ class _ProductDetilesHeaderState extends State<ProductDetilesHeader> {
             controller: _pageController,
             itemCount: widget.images.length,
             itemBuilder: (context, index) {
-              return CachedNetworkImage(
-                imageUrl: widget.images[index],
-                width: MediaQuery.sizeOf(context).width,
-                imageBuilder: (context, imageProvider) => Container(
-                  decoration: BoxDecoration(
-                    borderRadius: const BorderRadius.only(
-                        bottomRight: Radius.circular(16),
-                        bottomLeft: Radius.circular(16)),
-                    image: DecorationImage(
-                      image: imageProvider,
-                      fit: BoxFit.fill,
-                    ),
-                  ),
-                ),
-                placeholder: (context, url) =>
-                    const Center(child: CustomLoadingIndicator()),
-                errorWidget: (context, url, error) => const Icon(Icons.error),
-              );
+              return CustomImageNetwork(image: widget.images[index]);
             },
           ),
           const ActoinsHeaderProductDetiles(),

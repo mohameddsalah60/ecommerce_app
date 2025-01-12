@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 
 import '../../features/categories/presentation/views/categories_details_view.dart';
 import '../entites/product_entity.dart';
-import '../views/product_detiles_view.dart';
+import '../../features/home/presentetion/views/product_detiles_view.dart';
 
 Route<dynamic> onGenerateRoutes(RouteSettings routeSettings) {
   switch (routeSettings.name) {

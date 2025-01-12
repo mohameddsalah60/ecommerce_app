@@ -1,3 +1,5 @@
+import 'package:dio/dio.dart';
+import 'package:ecommerce_app/core/helper_functions/get_user.dart';
 import 'package:ecommerce_app/core/service/api_service.dart';
 
 class EcommerceApiService {
@@ -85,6 +87,23 @@ class EcommerceApiService {
     try {
       var data = await apiService.get(
         endPoint: 'products',
+      );
+      return data;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<Map<String, dynamic>> cartItemState({required int productId}) async {
+    try {
+      var data = await apiService.post(
+        endPoint: 'carts?product_id=$productId',
+        headers: Options(
+          headers: {
+            'lang': 'en',
+            'Authorization': getUser().token,
+          },
+        ),
       );
       return data;
     } catch (e) {

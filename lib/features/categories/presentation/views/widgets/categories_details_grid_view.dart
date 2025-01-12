@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../../core/entites/product_entity.dart';
-import '../../../../../core/views/product_detiles_view.dart';
+import '../../../../home/presentetion/views/product_detiles_view.dart';
 import '../../../../../core/widgets/custom_product_item.dart';
 
 class CategoriesDetailsGridView extends StatelessWidget {

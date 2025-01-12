@@ -16,16 +16,16 @@ class ProductModel extends ProductEntity {
 
   factory ProductModel.fromJson(Map<String, dynamic> data) {
     return ProductModel(
-      name: data['name'],
-      description: data['description'],
-      image: data['image'],
+      name: data['name'] ?? '',
+      description: data['description'] ?? '',
+      image: data['image'] ?? '',
       id: data['id'],
       discount: data['discount'] ?? 0,
       price: (data['price'] ?? 0 as num).toInt(),
       oldPrice: (data['old_price'] ?? 0 as num).toInt(),
       inFavorites: data['in_favorites'] ?? false,
       inCart: data['in_cart'] ?? false,
-      images: data['images'],
+      images: data['images'] ?? [],
     );
   }
 }

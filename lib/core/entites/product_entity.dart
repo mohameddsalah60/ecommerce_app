@@ -1,7 +1,7 @@
 class ProductEntity {
   final String name, description, image;
   final int id, discount, oldPrice, price;
-  final bool? inFavorites, inCart;
+  bool inFavorites, inCart;
   final List<dynamic> images;
 
   ProductEntity({

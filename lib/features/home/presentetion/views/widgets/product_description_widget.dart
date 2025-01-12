@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:readmore/readmore.dart';
 
-import '../utils/app_colors.dart';
-import '../utils/app_text_styles.dart';
+import '../../../../../core/utils/app_colors.dart';
+import '../../../../../core/utils/app_text_styles.dart';
 
 class ProductDescriptionWidget extends StatelessWidget {
   const ProductDescriptionWidget({

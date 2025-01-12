@@ -6,6 +6,7 @@ import 'package:dio/dio.dart';
 import 'package:ecommerce_app/core/errors/failures.dart';
 import 'package:ecommerce_app/core/service/ecommerce_api_service.dart';
 import 'package:ecommerce_app/features/categories/data/models/categories_model.dart';
+import 'package:ecommerce_app/features/home/data/models/car_item_model.dart';
 import 'package:ecommerce_app/features/home/domin/entites/banners_entity.dart';
 
 import '../../../../core/errors/exceptions.dart';
@@ -55,6 +56,29 @@ class HomeRepoImpl implements HomeRepo {
         }
 
         return right(banners);
+      }
+    } on DioException catch (e) {
+      log('DioException in HomeRepoImpl : ${e.toString()}');
+      return left(ServerFailure.fromDioError(e));
+    } on CustomException catch (e) {
+      log('CustomException in HomeRepoImpl : ${e.toString()}');
+      return left(ServerFailure(e.message));
+    } catch (e) {
+      log('Exception in HomeRepoImpl: ${e.toString()}');
+      return left(ServerFailure('Oops There was an error, try again!'));
+    }
+  }
+
+  @override
+  Future<Either<Failure, CartItemModel>> cartItems(
+      {required int productId}) async {
+    try {
+      var response =
+          await ecommerceApiService.cartItemState(productId: productId);
+      if (response['status'] == false) {
+        throw CustomException(message: response['message']);
+      } else {
+        return right(CartItemModel.fromJson(response["data"]));
       }
     } on DioException catch (e) {
       log('DioException in HomeRepoImpl : ${e.toString()}');

@@ -8,11 +8,13 @@ class CustomButton extends StatelessWidget {
       this.onPressed,
       required this.text,
       this.backgroundColor = AppColors.primaryColor,
-      this.radius = 16});
+      this.radius = 16,
+      this.isLoading = false});
   final void Function()? onPressed;
   final String text;
   final Color? backgroundColor;
   final double? radius;
+  final bool isLoading;
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -26,10 +28,14 @@ class CustomButton extends StatelessWidget {
           ),
           backgroundColor: backgroundColor,
         ),
-        child: Text(
-          text,
-          style: AppTextStyles.bold16.copyWith(color: Colors.white),
-        ),
+        child: isLoading
+            ? const CircularProgressIndicator(
+                color: Colors.white,
+              )
+            : Text(
+                text,
+                style: AppTextStyles.bold16.copyWith(color: Colors.white),
+              ),
       ),
     );
   }
