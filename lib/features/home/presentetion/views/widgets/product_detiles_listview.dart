@@ -29,6 +29,7 @@ class ProductDetilesListView extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: CustomProductItem(
               onTap: () {
+                Navigator.of(context).popUntil((route) => route.isFirst);
                 Navigator.pushNamed(
                   context,
                   ProductDetilesView.routeName,

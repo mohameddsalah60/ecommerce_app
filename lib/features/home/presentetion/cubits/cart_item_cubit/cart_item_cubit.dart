@@ -8,7 +8,6 @@ part 'cart_item_state.dart';
 
 class CartItemCubit extends Cubit<CartItemState> {
   CartItemCubit(this.homeRepo) : super(CartItemInitial());
-  CartItemEntity? cartItemEntity;
 
   final HomeRepo homeRepo;
   CartEntity cartEntity = CartEntity(cartItems: []);
@@ -23,11 +22,9 @@ class CartItemCubit extends Cubit<CartItemState> {
         bool isProductExist = cartEntity.isExis(cartItem.productEntity);
         if (isProductExist) {
           cartEntity.removeCarItemById(cartItem.productEntity.id);
-          cartItemEntity = cartItem;
           emit(CartItemRemoved(cartItemEntity: cartItem));
         } else {
           cartItem.productEntity.inCart = true;
-          cartItemEntity = cartItem;
           cartEntity.addCartItem(cartItem);
           emit(CartItemAdded(cartItemEntity: cartItem));
         }
