@@ -32,7 +32,18 @@ class CartItemCubit extends Cubit<CartItemState> {
     );
   }
 
-  void updateQuantityProduct() {
-    emit(UpdateQuantityProduct());
+  void updateQuantityProduct(
+      {required int cartIdProduct, required int newQuantity}) async {
+    emit(CartItemLoading());
+    var result = await homeRepo.updateQuantityProductInCart(
+        cartIdProduct: cartIdProduct, newQuantity: newQuantity);
+    result.fold(
+      (failure) {
+        emit(CartItemFailure(message: failure.errorMessage));
+      },
+      (cartItem) {
+        emit(UpdateQuantityProduct());
+      },
+    );
   }
 }

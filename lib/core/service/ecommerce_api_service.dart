@@ -117,6 +117,12 @@ class EcommerceApiService {
     try {
       var data = await apiService.put(
         endPoint: 'carts/$cartIdProduct?quantity=$newQuantity',
+        headers: Options(
+          headers: {
+            'lang': 'en',
+            'Authorization': getUser().token,
+          },
+        ),
       );
       return data;
     } catch (e) {

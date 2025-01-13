@@ -49,7 +49,10 @@ class AddProductToCartBlocConsumer extends StatelessWidget {
                   count: productCartItem.quanitty,
                   onTapAdd: () {
                     productCartItem.increasQuantity();
-                    context.read<CartItemCubit>().updateQuantityProduct();
+                    context.read<CartItemCubit>().updateQuantityProduct(
+                          cartIdProduct: productCartItem.cartProductId,
+                          newQuantity: productCartItem.quanitty,
+                        );
                   },
                   onTapRemove: () {
                     if (productCartItem.quanitty == 1) {
@@ -57,7 +60,10 @@ class AddProductToCartBlocConsumer extends StatelessWidget {
                           productId: productEntity.id);
                     } else {
                       productCartItem.decreasQuantity();
-                      context.read<CartItemCubit>().updateQuantityProduct();
+                      context.read<CartItemCubit>().updateQuantityProduct(
+                            cartIdProduct: productCartItem.cartProductId,
+                            newQuantity: productCartItem.quanitty,
+                          );
                     }
                   },
                 )
