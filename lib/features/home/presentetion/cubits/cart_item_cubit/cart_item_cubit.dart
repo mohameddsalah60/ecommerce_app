@@ -13,7 +13,7 @@ class CartItemCubit extends Cubit<CartItemState> {
   CartEntity cartEntity = CartEntity(cartItems: []);
   addOrRemoveProductToCart({required int productId}) async {
     emit(CartItemLoading());
-    var result = await homeRepo.cartItems(productId: productId);
+    var result = await homeRepo.addOrRemoveProductToCart(productId: productId);
     result.fold(
       (failure) {
         emit(CartItemFailure(message: failure.errorMessage));

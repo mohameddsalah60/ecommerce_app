@@ -94,7 +94,8 @@ class EcommerceApiService {
     }
   }
 
-  Future<Map<String, dynamic>> cartItemState({required int productId}) async {
+  Future<Map<String, dynamic>> addOrRemoveProductToCart(
+      {required int productId}) async {
     try {
       var data = await apiService.post(
         endPoint: 'carts?product_id=$productId',
@@ -104,6 +105,18 @@ class EcommerceApiService {
             'Authorization': getUser().token,
           },
         ),
+      );
+      return data;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<Map<String, dynamic>> updateQuantityProductInCart(
+      {required int cartIdProduct, required int newQuantity}) async {
+    try {
+      var data = await apiService.put(
+        endPoint: 'carts/$cartIdProduct?quantity=$newQuantity',
       );
       return data;
     } catch (e) {

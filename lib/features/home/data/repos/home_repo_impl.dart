@@ -70,15 +70,42 @@ class HomeRepoImpl implements HomeRepo {
   }
 
   @override
-  Future<Either<Failure, CartItemModel>> cartItems(
+  Future<Either<Failure, CartItemModel>> addOrRemoveProductToCart(
       {required int productId}) async {
     try {
-      var response =
-          await ecommerceApiService.cartItemState(productId: productId);
+      var response = await ecommerceApiService.addOrRemoveProductToCart(
+          productId: productId);
       if (response['status'] == false) {
         throw CustomException(message: response['message']);
       } else {
         return right(CartItemModel.fromJson(response["data"]));
+      }
+    } on DioException catch (e) {
+      log('DioException in HomeRepoImpl : ${e.toString()}');
+      return left(ServerFailure.fromDioError(e));
+    } on CustomException catch (e) {
+      log('CustomException in HomeRepoImpl : ${e.toString()}');
+      return left(ServerFailure(e.message));
+    } catch (e) {
+      log('Exception in HomeRepoImpl: ${e.toString()}');
+      return left(ServerFailure('Oops There was an error, try again!'));
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> updateQuantityProductInCart({
+    required int cartIdProduct,
+    required int newQuantity,
+  }) async {
+    try {
+      var response = await ecommerceApiService.updateQuantityProductInCart(
+        cartIdProduct: cartIdProduct,
+        newQuantity: newQuantity,
+      );
+      if (response['status'] == false) {
+        throw CustomException(message: response['message']);
+      } else {
+        return right(null);
       }
     } on DioException catch (e) {
       log('DioException in HomeRepoImpl : ${e.toString()}');
