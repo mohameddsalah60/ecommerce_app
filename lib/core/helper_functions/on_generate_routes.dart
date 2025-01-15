@@ -6,6 +6,7 @@ import 'package:ecommerce_app/features/splash/presentetion/views/splash_view.dar
 import 'package:flutter/material.dart';
 
 import '../../features/categories/presentation/views/categories_details_view.dart';
+import '../../features/home/presentetion/views/cart_view.dart';
 import '../entites/product_entity.dart';
 import '../../features/home/presentetion/views/product_detiles_view.dart';
 
@@ -38,7 +39,8 @@ Route<dynamic> onGenerateRoutes(RouteSettings routeSettings) {
           index: index,
         ),
       );
-
+    case CartView.routeName:
+      return MaterialPageRoute(builder: (context) => const CartView());
     case MainView.routeName:
       return MaterialPageRoute(builder: (context) => const MainView());
     default:

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'cart_view.dart';
 import 'widgets/custom_bottom_navigation_bar.dart';
 import 'widgets/home_view_body.dart';
 
@@ -31,6 +32,7 @@ class _MainViewState extends State<MainView> {
         index: _isSelected,
         children: const [
           SafeArea(child: HomeViewBody()),
+          CartView(),
         ],
       ),
     );
