@@ -11,7 +11,7 @@ class CartViewListView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: ListView.separated(
-        itemCount: 15,
+        itemCount: 3,
         itemBuilder: (context, index) {
           return const CartViewProduct();
         },

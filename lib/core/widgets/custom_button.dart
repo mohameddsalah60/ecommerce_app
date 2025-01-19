@@ -25,6 +25,12 @@ class CustomButton extends StatelessWidget {
         style: TextButton.styleFrom(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(radius!),
+            side: backgroundColor == Colors.white
+                ? const BorderSide(
+                    width: 1.2,
+                    color: Colors.black,
+                  )
+                : BorderSide.none,
           ),
           backgroundColor: backgroundColor,
         ),
@@ -34,7 +40,10 @@ class CustomButton extends StatelessWidget {
               )
             : Text(
                 text,
-                style: AppTextStyles.bold16.copyWith(color: Colors.white),
+                style: AppTextStyles.bold16.copyWith(
+                    color: backgroundColor == Colors.white
+                        ? Colors.black
+                        : Colors.white),
               ),
       ),
     );
