@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../core/utils/app_text_styles.dart';
+import '../../../domin/entites/car_item_entity.dart';
+import '../../cubits/cart_item_cubit/cart_item_cubit.dart';
 
 class CartItemActionButtons extends StatelessWidget {
   const CartItemActionButtons({
     super.key,
-    this.onTapAdd,
-    this.onTapRemove,
     this.sizeIcon = 32,
-    required this.count,
+    required this.cartItemEntity,
   });
-  final void Function()? onTapAdd, onTapRemove;
-  final int count;
+
+  final CartItemEntity cartItemEntity;
   final double sizeIcon;
   @override
   Widget build(BuildContext context) {
@@ -24,7 +25,13 @@ class CartItemActionButtons extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           GestureDetector(
-            onTap: onTapAdd,
+            onTap: () {
+              cartItemEntity.increasQuantity();
+              context.read<CartItemCubit>().updateQuantityProduct(
+                    cartIdProduct: cartItemEntity.cartProductId,
+                    newQuantity: cartItemEntity.quanitty,
+                  );
+            },
             child: CircleAvatar(
               backgroundColor: Colors.transparent,
               child: Icon(
@@ -38,18 +45,29 @@ class CartItemActionButtons extends StatelessWidget {
             width: 16,
           ),
           Text(
-            "$count",
+            cartItemEntity.quanitty.toString(),
             style: AppTextStyles.semiBold20,
           ),
           const SizedBox(
             width: 16,
           ),
           GestureDetector(
-            onTap: onTapRemove,
+            onTap: () {
+              if (cartItemEntity.quanitty == 1) {
+                context.read<CartItemCubit>().addOrRemoveProductToCart(
+                    productId: cartItemEntity.productEntity.id);
+              } else {
+                cartItemEntity.decreasQuantity();
+                context.read<CartItemCubit>().updateQuantityProduct(
+                      cartIdProduct: cartItemEntity.cartProductId,
+                      newQuantity: cartItemEntity.quanitty,
+                    );
+              }
+            },
             child: CircleAvatar(
               backgroundColor: Colors.transparent,
               child: Icon(
-                count <= 1 ? Icons.delete : Icons.remove,
+                cartItemEntity.quanitty <= 1 ? Icons.delete : Icons.remove,
                 color: Colors.redAccent,
                 size: sizeIcon,
               ),

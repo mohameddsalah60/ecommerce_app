@@ -46,26 +46,7 @@ class AddProductToCartBlocConsumer extends StatelessWidget {
         } else {
           return productEntity.inCart
               ? CartItemActionButtons(
-                  count: productCartItem.quanitty,
-                  onTapAdd: () {
-                    productCartItem.increasQuantity();
-                    context.read<CartItemCubit>().updateQuantityProduct(
-                          cartIdProduct: productCartItem.cartProductId,
-                          newQuantity: productCartItem.quanitty,
-                        );
-                  },
-                  onTapRemove: () {
-                    if (productCartItem.quanitty == 1) {
-                      context.read<CartItemCubit>().addOrRemoveProductToCart(
-                          productId: productEntity.id);
-                    } else {
-                      productCartItem.decreasQuantity();
-                      context.read<CartItemCubit>().updateQuantityProduct(
-                            cartIdProduct: productCartItem.cartProductId,
-                            newQuantity: productCartItem.quanitty,
-                          );
-                    }
-                  },
+                  cartItemEntity: productCartItem,
                 )
               : CustomButton(
                   text: 'Add to My cart',
