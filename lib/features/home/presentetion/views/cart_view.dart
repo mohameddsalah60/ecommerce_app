@@ -1,3 +1,4 @@
+import 'package:ecommerce_app/core/widgets/custom_app_bar.dart';
 import 'package:flutter/material.dart';
 
 class CartView extends StatelessWidget {
@@ -5,6 +6,8 @@ class CartView extends StatelessWidget {
   static const routeName = 'cartView';
   @override
   Widget build(BuildContext context) {
-    return const Scaffold();
+    return Scaffold(
+      appBar: buildAppBar(context, title: 'Shopping Cart'),
+    );
   }
 }
