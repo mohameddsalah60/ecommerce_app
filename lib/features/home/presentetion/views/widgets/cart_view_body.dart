@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'cart_view_head.dart';
+import 'cart_view_prodcut.dart';
 
 class CartViewBody extends StatelessWidget {
   const CartViewBody({
@@ -12,7 +13,7 @@ class CartViewBody extends StatelessWidget {
     return const Column(
       children: [
         SizedBox(
-          height: 16,
+          height: 24,
         ),
         CartViewHeader(
           countItems: 1,
@@ -20,6 +21,7 @@ class CartViewBody extends StatelessWidget {
         SizedBox(
           height: 16,
         ),
+        CartViewProduct(),
       ],
     );
   }
