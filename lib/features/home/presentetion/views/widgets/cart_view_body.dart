@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'cart_view_head.dart';
 import 'cart_view_listview.dart';
+import 'cart_view_payment_summary.dart';
 
 class CartViewBody extends StatelessWidget {
   const CartViewBody({
@@ -10,20 +11,28 @@ class CartViewBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Column(
-      children: [
-        SizedBox(
-          height: 24,
-        ),
-        CartViewHeader(
-          countItems: 1,
-        ),
-        SizedBox(
-          height: 16,
+    return const CustomScrollView(
+      slivers: [
+        SliverToBoxAdapter(
+          child: Column(
+            children: [
+              SizedBox(
+                height: 24,
+              ),
+              CartViewHeader(
+                countItems: 1,
+              ),
+              SizedBox(
+                height: 16,
+              ),
+            ],
+          ),
         ),
         CartViewListView(),
-        SizedBox(
-          height: 16,
+        CartViewPaymentSummary(
+          cartTotal: 40,
+          discountTotal: 60,
+          totalAmount: 40,
         ),
       ],
     );

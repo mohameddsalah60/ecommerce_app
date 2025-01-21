@@ -9,20 +9,18 @@ class CartViewListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: ListView.separated(
-        itemCount: 3,
-        itemBuilder: (context, index) {
-          return const CartViewProduct();
-        },
-        separatorBuilder: (context, index) {
-          return const Divider(
-            color: Colors.grey,
-            thickness: .5,
-            height: 20,
-          );
-        },
-      ),
+    return SliverList.separated(
+      itemCount: 2,
+      itemBuilder: (context, index) {
+        return const CartViewProduct();
+      },
+      separatorBuilder: (context, index) {
+        return const Divider(
+          color: Colors.grey,
+          thickness: .5,
+          height: 20,
+        );
+      },
     );
   }
 }
