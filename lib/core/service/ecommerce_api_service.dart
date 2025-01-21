@@ -129,4 +129,21 @@ class EcommerceApiService {
       rethrow;
     }
   }
+
+  Future<Map<String, dynamic>> getItemsCart({required int productId}) async {
+    try {
+      var data = await apiService.get(
+        endPoint: 'carts/',
+        headers: Options(
+          headers: {
+            'lang': 'en',
+            'Authorization': getUser().token,
+          },
+        ),
+      );
+      return data;
+    } catch (e) {
+      rethrow;
+    }
+  }
 }

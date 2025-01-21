@@ -11,25 +11,29 @@ class ApiService {
 
   ApiService({required this.dio});
 
-  Future<Map<String, dynamic>> get(
-      {required String endPoint, String? endPoint2, int? id}) async {
+  Future<Map<String, dynamic>> get({
+    required String endPoint,
+    String? endPoint2,
+    int? id,
+    Options? headers,
+  }) async {
     final Response<dynamic> response;
     if (endPoint2 != null) {
       if (id != null) {
         response = await dio.get(
           '$_baseLink$endPoint$endPoint2$id',
-          options: options,
+          options: headers ?? options,
         );
       } else {
         response = await dio.get(
           '$_baseLink$endPoint$endPoint2',
-          options: options,
+          options: headers ?? options,
         );
       }
     } else {
       response = await dio.get(
         '$_baseLink$endPoint',
-        options: options,
+        options: headers ?? options,
       );
     }
     return response.data;
