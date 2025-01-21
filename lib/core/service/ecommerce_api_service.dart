@@ -130,10 +130,10 @@ class EcommerceApiService {
     }
   }
 
-  Future<Map<String, dynamic>> getItemsCart({required int productId}) async {
+  Future<Map<String, dynamic>> getItemsCart() async {
     try {
       var data = await apiService.get(
-        endPoint: 'carts/',
+        endPoint: 'carts',
         headers: Options(
           headers: {
             'lang': 'en',

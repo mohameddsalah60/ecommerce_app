@@ -6,8 +6,12 @@ import 'car_item_entity.dart';
 
 class CartEntity {
   final List<CartItemEntity> cartItems;
-
-  CartEntity({required this.cartItems});
+  double? total, subTotal;
+  CartEntity({
+    required this.cartItems,
+    this.total = 0,
+    this.subTotal = 0,
+  });
 
   bool isExis(ProductEntity productId) {
     for (var carItem in cartItems) {

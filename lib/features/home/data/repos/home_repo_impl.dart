@@ -8,10 +8,12 @@ import 'package:ecommerce_app/core/service/ecommerce_api_service.dart';
 import 'package:ecommerce_app/features/categories/data/models/categories_model.dart';
 import 'package:ecommerce_app/features/home/data/models/car_item_model.dart';
 import 'package:ecommerce_app/features/home/domin/entites/banners_entity.dart';
+import 'package:ecommerce_app/features/home/domin/entites/cart_entity.dart';
 
 import '../../../../core/errors/exceptions.dart';
 import '../../domin/repos/home_repo.dart';
 import '../models/banners_model.dart';
+import '../models/cart_items_model.dart';
 
 class HomeRepoImpl implements HomeRepo {
   final EcommerceApiService ecommerceApiService;
@@ -54,7 +56,7 @@ class HomeRepoImpl implements HomeRepo {
         for (var banner in response['data']) {
           banners.add(BannersModel.fromJsonData(banner));
         }
-
+        await getItemsCart();
         return right(banners);
       }
     } on DioException catch (e) {
@@ -106,6 +108,29 @@ class HomeRepoImpl implements HomeRepo {
         throw CustomException(message: response['message']);
       } else {
         return right(null);
+      }
+    } on DioException catch (e) {
+      log('DioException in HomeRepoImpl : ${e.toString()}');
+      return left(ServerFailure.fromDioError(e));
+    } on CustomException catch (e) {
+      log('CustomException in HomeRepoImpl : ${e.toString()}');
+      return left(ServerFailure(e.message));
+    } catch (e) {
+      log('Exception in HomeRepoImpl: ${e.toString()}');
+      return left(ServerFailure('Oops There was an error, try again!'));
+    }
+  }
+
+  @override
+  Future<Either<Failure, CartEntity>> getItemsCart() async {
+    try {
+      var response = await ecommerceApiService.getItemsCart();
+      if (response['status'] == false) {
+        throw CustomException(message: response['message']);
+      } else {
+        CartItemsModel cartEntity = CartItemsModel.fromJson(response['data']);
+
+        return right(cartEntity);
       }
     } on DioException catch (e) {
       log('DioException in HomeRepoImpl : ${e.toString()}');

@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:ecommerce_app/features/home/domin/entites/cart_entity.dart';
 
 import '../../../../core/errors/failures.dart';
 import '../../data/models/car_item_model.dart';
@@ -12,4 +13,5 @@ abstract class HomeRepo {
       {required int productId});
   Future<Either<Failure, void>> updateQuantityProductInCart(
       {required int cartIdProduct, required int newQuantity});
+  Future<Either<Failure, CartEntity>> getItemsCart();
 }
