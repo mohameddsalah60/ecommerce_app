@@ -1,3 +1,4 @@
+import 'package:ecommerce_app/core/widgets/your_data_is_empty.dart';
 import 'package:ecommerce_app/features/home/presentetion/cubits/cart_item_cubit/cart_item_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -13,39 +14,50 @@ class CartViewBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CustomScrollView(
-      slivers: [
-        SliverToBoxAdapter(
-          child: Column(
-            children: [
-              const SizedBox(
-                height: 24,
+    return context.read<CartItemCubit>().cartEntity.cartItems.isEmpty
+        ? const YourDataIsEmpty(text: 'Your Cart Is Empty')
+        : CustomScrollView(
+            slivers: [
+              SliverToBoxAdapter(
+                child: Column(
+                  children: [
+                    const SizedBox(
+                      height: 24,
+                    ),
+                    CartViewHeader(
+                      countItems: context
+                          .read<CartItemCubit>()
+                          .cartEntity
+                          .cartItems
+                          .length,
+                    ),
+                    const SizedBox(
+                      height: 16,
+                    ),
+                  ],
+                ),
               ),
-              CartViewHeader(
-                countItems:
-                    context.read<CartItemCubit>().cartEntity.cartItems.length,
+              CartViewListView(
+                cartEntity: context.read<CartItemCubit>().cartEntity,
               ),
-              const SizedBox(
-                height: 16,
+              CartViewPaymentSummary(
+                cartTotal: context
+                    .watch<CartItemCubit>()
+                    .cartEntity
+                    .totalAmount()
+                    .toInt(),
+                discountTotal: context
+                    .watch<CartItemCubit>()
+                    .cartEntity
+                    .totalCartDiscount()
+                    .toInt(),
+                totalAmount: context
+                    .watch<CartItemCubit>()
+                    .cartEntity
+                    .totalAmount()
+                    .toInt(),
               ),
             ],
-          ),
-        ),
-        CartViewListView(
-          cartEntity: context.read<CartItemCubit>().cartEntity,
-        ),
-        CartViewPaymentSummary(
-          cartTotal:
-              context.watch<CartItemCubit>().cartEntity.totalAmount().toInt(),
-          discountTotal: context
-              .watch<CartItemCubit>()
-              .cartEntity
-              .totalCartDiscount()
-              .toInt(),
-          totalAmount:
-              context.watch<CartItemCubit>().cartEntity.totalAmount().toInt(),
-        ),
-      ],
-    );
+          );
   }
 }
