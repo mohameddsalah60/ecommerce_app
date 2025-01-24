@@ -24,7 +24,8 @@ class EcommerceApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => CartItemCubit(getIt<HomeRepo>()),
+      create: (context) =>
+          CartItemCubit(getIt<HomeRepo>())..fetchAllProductsInCart(),
       child: MaterialApp(
         theme: ThemeData(
           fontFamily: 'Cairo',

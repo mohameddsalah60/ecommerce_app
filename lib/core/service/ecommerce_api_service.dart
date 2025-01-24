@@ -87,6 +87,12 @@ class EcommerceApiService {
     try {
       var data = await apiService.get(
         endPoint: 'products',
+        headers: Options(
+          headers: {
+            'lang': 'en',
+            'Authorization': getUser().token,
+          },
+        ),
       );
       return data;
     } catch (e) {

@@ -1,4 +1,3 @@
-import 'package:ecommerce_app/core/entites/product_entity.dart';
 import 'package:ecommerce_app/features/home/domin/entites/car_item_entity.dart';
 import 'package:flutter/material.dart';
 
@@ -10,20 +9,19 @@ import 'cart_item_action_buttons.dart';
 class CartViewProduct extends StatelessWidget {
   const CartViewProduct({
     super.key,
+    required this.cartItemEntity,
   });
-
+  final CartItemEntity cartItemEntity;
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      leading: const SizedBox(
+      leading: SizedBox(
         width: 70,
         height: 80,
-        child: CustomImageNetwork(
-            image:
-                'https://student.valuxapps.com/storage/uploads/products/1644374518pTaSB.10.jpg'),
+        child: CustomImageNetwork(image: cartItemEntity.productEntity.image),
       ),
-      title: const Text(
-        'Front Patch Pocket Long',
+      title: Text(
+        cartItemEntity.productEntity.name,
         maxLines: 2,
         overflow: TextOverflow.ellipsis,
         style: AppTextStyles.bold16,
@@ -33,7 +31,9 @@ class CartViewProduct extends StatelessWidget {
           FittedBox(
             fit: BoxFit.scaleDown,
             child: Text(
-              "EGP 40",
+              cartItemEntity.productEntity.discount != 0
+                  ? "EGP ${cartItemEntity.productEntity.price}"
+                  : "EGP ${cartItemEntity.productEntity.oldPrice}",
               style:
                   AppTextStyles.bold16.copyWith(color: AppColors.primaryColor),
             ),
@@ -41,39 +41,24 @@ class CartViewProduct extends StatelessWidget {
           const SizedBox(
             width: 12,
           ),
-          FittedBox(
-            fit: BoxFit.scaleDown,
-            child: Text(
-              "EGP 30",
-              style: AppTextStyles.bold16.copyWith(
-                  decoration: TextDecoration.lineThrough,
-                  color: AppColors.secnderyColor),
-            ),
-          ),
+          cartItemEntity.productEntity.discount != 0
+              ? FittedBox(
+                  fit: BoxFit.scaleDown,
+                  child: Text(
+                    "EGP ${cartItemEntity.productEntity.oldPrice}",
+                    style: AppTextStyles.bold16.copyWith(
+                        decoration: TextDecoration.lineThrough,
+                        color: AppColors.secnderyColor),
+                  ),
+                )
+              : const SizedBox(),
         ],
       ),
-      trailing: Column(
-        children: [
-          FittedBox(
-            fit: BoxFit.scaleDown,
-            child: CartItemActionButtons(
-              cartItemEntity: CartItemEntity(
-                  productEntity: ProductEntity(
-                    name: "name",
-                    description: "description",
-                    image: "image",
-                    id: 92,
-                    discount: 0,
-                    price: 80,
-                    oldPrice: 80,
-                    inFavorites: false,
-                    inCart: false,
-                    images: [],
-                  ),
-                  cartProductId: 57397),
-            ),
-          ),
-        ],
+      trailing: FittedBox(
+        fit: BoxFit.scaleDown,
+        child: CartItemActionButtons(
+          cartItemEntity: cartItemEntity,
+        ),
       ),
       contentPadding: const EdgeInsets.symmetric(horizontal: 8),
     );

@@ -11,6 +11,7 @@ import 'package:ecommerce_app/features/home/domin/entites/banners_entity.dart';
 import 'package:ecommerce_app/features/home/domin/entites/cart_entity.dart';
 
 import '../../../../core/errors/exceptions.dart';
+import '../../domin/entites/car_item_entity.dart';
 import '../../domin/repos/home_repo.dart';
 import '../models/banners_model.dart';
 import '../models/cart_items_model.dart';
@@ -72,7 +73,7 @@ class HomeRepoImpl implements HomeRepo {
   }
 
   @override
-  Future<Either<Failure, CartItemModel>> addOrRemoveProductToCart(
+  Future<Either<Failure, CartItemEntity>> addOrRemoveProductToCart(
       {required int productId}) async {
     try {
       var response = await ecommerceApiService.addOrRemoveProductToCart(
@@ -95,7 +96,7 @@ class HomeRepoImpl implements HomeRepo {
   }
 
   @override
-  Future<Either<Failure, void>> updateQuantityProductInCart({
+  Future<Either<Failure, CartItemEntity>> updateQuantityProductInCart({
     required int cartIdProduct,
     required int newQuantity,
   }) async {
@@ -107,7 +108,7 @@ class HomeRepoImpl implements HomeRepo {
       if (response['status'] == false) {
         throw CustomException(message: response['message']);
       } else {
-        return right(null);
+        return right(CartItemModel.fromJson(response["data"]["cart"]));
       }
     } on DioException catch (e) {
       log('DioException in HomeRepoImpl : ${e.toString()}');
@@ -128,7 +129,7 @@ class HomeRepoImpl implements HomeRepo {
       if (response['status'] == false) {
         throw CustomException(message: response['message']);
       } else {
-        CartItemsModel cartEntity = CartItemsModel.fromJson(response['data']);
+        CartModel cartEntity = CartModel.fromJson(response['data']);
 
         return right(cartEntity);
       }

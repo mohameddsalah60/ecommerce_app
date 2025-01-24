@@ -1,4 +1,6 @@
+import 'package:ecommerce_app/features/home/presentetion/cubits/cart_item_cubit/cart_item_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'cart_view_head.dart';
 import 'cart_view_listview.dart';
@@ -11,28 +13,37 @@ class CartViewBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const CustomScrollView(
+    return CustomScrollView(
       slivers: [
         SliverToBoxAdapter(
           child: Column(
             children: [
-              SizedBox(
+              const SizedBox(
                 height: 24,
               ),
               CartViewHeader(
-                countItems: 1,
+                countItems:
+                    context.read<CartItemCubit>().cartEntity.cartItems.length,
               ),
-              SizedBox(
+              const SizedBox(
                 height: 16,
               ),
             ],
           ),
         ),
-        CartViewListView(),
+        CartViewListView(
+          cartEntity: context.read<CartItemCubit>().cartEntity,
+        ),
         CartViewPaymentSummary(
-          cartTotal: 40,
-          discountTotal: 60,
-          totalAmount: 40,
+          cartTotal:
+              context.watch<CartItemCubit>().cartEntity.totalAmount().toInt(),
+          discountTotal: context
+              .watch<CartItemCubit>()
+              .cartEntity
+              .totalCartDiscount()
+              .toInt(),
+          totalAmount:
+              context.watch<CartItemCubit>().cartEntity.totalAmount().toInt(),
         ),
       ],
     );

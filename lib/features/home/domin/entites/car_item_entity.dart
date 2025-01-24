@@ -3,7 +3,7 @@ import 'package:ecommerce_app/core/entites/product_entity.dart';
 class CartItemEntity {
   final ProductEntity productEntity;
   final int cartProductId;
-  int quanitty;
+  dynamic quanitty;
 
   CartItemEntity({
     required this.productEntity,
@@ -18,5 +18,9 @@ class CartItemEntity {
     if (quanitty != 1) {
       quanitty--;
     }
+  }
+
+  num calculateTotalPrice() {
+    return productEntity.price * quanitty;
   }
 }

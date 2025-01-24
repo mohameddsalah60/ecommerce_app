@@ -17,4 +17,10 @@ class CartItemModel extends CartItemEntity {
       productEntity: productEntity,
     );
   }
+  factory CartItemModel.fromEntity(CartItemEntity entity) {
+    return CartItemModel(
+        productEntity: entity.productEntity,
+        cartProductId: entity.cartProductId,
+        quanitty: entity.quanitty);
+  }
 }

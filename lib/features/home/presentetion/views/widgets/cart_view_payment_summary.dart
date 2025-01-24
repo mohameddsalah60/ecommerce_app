@@ -1,3 +1,4 @@
+import 'package:ecommerce_app/core/utils/app_colors.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../core/utils/app_text_styles.dart';
@@ -41,13 +42,21 @@ class CartViewPaymentSummary extends StatelessWidget {
             ),
             ListTile(
               contentPadding: const EdgeInsets.all(0),
-              leading: const Text(
+              leading: Text(
                 'Discount',
-                style: AppTextStyles.semiBold16,
+                style: AppTextStyles.semiBold16.copyWith(
+                    color: discountTotal > 0
+                        ? AppColors.primaryColor
+                        : Colors.black),
               ),
               trailing: Text(
-                '- EGP ${discountTotal.toString()}',
-                style: AppTextStyles.semiBold16,
+                discountTotal > 0
+                    ? '- EGP ${discountTotal.toString()}'
+                    : 'EGP 0',
+                style: AppTextStyles.semiBold16.copyWith(
+                    color: discountTotal > 0
+                        ? AppColors.primaryColor
+                        : Colors.black),
               ),
             ),
             ListTile(

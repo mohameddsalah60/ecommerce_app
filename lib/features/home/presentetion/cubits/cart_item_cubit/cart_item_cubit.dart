@@ -19,13 +19,14 @@ class CartItemCubit extends Cubit<CartItemState> {
         emit(CartItemFailure(message: failure.errorMessage));
       },
       (cartItem) {
-        bool isProductExist = cartEntity.isExis(cartItem.productEntity);
+        bool isProductExist = cartEntity.isExis(cartItem.productEntity.id);
         if (isProductExist) {
           cartEntity.removeCarItemById(cartItem.productEntity.id);
+          cartEntity.total = cartEntity.total! - cartItem.productEntity.price;
           emit(CartItemRemoved(cartItemEntity: cartItem));
         } else {
-          cartItem.productEntity.inCart = true;
           cartEntity.addCartItem(cartItem);
+          cartEntity.total = cartEntity.total! + cartItem.productEntity.price;
           emit(CartItemAdded(cartItemEntity: cartItem));
         }
       },
@@ -42,7 +43,24 @@ class CartItemCubit extends Cubit<CartItemState> {
         emit(CartItemFailure(message: failure.errorMessage));
       },
       (cartItem) {
+        cartEntity.total = cartEntity.total! + cartItem.productEntity.price;
         emit(UpdateQuantityProduct());
+      },
+    );
+  }
+
+  void fetchAllProductsInCart() async {
+    emit(CartItemLoading());
+    var result = await homeRepo.getItemsCart();
+    result.fold(
+      (failure) {
+        emit(CartItemFailure(message: failure.errorMessage));
+        emit(FetchAllProductsInCartFailure(message: failure.errorMessage));
+      },
+      (cartItem) {
+        cartEntity = cartItem;
+        cartEntity.total = cartItem.total!;
+        emit(FetchAllProductsInCartSuccsses(cartEntity: cartEntity));
       },
     );
   }

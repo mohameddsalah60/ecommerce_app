@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../../core/entites/product_entity.dart';
 import '../../../../../core/widgets/custom_button.dart';
 import '../../../../../core/widgets/custom_loading_indicator.dart';
-import '../../../domin/entites/car_item_entity.dart';
+
 import '../../cubits/cart_item_cubit/cart_item_cubit.dart';
 import 'cart_item_action_buttons.dart';
 
@@ -36,15 +36,15 @@ class AddProductToCartBlocConsumer extends StatelessWidget {
       },
       builder: (context, state) {
         final productCartItem =
-            context.read<CartItemCubit>().cartEntity.cartItems.firstWhere(
-                  (item) => item.productEntity.id == productEntity.id,
-                  orElse: () => CartItemEntity(
-                      productEntity: productEntity, cartProductId: 0),
-                );
+            context.read<CartItemCubit>().cartEntity.getCarItem(productEntity);
+
         if (state is CartItemLoading) {
           return const CustomLoadingIndicator();
         } else {
-          return productEntity.inCart
+          return context
+                  .read<CartItemCubit>()
+                  .cartEntity
+                  .isExis(productEntity.id)
               ? CartItemActionButtons(
                   cartItemEntity: productCartItem,
                 )

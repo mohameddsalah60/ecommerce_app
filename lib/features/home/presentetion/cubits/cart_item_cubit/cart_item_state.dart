@@ -24,6 +24,16 @@ final class CartItemFailure extends CartItemState {
   CartItemFailure({required this.message});
 }
 
-final class UpdateQuantityProduct extends CartItemState {
-  UpdateQuantityProduct();
+final class UpdateQuantityProduct extends CartItemState {}
+
+final class FetchAllProductsInCartSuccsses extends CartItemState {
+  final CartEntity cartEntity;
+
+  FetchAllProductsInCartSuccsses({required this.cartEntity});
+}
+
+final class FetchAllProductsInCartFailure extends CartItemState {
+  final String message;
+
+  FetchAllProductsInCartFailure({required this.message});
 }
