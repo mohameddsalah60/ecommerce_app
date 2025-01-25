@@ -16,3 +16,11 @@ class ServerFailure extends Failure {
     );
   }
 }
+
+class PermissionFailure extends Failure {
+  PermissionFailure(super.errorMessage);
+}
+
+class LocationServiceFailure extends Failure {
+  LocationServiceFailure(super.errorMessage);
+}
