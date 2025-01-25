@@ -1,5 +1,6 @@
 import 'package:ecommerce_app/core/utils/app_images.dart';
 import 'package:ecommerce_app/core/utils/app_text_styles.dart';
+import 'package:ecommerce_app/features/addresses/presentation/views/new_address_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -23,7 +24,9 @@ class HomeViewBodyAppBar extends StatelessWidget {
               style: AppTextStyles.regular13.copyWith(color: Colors.white),
             ),
             GestureDetector(
-              onTap: () {},
+              onTap: () {
+                Navigator.of(context).pushNamed(NewAddressView.routeName);
+              },
               child: Row(
                 children: [
                   Text(

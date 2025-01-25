@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import '../../../../../core/utils/app_colors.dart';
 import '../../../../../core/utils/app_images.dart';
 import '../../../../../core/utils/app_text_styles.dart';
+import '../../../../../core/widgets/custom_search_icon.dart';
 import '../../../domin/entites/categories_entity.dart';
 import 'show_categories_bottom_sheet.dart';
 
@@ -59,23 +60,7 @@ class CategoriesDetailsAppbar extends StatelessWidget {
               ],
             ),
           ),
-          trailing: GestureDetector(
-            onTap: () {},
-            child: Container(
-              width: 36,
-              height: 36,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                border: Border.all(color: Colors.black, width: .5),
-              ),
-              child: const Center(
-                child: Icon(
-                  Icons.search_sharp,
-                  color: Colors.black,
-                ),
-              ),
-            ),
-          ),
+          trailing: const CustomSearchIcon(),
         ),
       ],
     );
