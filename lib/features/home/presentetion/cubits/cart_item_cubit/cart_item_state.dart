@@ -37,3 +37,5 @@ final class FetchAllProductsInCartFailure extends CartItemState {
 
   FetchAllProductsInCartFailure({required this.message});
 }
+
+final class CartIsEmpty extends CartItemState {}

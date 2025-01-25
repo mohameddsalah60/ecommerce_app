@@ -60,7 +60,9 @@ class CartItemCubit extends Cubit<CartItemState> {
       (cartItem) {
         cartEntity = cartItem;
         cartEntity.total = cartItem.total!;
-        emit(FetchAllProductsInCartSuccsses(cartEntity: cartEntity));
+        cartEntity.cartItems.isEmpty
+            ? emit(CartIsEmpty())
+            : emit(FetchAllProductsInCartSuccsses(cartEntity: cartEntity));
       },
     );
   }
