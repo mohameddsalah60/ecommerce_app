@@ -3,23 +3,23 @@ import 'dart:developer';
 import 'package:dartz/dartz.dart';
 import 'package:ecommerce_app/core/errors/exceptions.dart';
 import 'package:ecommerce_app/core/errors/failures.dart';
-import 'package:ecommerce_app/features/addresses/data/services/open_street_map_service.dart';
+import 'package:ecommerce_app/features/addresses/data/services/location_service.dart';
 import 'package:ecommerce_app/features/addresses/domain/repos/addresses_repo.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:latlong2/latlong.dart';
 
-class AddressesRepoImpl implements AddressesRepo {
-  final OpenStreetMapService openStreetMapService;
+class AddressesRepoImpl extends AddressesRepo {
+  final LocationService locationService;
 
-  AddressesRepoImpl({required this.openStreetMapService});
+  AddressesRepoImpl({required this.locationService});
 
   @override
   Future<Either<Failure, LatLng>> getCurrentLocation() async {
     try {
-      bool isEnabled = await openStreetMapService.checkPermission();
+      bool isEnabled = await locationService.checkPermission();
 
       if (isEnabled) {
-        LatLng positionUser = await openStreetMapService.getCurrentLocation();
+        LatLng positionUser = await locationService.getCurrentLocation();
         return right(positionUser);
       } else {
         return left(PermissionFailure(
