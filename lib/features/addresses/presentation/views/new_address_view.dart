@@ -1,6 +1,10 @@
+import 'package:ecommerce_app/core/service/get_it_service.dart';
 import 'package:ecommerce_app/core/widgets/custom_app_bar.dart';
+import 'package:ecommerce_app/features/addresses/domain/repos/addresses_repo.dart';
+import 'package:ecommerce_app/features/addresses/presentation/cubit/get_current_location_cubit.dart';
 import 'package:ecommerce_app/features/addresses/presentation/views/widgets/confirm_address_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'widgets/new_address_body.dart';
 
@@ -9,14 +13,18 @@ class NewAddressView extends StatelessWidget {
   static const routeName = 'newAddress';
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: buildAppBar(
-        context,
-        title: 'Delivery Address',
-        onTap: () => Navigator.of(context).pop(),
+    return BlocProvider(
+      create: (context) =>
+          GetCurrentLocationCubit(getIt<AddressesRepo>())..getCurrentLocation(),
+      child: Scaffold(
+        appBar: buildAppBar(
+          context,
+          title: 'Delivery Address',
+          onTap: () => Navigator.of(context).pop(),
+        ),
+        body: const SafeArea(child: NewAddressBody()),
+        bottomNavigationBar: const ConfirmAddressButton(),
       ),
-      body: const SafeArea(child: NewAddressBody()),
-      bottomNavigationBar: const ConfirmAddressButton(),
     );
   }
 }

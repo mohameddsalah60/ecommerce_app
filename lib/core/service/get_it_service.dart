@@ -49,7 +49,7 @@ void setupGetIt() {
   );
   getIt.registerSingleton<AddressesRepo>(
     AddressesRepoImpl(
-      locationService: getIt<OpenStreetMapService>(),
+      locationService: getIt<LocationService>(),
     ),
   );
 }
