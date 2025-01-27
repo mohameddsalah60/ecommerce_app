@@ -1,5 +1,5 @@
 import 'package:ecommerce_app/core/widgets/custom_loading_indicator.dart';
-import 'package:ecommerce_app/features/addresses/presentation/cubit/get_current_location_cubit.dart';
+import 'package:ecommerce_app/features/addresses/presentation/cubit/pin_location_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_map/flutter_map.dart';
@@ -16,14 +16,16 @@ class NewAddressBody extends StatelessWidget {
           height: 8,
         ),
         Expanded(
-          child: BlocBuilder<GetCurrentLocationCubit, GetCurrentLocationState>(
+          child: BlocBuilder<PinLocationCubit, PinLocationState>(
             builder: (context, state) {
-              if (state is GetCurrentLocationSuccsess) {
+              if (state is PinLocationSuccsess) {
                 return FlutterMap(
                   options: MapOptions(
                     initialCenter: state.letLong,
                     initialZoom: 10,
-                    onTap: (tapPosition, LatLng pos) {},
+                    onTap: (tapPosition, LatLng pos) {
+                      context.read<PinLocationCubit>().updatePinLocation(pos);
+                    },
                   ),
                   children: [
                     TileLayer(
@@ -44,10 +46,10 @@ class NewAddressBody extends StatelessWidget {
                     ),
                   ],
                 );
-              } else if (state is GetCurrentLocationLoading) {
-                return const CustomLoadingIndicator();
+              } else if (state is PinLocationFailure) {
+                return Text(state.message);
               } else {
-                return const Text('ttt');
+                return const CustomLoadingIndicator();
               }
             },
           ),

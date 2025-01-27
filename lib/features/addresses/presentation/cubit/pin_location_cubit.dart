@@ -2,26 +2,33 @@ import 'package:ecommerce_app/features/addresses/domain/repos/addresses_repo.dar
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:latlong2/latlong.dart';
 
-part 'get_current_location_state.dart';
+part 'pin_location_state.dart';
 
-class GetCurrentLocationCubit extends Cubit<GetCurrentLocationState> {
-  GetCurrentLocationCubit(this.addressesRepo)
-      : super(GetCurrentLocationInitial());
+class PinLocationCubit extends Cubit<PinLocationState> {
+  PinLocationCubit(this.addressesRepo) : super(PinLocationInitial());
   final AddressesRepo addressesRepo;
   getCurrentLocation() async {
-    emit(GetCurrentLocationLoading());
+    emit(PinLocationLoading());
     var result = await addressesRepo.getCurrentLocation();
     result.fold(
       (failure) {
-        emit(GetCurrentLocationFailure(message: failure.errorMessage));
+        emit(PinLocationFailure(message: failure.errorMessage));
       },
       (position) {
         emit(
-          GetCurrentLocationSuccsess(
+          PinLocationSuccsess(
             letLong: LatLng(position.latitude, position.longitude),
           ),
         );
       },
+    );
+  }
+
+  updatePinLocation(LatLng pos) {
+    emit(
+      PinLocationSuccsess(
+        letLong: LatLng(pos.latitude, pos.longitude),
+      ),
     );
   }
 }
