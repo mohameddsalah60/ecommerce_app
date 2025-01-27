@@ -3,6 +3,7 @@ import 'dart:developer';
 
 import 'package:ecommerce_app/core/errors/exceptions.dart';
 import 'package:ecommerce_app/features/addresses/data/services/location_service.dart';
+import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:latlong2/latlong.dart';
 
@@ -50,6 +51,21 @@ class OpenStreetMapService implements LocationService {
       throw CustomException(
           message:
               "⚠️ An unexpected error occurred while fetching the location.");
+    }
+  }
+
+  @override
+  Future<Placemark> getAddressformLocation({required LatLng position}) async {
+    try {
+      List<Placemark> placemarks =
+          await placemarkFromCoordinates(position.latitude, position.longitude);
+
+      Placemark place = placemarks[0];
+      return place;
+    } catch (e) {
+      log("❌ Exception in OpenStreetMapService: ${e.toString()}");
+      throw CustomException(
+          message: "⚠️ An unexpected error occurred try Agein");
     }
   }
 }

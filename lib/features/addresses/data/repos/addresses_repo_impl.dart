@@ -5,6 +5,7 @@ import 'package:ecommerce_app/core/errors/exceptions.dart';
 import 'package:ecommerce_app/core/errors/failures.dart';
 import 'package:ecommerce_app/features/addresses/data/services/location_service.dart';
 import 'package:ecommerce_app/features/addresses/domain/repos/addresses_repo.dart';
+import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:latlong2/latlong.dart';
 
@@ -39,5 +40,12 @@ class AddressesRepoImpl extends AddressesRepo {
       return left(LocationServiceFailure(
           "An unexpected error occurred while fetching the location."));
     }
+  }
+
+  @override
+  Future<Placemark> getAddressfromLocation({required LatLng position}) async {
+    Placemark place =
+        await locationService.getAddressformLocation(position: position);
+    return place;
   }
 }

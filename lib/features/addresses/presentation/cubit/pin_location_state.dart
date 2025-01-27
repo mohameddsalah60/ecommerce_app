@@ -17,3 +17,9 @@ final class PinLocationFailure extends PinLocationState {
 
   PinLocationFailure({required this.message});
 }
+
+final class GetAddressformLocation extends PinLocationState {
+  final String address;
+
+  GetAddressformLocation({required this.address});
+}

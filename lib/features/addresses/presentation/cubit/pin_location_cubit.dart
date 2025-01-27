@@ -1,10 +1,12 @@
 import 'package:ecommerce_app/features/addresses/domain/repos/addresses_repo.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:geocoding/geocoding.dart';
 import 'package:latlong2/latlong.dart';
 
 part 'pin_location_state.dart';
 
 class PinLocationCubit extends Cubit<PinLocationState> {
+  String address = '';
   PinLocationCubit(this.addressesRepo) : super(PinLocationInitial());
   final AddressesRepo addressesRepo;
   getCurrentLocation() async {
@@ -14,7 +16,8 @@ class PinLocationCubit extends Cubit<PinLocationState> {
       (failure) {
         emit(PinLocationFailure(message: failure.errorMessage));
       },
-      (position) {
+      (position) async {
+        await getAddressformLocation(position: position);
         emit(
           PinLocationSuccsess(
             letLong: LatLng(position.latitude, position.longitude),
@@ -24,11 +27,19 @@ class PinLocationCubit extends Cubit<PinLocationState> {
     );
   }
 
-  updatePinLocation(LatLng pos) {
+  updatePinLocation(LatLng pos) async {
+    await getAddressformLocation(position: pos);
     emit(
       PinLocationSuccsess(
         letLong: LatLng(pos.latitude, pos.longitude),
       ),
     );
+  }
+
+  getAddressformLocation({required LatLng position}) async {
+    Placemark placemark =
+        await addressesRepo.getAddressfromLocation(position: position);
+    address =
+        "${placemark.street},${placemark.locality}, ${placemark.administrativeArea}";
   }
 }
