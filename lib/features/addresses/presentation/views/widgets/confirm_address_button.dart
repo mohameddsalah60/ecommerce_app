@@ -28,7 +28,7 @@ class ConfirmAddressButton extends StatelessWidget {
               color: AppColors.primaryColor,
             ),
             title: Text(
-              "${context.watch<PinLocationCubit>().address!.street},${context.watch<PinLocationCubit>().address!.locality}, ${context.watch<PinLocationCubit>().address!.administrativeArea}",
+              context.watch<PinLocationCubit>().address,
               style: AppTextStyles.bold16,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,

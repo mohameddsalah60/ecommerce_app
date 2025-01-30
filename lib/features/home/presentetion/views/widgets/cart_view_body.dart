@@ -14,10 +14,9 @@ class CartViewBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<CartItemCubit, CartItemState>(
-      builder: (context, state) {
-        if (state is FetchAllProductsInCartSuccsses) {
-          return CustomScrollView(
+    return context.watch<CartItemCubit>().cartEntity.cartItems.isEmpty
+        ? const YourDataIsEmpty(text: 'Your Cart is Empty')
+        : CustomScrollView(
             slivers: [
               SliverToBoxAdapter(
                 child: Column(
@@ -60,10 +59,5 @@ class CartViewBody extends StatelessWidget {
               ),
             ],
           );
-        } else {
-          return const YourDataIsEmpty(text: 'Your Cart Is Empty');
-        }
-      },
-    );
   }
 }
