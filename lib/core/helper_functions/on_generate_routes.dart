@@ -5,6 +5,7 @@ import 'package:ecommerce_app/features/home/presentetion/views/main_view.dart';
 import 'package:ecommerce_app/features/splash/presentetion/views/splash_view.dart';
 import 'package:flutter/material.dart';
 
+import '../../features/addresses/presentation/views/address_detiles_view.dart';
 import '../../features/addresses/presentation/views/new_address_view.dart';
 import '../../features/categories/presentation/views/categories_details_view.dart';
 import '../../features/home/presentetion/views/cart_view.dart';
@@ -44,6 +45,9 @@ Route<dynamic> onGenerateRoutes(RouteSettings routeSettings) {
       return MaterialPageRoute(builder: (context) => const CartView());
     case NewAddressView.routeName:
       return MaterialPageRoute(builder: (context) => const NewAddressView());
+    case AddressDetilesView.routeName:
+      return MaterialPageRoute(
+          builder: (context) => const AddressDetilesView());
 
     case MainView.routeName:
       return MaterialPageRoute(builder: (context) => const MainView());
