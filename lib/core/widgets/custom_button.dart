@@ -41,8 +41,9 @@ class CustomButton extends StatelessWidget {
             : Text(
                 text,
                 style: AppTextStyles.bold16.copyWith(
-                    color: backgroundColor == Colors.white
-                        ? Colors.black
+                    color: backgroundColor == Colors.white ||
+                            backgroundColor == const Color(0xffF3F4F6)
+                        ? const Color(0xff6B6C6E)
                         : Colors.white),
               ),
       ),

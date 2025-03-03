@@ -11,7 +11,7 @@ class AddressDetilesView extends StatelessWidget {
     return Scaffold(
       appBar: buildAppBar(
         context,
-        title: 'Address',
+        title: 'New Address',
         onTap: () => Navigator.of(context).pop(),
       ),
       body: const SafeArea(child: AddressDetilesBody()),

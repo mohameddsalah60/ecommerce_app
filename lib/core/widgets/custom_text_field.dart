@@ -9,11 +9,13 @@ class CustomTextFromField extends StatelessWidget {
       this.keyboardType,
       this.suffixIcon,
       this.obscureText = false,
-      this.onSaved});
+      this.onSaved,
+      this.fillColor});
   final String hintText;
   final TextInputType? keyboardType;
   final Widget? suffixIcon;
   final bool obscureText;
+  final Color? fillColor;
   final void Function(String?)? onSaved;
   @override
   Widget build(BuildContext context) {
@@ -31,7 +33,8 @@ class CustomTextFromField extends StatelessWidget {
         suffixIcon: suffixIcon,
         suffixIconColor: const Color(0XffC9CECF),
         filled: true,
-        fillColor: const Color(0xffF9FAFA), // لون التيكست فيلد من جوا الابيض
+        fillColor: fillColor ??
+            const Color(0xffF9FAFA), // لون التيكست فيلد من جوا الابيض
         hintText: hintText,
         hintStyle: AppTextStyles.bold13.copyWith(
           color: const Color(0xff949D9E),
