@@ -19,7 +19,7 @@ final class PinLocationFailure extends PinLocationState {
 }
 
 final class GetAddressformLocation extends PinLocationState {
-  final String address;
+  final AddressEntity addressEntity;
 
-  GetAddressformLocation({required this.address});
+  GetAddressformLocation({required this.addressEntity});
 }

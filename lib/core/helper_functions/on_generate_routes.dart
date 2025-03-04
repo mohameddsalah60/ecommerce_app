@@ -1,3 +1,4 @@
+import 'package:ecommerce_app/features/addresses/domain/entites/address_entity.dart';
 import 'package:ecommerce_app/features/auth/presentetion/views/sign_in_view.dart';
 import 'package:ecommerce_app/features/auth/presentetion/views/sign_up_view.dart';
 import 'package:ecommerce_app/features/categories/domin/entites/categories_entity.dart';
@@ -46,8 +47,12 @@ Route<dynamic> onGenerateRoutes(RouteSettings routeSettings) {
     case NewAddressView.routeName:
       return MaterialPageRoute(builder: (context) => const NewAddressView());
     case AddressDetilesView.routeName:
+      final args = routeSettings.arguments as AddressEntity;
+
       return MaterialPageRoute(
-          builder: (context) => const AddressDetilesView());
+          builder: (context) => AddressDetilesView(
+                addressEntity: args,
+              ));
 
     case MainView.routeName:
       return MaterialPageRoute(builder: (context) => const MainView());

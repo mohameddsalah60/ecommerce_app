@@ -41,10 +41,13 @@ class ConfirmAddressButton extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 48),
             child: CustomButton(
-              onPressed: () => Navigator.pushReplacementNamed(
-                context,
-                AddressDetilesView.routeName,
-              ),
+              onPressed: () {
+                Navigator.pushReplacementNamed(
+                  context,
+                  AddressDetilesView.routeName,
+                  arguments: context.read<PinLocationCubit>().addressEntity,
+                );
+              },
               text: "Confirm pin location",
               radius: 24,
             ),

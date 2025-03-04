@@ -3,24 +3,31 @@ import 'package:ecommerce_app/core/utils/app_text_styles.dart';
 import 'package:flutter/material.dart';
 
 class CustomTextFromField extends StatelessWidget {
-  const CustomTextFromField(
-      {super.key,
-      required this.hintText,
-      this.keyboardType,
-      this.suffixIcon,
-      this.obscureText = false,
-      this.onSaved,
-      this.fillColor});
+  const CustomTextFromField({
+    super.key,
+    required this.hintText,
+    this.keyboardType,
+    this.suffixIcon,
+    this.obscureText = false,
+    this.onSaved,
+    this.fillColor,
+    this.controller,
+    this.onChanged,
+  });
   final String hintText;
   final TextInputType? keyboardType;
   final Widget? suffixIcon;
   final bool obscureText;
   final Color? fillColor;
   final void Function(String?)? onSaved;
+  final void Function(String?)? onChanged;
+  final TextEditingController? controller;
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      controller: controller,
       onSaved: onSaved,
+      onChanged: onChanged,
       validator: (value) {
         if (value == null || value.isEmpty) {
           return 'This field is required .';
