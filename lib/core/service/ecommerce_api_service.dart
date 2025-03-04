@@ -152,4 +152,37 @@ class EcommerceApiService {
       rethrow;
     }
   }
+
+  Future<Map<String, dynamic>> addNewAddressUser({
+    required String name,
+    required String city,
+    required String region,
+    required String details,
+    required String notes,
+    required double latitude,
+    required double longitude,
+  }) async {
+    try {
+      var data = await apiService.post(
+        endPoint: 'addresses',
+        data: {
+          'name': name,
+          'city': city,
+          'region': region,
+          'details': details,
+          'notes': notes,
+          'latitude': latitude,
+          'longitude': longitude,
+        },
+        headers: Options(
+          headers: {
+            'Authorization': getUser().token,
+          },
+        ),
+      );
+      return data;
+    } catch (e) {
+      rethrow;
+    }
+  }
 }
