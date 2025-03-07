@@ -50,6 +50,7 @@ void setupGetIt() {
   getIt.registerSingleton<AddressesRepo>(
     AddressesRepoImpl(
       locationService: getIt<LocationService>(),
+      ecommerceApiService: getIt<EcommerceApiService>(),
     ),
   );
 }

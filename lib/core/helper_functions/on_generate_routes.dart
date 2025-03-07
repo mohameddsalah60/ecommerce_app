@@ -6,8 +6,8 @@ import 'package:ecommerce_app/features/home/presentetion/views/main_view.dart';
 import 'package:ecommerce_app/features/splash/presentetion/views/splash_view.dart';
 import 'package:flutter/material.dart';
 
-import '../../features/addresses/presentation/views/address_detiles_view.dart';
 import '../../features/addresses/presentation/views/new_address_view.dart';
+import '../../features/addresses/presentation/views/address_map_view.dart';
 import '../../features/categories/presentation/views/categories_details_view.dart';
 import '../../features/home/presentetion/views/cart_view.dart';
 import '../entites/product_entity.dart';
@@ -44,8 +44,8 @@ Route<dynamic> onGenerateRoutes(RouteSettings routeSettings) {
       );
     case CartView.routeName:
       return MaterialPageRoute(builder: (context) => const CartView());
-    case NewAddressView.routeName:
-      return MaterialPageRoute(builder: (context) => const NewAddressView());
+    case AddressMapView.routeName:
+      return MaterialPageRoute(builder: (context) => const AddressMapView());
     case AddressDetilesView.routeName:
       final args = routeSettings.arguments as AddressEntity;
 

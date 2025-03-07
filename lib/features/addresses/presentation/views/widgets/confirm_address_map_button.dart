@@ -1,14 +1,14 @@
 import 'package:ecommerce_app/core/utils/app_colors.dart';
 import 'package:ecommerce_app/core/utils/app_text_styles.dart';
-import 'package:ecommerce_app/features/addresses/presentation/cubit/pin_location_cubit.dart';
-import 'package:ecommerce_app/features/addresses/presentation/views/address_detiles_view.dart';
+import 'package:ecommerce_app/features/addresses/presentation/cubits/pin_location_cubit/pin_location_cubit.dart';
+import 'package:ecommerce_app/features/addresses/presentation/views/new_address_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../core/widgets/custom_button.dart';
 
-class ConfirmAddressButton extends StatelessWidget {
-  const ConfirmAddressButton({
+class ConfirmAddressMapButton extends StatelessWidget {
+  const ConfirmAddressMapButton({
     super.key,
   });
 

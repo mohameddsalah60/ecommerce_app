@@ -1,6 +1,6 @@
 import 'package:ecommerce_app/core/utils/app_images.dart';
 import 'package:ecommerce_app/core/utils/app_text_styles.dart';
-import 'package:ecommerce_app/features/addresses/presentation/views/new_address_view.dart';
+import 'package:ecommerce_app/features/addresses/presentation/views/address_map_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -25,7 +25,7 @@ class HomeViewBodyAppBar extends StatelessWidget {
             ),
             GestureDetector(
               onTap: () {
-                Navigator.of(context).pushNamed(NewAddressView.routeName);
+                Navigator.of(context).pushNamed(AddressMapView.routeName);
               },
               child: Row(
                 children: [

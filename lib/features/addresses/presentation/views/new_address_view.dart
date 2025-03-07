@@ -1,29 +1,28 @@
-import 'package:ecommerce_app/core/service/get_it_service.dart';
-import 'package:ecommerce_app/core/widgets/custom_app_bar.dart';
-import 'package:ecommerce_app/features/addresses/domain/repos/addresses_repo.dart';
-import 'package:ecommerce_app/features/addresses/presentation/cubit/pin_location_cubit.dart';
-import 'package:ecommerce_app/features/addresses/presentation/views/widgets/confirm_address_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'widgets/new_address_body.dart';
+import '../../../../core/service/get_it_service.dart';
+import '../../../../core/widgets/custom_app_bar.dart';
+import '../../domain/entites/address_entity.dart';
+import '../../domain/repos/addresses_repo.dart';
+import '../cubits/add_new_address_cubit/add_new_address_cubit.dart';
+import 'widgets/new_address_view_bloc_consumer.dart';
 
-class NewAddressView extends StatelessWidget {
-  const NewAddressView({super.key});
-  static const routeName = 'newAddress';
+class AddressDetilesView extends StatelessWidget {
+  const AddressDetilesView({super.key, required this.addressEntity});
+  static const routeName = 'address-detiles';
+  final AddressEntity addressEntity;
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) =>
-          PinLocationCubit(getIt<AddressesRepo>())..getCurrentLocation(),
-      child: Scaffold(
-        appBar: buildAppBar(
-          context,
-          title: 'Delivery Address',
-          onTap: () => Navigator.of(context).pop(),
-        ),
-        body: const SafeArea(child: NewAddressBody()),
-        bottomNavigationBar: const ConfirmAddressButton(),
+    return Scaffold(
+      appBar: buildAppBar(
+        context,
+        title: 'New Address',
+        onTap: () => Navigator.of(context).pop(),
+      ),
+      body: BlocProvider(
+        create: (context) => AddNewAddressCubit(getIt<AddressesRepo>()),
+        child: AddressDetilesViewBlocConsumer(addressEntity: addressEntity),
       ),
     );
   }

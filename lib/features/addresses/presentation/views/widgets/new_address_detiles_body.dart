@@ -1,12 +1,14 @@
-import 'package:ecommerce_app/core/utils/app_colors.dart';
 import 'package:ecommerce_app/core/utils/app_text_styles.dart';
-import 'package:ecommerce_app/core/widgets/custom_button.dart';
 import 'package:ecommerce_app/core/widgets/custom_text_field.dart';
 import 'package:ecommerce_app/features/addresses/domain/entites/address_entity.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../../core/utils/app_colors.dart';
 import '../../../../../core/utils/app_images.dart';
+import '../../../../../core/widgets/custom_button.dart';
 import '../../../domain/entites/text_editing_controllers.dart';
+import '../../cubits/add_new_address_cubit/add_new_address_cubit.dart';
 
 class AddressDetilesBody extends StatefulWidget {
   const AddressDetilesBody({super.key, required this.addressEntity});
@@ -143,11 +145,27 @@ class _AddressDetilesBodyState extends State<AddressDetilesBody> {
                     : const Color(0xffF3F4F6),
                 onPressed: () {
                   if (fromKey.currentState!.validate()) {
+                    fromKey.currentState!.save();
+                    context.read<AddNewAddressCubit>().addNewAddressUser(
+                          addressEntity: AddressEntity(
+                            nameAddress:
+                                controllers.getController('label').text,
+                            city: controllers.getController('details').text,
+                            region:
+                                controllers.getController('directions').text,
+                            notes: controllers.getController('phone').text,
+                            details: controllers.getController('details').text,
+                            latitude: widget.addressEntity.latitude,
+                            longitude: widget.addressEntity.longitude,
+                          ),
+                        );
                   } else {
-                    null;
+                    setState(() {
+                      autovalidateMode = AutovalidateMode.always;
+                    });
                   }
                 },
-              ),
+              )
             ],
           ),
         ),

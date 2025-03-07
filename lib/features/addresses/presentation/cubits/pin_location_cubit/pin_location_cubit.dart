@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:latlong2/latlong.dart';
 
-import '../../domain/entites/address_entity.dart';
+import '../../../domain/entites/address_entity.dart';
 
 part 'pin_location_state.dart';
 
