@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:developer';
 
 import 'package:dartz/dartz.dart';
@@ -5,6 +6,7 @@ import 'package:dio/dio.dart';
 import 'package:ecommerce_app/core/errors/exceptions.dart';
 import 'package:ecommerce_app/core/errors/failures.dart';
 import 'package:ecommerce_app/core/service/ecommerce_api_service.dart';
+import 'package:ecommerce_app/core/service/shared_preferences_service.dart';
 import 'package:ecommerce_app/features/addresses/data/models/address_model.dart';
 import 'package:ecommerce_app/features/addresses/data/services/location_service.dart';
 import 'package:ecommerce_app/features/addresses/domain/entites/address_entity.dart';
@@ -25,7 +27,6 @@ class AddressesRepoImpl extends AddressesRepo {
   Future<Either<Failure, LatLng>> getCurrentLocation() async {
     try {
       bool isEnabled = await locationService.checkPermission();
-
       if (isEnabled) {
         LatLng positionUser = await locationService.getCurrentLocation();
         return right(positionUser);
@@ -60,20 +61,26 @@ class AddressesRepoImpl extends AddressesRepo {
   Future<Either<Failure, AddressEntity>> addNewAddressUser(
       {required AddressEntity addressEntity}) async {
     try {
-      var response = await ecommerceApiService.addNewAddressUser(
-        name: addressEntity.nameAddress,
-        city: addressEntity.city,
-        region: addressEntity.region,
-        details: addressEntity.details,
-        notes: addressEntity.notes,
-        latitude: addressEntity.latitude,
-        longitude: addressEntity.longitude,
-      );
-      if (response['status'] == false) {
-        throw CustomException(message: response['message']);
+      if (await canAddNewAddress()) {
+        var response = await ecommerceApiService.addNewAddressUser(
+          name: addressEntity.nameAddress,
+          city: addressEntity.city,
+          region: addressEntity.region,
+          details: addressEntity.details,
+          notes: addressEntity.notes,
+          latitude: addressEntity.latitude,
+          longitude: addressEntity.longitude,
+        );
+
+        if (response['status'] == false) {
+          throw CustomException(message: response['message']);
+        } else {
+          AddressEntity addressEntity = AddressModel.fromJson(response['data']);
+          await saveAddressData(addressEntity: addressEntity);
+          return right(addressEntity);
+        }
       } else {
-        AddressEntity addressEntity = AddressModel.fromJson(response['data']);
-        return right(addressEntity);
+        throw CustomException(message: "You cannot add more than 3 addresses.");
       }
     } on DioException catch (e) {
       log('DioException in AddressesRepo : ${e.toString()}');
@@ -86,5 +93,26 @@ class AddressesRepoImpl extends AddressesRepo {
       log('Exception in AuthRepoImpl: ${e.toString()}');
       return left(ServerFailure('Oops There was an error, try again!'));
     }
+  }
+
+  @override
+  Future<void> saveAddressData({required AddressEntity addressEntity}) async {
+    var jsonData = json
+        .encode(AddressModel.fromEntity(addressEntity: addressEntity).toMap());
+    List<String> addresses =
+        SharedPreferencesService.getData(key: 'addresses') ?? [];
+    if (await canAddNewAddress()) {
+      addresses.add(jsonData);
+      await SharedPreferencesService.saveData(
+        key: 'addresses',
+        value: addresses,
+      );
+    }
+  }
+
+  Future<bool> canAddNewAddress() async {
+    List<String> addresses =
+        SharedPreferencesService.getData(key: 'addresses') ?? [];
+    return addresses.length < 3;
   }
 }
