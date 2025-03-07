@@ -115,4 +115,39 @@ class AddressesRepoImpl extends AddressesRepo {
         SharedPreferencesService.getData(key: 'addresses') ?? [];
     return addresses.length < 3;
   }
+
+  @override
+  Future<Either<Failure, List<AddressEntity>>> getAddressesUser() async {
+    try {
+      var response = await ecommerceApiService.getAddressesUser();
+
+      if (response['status'] == false) {
+        throw CustomException(message: response['message']);
+      } else {
+        List savedAddresses =
+            SharedPreferencesService.getData(key: 'addresses') ?? [];
+
+        if (savedAddresses.isEmpty) {
+          for (var element in response['data']['data']) {
+            AddressEntity addressEntity = AddressModel.fromJson(element);
+
+            await saveAddressData(addressEntity: addressEntity);
+          }
+        }
+
+        return right(
+            savedAddresses.map((e) => AddressModel.fromJson(e)).toList());
+      }
+    } on DioException catch (e) {
+      log('DioException in AddressesRepo : ${e.toString()}');
+      return left(ServerFailure.fromDioError(e));
+    } on CustomException catch (e) {
+      log('CustomException in AddressesRepo : ${e.toString()}');
+
+      return left(ServerFailure(e.message));
+    } catch (e) {
+      log('Exception in AuthRepoImpl: ${e.toString()}');
+      return left(ServerFailure('Oops There was an error, try again!'));
+    }
+  }
 }

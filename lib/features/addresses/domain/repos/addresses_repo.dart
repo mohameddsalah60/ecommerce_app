@@ -11,4 +11,5 @@ abstract class AddressesRepo {
   Future<Either<Failure, AddressEntity>> addNewAddressUser(
       {required AddressEntity addressEntity});
   Future<void> saveAddressData({required AddressEntity addressEntity});
+  Future<Either<Failure, List<AddressEntity>>> getAddressesUser();
 }
