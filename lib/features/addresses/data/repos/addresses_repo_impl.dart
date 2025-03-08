@@ -126,17 +126,18 @@ class AddressesRepoImpl extends AddressesRepo {
       } else {
         List savedAddresses =
             SharedPreferencesService.getData(key: 'addresses') ?? [];
-
-        if (savedAddresses.isEmpty) {
-          for (var element in response['data']['data']) {
+        List responseOfAddresses = response['data']['data'];
+        if (savedAddresses.isEmpty ||
+            responseOfAddresses.length != savedAddresses.length) {
+          for (var element in responseOfAddresses) {
             AddressEntity addressEntity = AddressModel.fromJson(element);
 
             await saveAddressData(addressEntity: addressEntity);
           }
         }
-
-        return right(
-            savedAddresses.map((e) => AddressModel.fromJson(e)).toList());
+        return right(savedAddresses
+            .map((e) => AddressModel.fromJson(jsonDecode(e)))
+            .toList());
       }
     } on DioException catch (e) {
       log('DioException in AddressesRepo : ${e.toString()}');

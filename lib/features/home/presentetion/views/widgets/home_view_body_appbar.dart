@@ -1,8 +1,9 @@
 import 'package:ecommerce_app/core/utils/app_images.dart';
 import 'package:ecommerce_app/core/utils/app_text_styles.dart';
-import 'package:ecommerce_app/features/addresses/presentation/views/address_map_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+
+import 'address_user_home_view.dart';
 
 class HomeViewBodyAppBar extends StatelessWidget {
   const HomeViewBodyAppBar({
@@ -23,31 +24,7 @@ class HomeViewBodyAppBar extends StatelessWidget {
               textAlign: TextAlign.start,
               style: AppTextStyles.regular13.copyWith(color: Colors.white),
             ),
-            GestureDetector(
-              onTap: () {
-                Navigator.of(context).pushNamed(AddressMapView.routeName);
-              },
-              child: Row(
-                children: [
-                  Text(
-                    'Salatiga City, Central Java',
-                    style:
-                        AppTextStyles.semiBold16.copyWith(color: Colors.white),
-                  ),
-                  const SizedBox(
-                    width: 6,
-                  ),
-                  SvgPicture.asset(
-                    Assets.imagesArrowDown,
-                    colorFilter: const ColorFilter.mode(
-                      Colors.white,
-                      BlendMode.srcIn,
-                    ),
-                    width: 16,
-                  ),
-                ],
-              ),
-            ),
+            const AddressUserHomeView(),
           ],
         ),
         Stack(
