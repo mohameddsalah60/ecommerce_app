@@ -13,7 +13,7 @@ class CustomTextfieldSearch extends StatelessWidget {
         fillColor: textFieldColor,
         hintText: 'Search here ...',
         hintStyle: AppTextStyles.bold13.copyWith(
-          color: textFieldColor.withOpacity(.50),
+          color: textFieldColor.withValues(alpha: .50),
         ),
         focusedBorder: buildBorder(),
         enabledBorder: buildBorder(),
