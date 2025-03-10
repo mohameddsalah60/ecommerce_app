@@ -77,6 +77,7 @@ class AddressesRepoImpl extends AddressesRepo {
         } else {
           AddressEntity addressEntity = AddressModel.fromJson(response['data']);
           await saveAddressData(addressEntity: addressEntity);
+          await getAddressesUser();
           return right(addressEntity);
         }
       } else {

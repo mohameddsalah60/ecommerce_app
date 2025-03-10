@@ -1,6 +1,5 @@
+import 'package:ecommerce_app/core/helper_functions/get_addresses_user.dart';
 import 'package:ecommerce_app/core/service/get_it_service.dart';
-import 'package:ecommerce_app/core/service/shared_preferences_service.dart';
-import 'package:ecommerce_app/features/addresses/domain/entites/address_entity.dart';
 import 'package:ecommerce_app/features/addresses/domain/repos/addresses_repo.dart';
 import 'package:ecommerce_app/features/addresses/presentation/cubits/get_addresses_user_cubit/get_addresses_user_cubit.dart';
 import 'package:flutter/material.dart';
@@ -10,6 +9,7 @@ import 'package:flutter_svg/svg.dart';
 import '../../../../../core/utils/app_images.dart';
 import '../../../../../core/utils/app_text_styles.dart';
 import '../../../../addresses/presentation/views/address_map_view.dart';
+import '../../../../addresses/presentation/views/select_delivery_address_view.dart';
 
 class AddressUserHomeView extends StatelessWidget {
   const AddressUserHomeView({
@@ -23,12 +23,10 @@ class AddressUserHomeView extends StatelessWidget {
           GetAddressesUserCubit(getIt<AddressesRepo>())..getAddressesUser(),
       child: GestureDetector(
         onTap: () {
-          List addresses =
-              SharedPreferencesService.getData(key: 'addresses') ?? [];
-          if (addresses.isEmpty) {
+          if (getAddresses().isEmpty) {
             Navigator.of(context).pushNamed(AddressMapView.routeName);
           } else {
-            Navigator.of(context).pushNamed(AddressMapView.routeName);
+            selectDeliveryAddress(context);
           }
         },
         child: Row(
@@ -59,27 +57,10 @@ class AddressName extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<GetAddressesUserCubit, GetAddressesUserState>(
-      builder: (context, state) {
-        if (state is GetAddressesUserSuccsess) {
-          return Text(
-            state.addresses.isEmpty
-                ? 'Not available address yet'
-                : state.addresses.last.nameAddress,
-            style: AppTextStyles.semiBold16.copyWith(color: Colors.white),
-          );
-        } else if (state is GetAddressesUserFailure) {
-          return Text(
-            'Unable to load your addresses',
-            style: AppTextStyles.semiBold16.copyWith(color: Colors.white),
-          );
-        } else {
-          return Text(
-            'Not available address yet',
-            style: AppTextStyles.semiBold16.copyWith(color: Colors.white),
-          );
-        }
-      },
+    return Text(
+      context.watch<GetAddressesUserCubit>().address ??
+          'Not available address yet',
+      style: AppTextStyles.semiBold16.copyWith(color: Colors.white),
     );
   }
 }
