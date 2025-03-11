@@ -70,4 +70,20 @@ class ApiService {
 
     return responseData;
   }
+
+  Future<Map<String, dynamic>> delete({
+    required String endPoint,
+    Options? headers,
+    Object? data,
+  }) async {
+    final response = await dio.delete(
+      '$_baseLink$endPoint',
+      data: data,
+      options: headers ?? options,
+    );
+
+    final responseData = response.data;
+
+    return responseData;
+  }
 }

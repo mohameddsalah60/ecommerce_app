@@ -1,4 +1,3 @@
-import 'package:ecommerce_app/core/service/shared_preferences_service.dart';
 import 'package:flutter/material.dart';
 
 import '../../../domain/entites/address_entity.dart';
@@ -26,7 +25,6 @@ class _AddressesListViewState extends State<AddressesListView> {
 
   @override
   Widget build(BuildContext context) {
-    SharedPreferencesService.removeData(key: 'addresses');
     return Column(
       children: List.generate(
         widget.addresses.length,

@@ -8,7 +8,7 @@ import '../../../../../core/utils/app_colors.dart';
 import '../../../../../core/utils/app_images.dart';
 import '../../../../../core/widgets/custom_button.dart';
 import '../../../domain/entites/text_editing_controllers.dart';
-import '../../cubits/add_new_address_cubit/add_new_address_cubit.dart';
+import '../../cubits/address_actions_cubit/address_actions_cubit.dart';
 
 class AddressDetilesBody extends StatefulWidget {
   const AddressDetilesBody({super.key, required this.addressEntity});
@@ -139,26 +139,47 @@ class _AddressDetilesBodyState extends State<AddressDetilesBody> {
               ),
               const SizedBox(height: 16),
               CustomButton(
-                text: 'Save Address',
+                text: widget.addressEntity.id != null
+                    ? 'Update Address'
+                    : 'Save Address',
                 backgroundColor: fromKey.currentState?.validate() ?? false
                     ? AppColors.primaryColor
                     : const Color(0xffF3F4F6),
                 onPressed: () {
                   if (fromKey.currentState!.validate()) {
                     fromKey.currentState!.save();
-                    context.read<AddNewAddressCubit>().addNewAddressUser(
-                          addressEntity: AddressEntity(
-                            nameAddress:
-                                controllers.getController('label').text,
-                            city: controllers.getController('details').text,
-                            region:
-                                controllers.getController('directions').text,
-                            notes: controllers.getController('phone').text,
-                            details: controllers.getController('details').text,
-                            latitude: widget.addressEntity.latitude,
-                            longitude: widget.addressEntity.longitude,
-                          ),
-                        );
+                    if (widget.addressEntity.id == null) {
+                      context.read<AddressActionsCubit>().addNewAddressUser(
+                            addressEntity: AddressEntity(
+                              nameAddress:
+                                  controllers.getController('label').text,
+                              city: controllers.getController('details').text,
+                              region:
+                                  controllers.getController('directions').text,
+                              notes: controllers.getController('phone').text,
+                              details:
+                                  controllers.getController('details').text,
+                              latitude: widget.addressEntity.latitude,
+                              longitude: widget.addressEntity.longitude,
+                            ),
+                          );
+                    } else {
+                      context.read<AddressActionsCubit>().updateAddressUser(
+                            addressEntity: AddressEntity(
+                              id: widget.addressEntity.id,
+                              nameAddress:
+                                  controllers.getController('label').text,
+                              city: controllers.getController('details').text,
+                              region:
+                                  controllers.getController('directions').text,
+                              notes: controllers.getController('phone').text,
+                              details:
+                                  controllers.getController('details').text,
+                              latitude: widget.addressEntity.latitude,
+                              longitude: widget.addressEntity.longitude,
+                            ),
+                          );
+                    }
                   } else {
                     setState(() {
                       autovalidateMode = AutovalidateMode.always;

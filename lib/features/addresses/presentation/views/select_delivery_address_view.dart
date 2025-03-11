@@ -4,7 +4,6 @@ import 'package:ecommerce_app/features/addresses/presentation/cubits/get_address
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../core/helper_functions/get_addresses_user.dart';
 import '../../../../core/utils/app_text_styles.dart';
 
 import 'widgets/add_new_address_button.dart';
@@ -37,8 +36,20 @@ Future<void> selectDeliveryAddress(BuildContext context) {
             ),
             BlocProvider(
                 create: (context) =>
-                    GetAddressesUserCubit(getIt<AddressesRepo>()),
-                child: AddressesListView(addresses: getAddresses())),
+                    GetAddressesUserCubit(getIt<AddressesRepo>())
+                      ..getAddressesUser(),
+                child:
+                    BlocBuilder<GetAddressesUserCubit, GetAddressesUserState>(
+                  builder: (context, state) {
+                    if (state is GetAddressesUserSuccsess) {
+                      return AddressesListView(addresses: state.addresses);
+                    } else if (state is GetAddressesUserFailure) {
+                      return Text(state.message);
+                    } else {
+                      return const Text("state.message");
+                    }
+                  },
+                )),
             const Spacer(),
             const AddNewAddressButton(),
             const SizedBox(

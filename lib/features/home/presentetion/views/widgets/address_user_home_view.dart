@@ -1,4 +1,3 @@
-import 'package:ecommerce_app/core/helper_functions/get_addresses_user.dart';
 import 'package:ecommerce_app/core/service/get_it_service.dart';
 import 'package:ecommerce_app/features/addresses/domain/repos/addresses_repo.dart';
 import 'package:ecommerce_app/features/addresses/presentation/cubits/get_addresses_user_cubit/get_addresses_user_cubit.dart';
@@ -8,7 +7,6 @@ import 'package:flutter_svg/svg.dart';
 
 import '../../../../../core/utils/app_images.dart';
 import '../../../../../core/utils/app_text_styles.dart';
-import '../../../../addresses/presentation/views/address_map_view.dart';
 import '../../../../addresses/presentation/views/select_delivery_address_view.dart';
 
 class AddressUserHomeView extends StatelessWidget {
@@ -23,11 +21,7 @@ class AddressUserHomeView extends StatelessWidget {
           GetAddressesUserCubit(getIt<AddressesRepo>())..getAddressesUser(),
       child: GestureDetector(
         onTap: () {
-          if (getAddresses().isEmpty) {
-            Navigator.of(context).pushNamed(AddressMapView.routeName);
-          } else {
-            selectDeliveryAddress(context);
-          }
+          selectDeliveryAddress(context);
         },
         child: Row(
           children: [

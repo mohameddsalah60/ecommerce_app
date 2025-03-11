@@ -13,9 +13,17 @@ class NewAddressTextEditingControllers {
 
   NewAddressTextEditingControllers(AddressEntity addressEntity) {
     addressController = TextEditingController(text: addressEntity.city);
-    floorController = TextEditingController();
-    apartmentController = TextEditingController();
-    directionsController = TextEditingController(text: addressEntity.details);
+    floorController = TextEditingController(
+        text: addressEntity.id != null
+            ? (addressEntity.floor ?? 0).toString()
+            : null);
+    apartmentController = TextEditingController(
+        text: addressEntity.id != null
+            ? (addressEntity.apartment ?? 0).toString()
+            : null);
+    directionsController = TextEditingController(
+        text:
+            "${addressEntity.city},${addressEntity.details},${addressEntity.region}");
     phoneController = TextEditingController(text: getUser().phone.toString());
     labelController = TextEditingController(text: addressEntity.nameAddress);
   }

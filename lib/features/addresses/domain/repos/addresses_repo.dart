@@ -10,6 +10,9 @@ abstract class AddressesRepo {
   Future<Placemark> getAddressfromLocation({required LatLng position});
   Future<Either<Failure, AddressEntity>> addNewAddressUser(
       {required AddressEntity addressEntity});
-  Future<void> saveAddressData({required AddressEntity addressEntity});
   Future<Either<Failure, List<AddressEntity>>> getAddressesUser();
+  Future<Either<Failure, AddressEntity>> updateAddressUser(
+      {required AddressEntity address});
+  Future<Either<Failure, void>> deleteAddressUser(
+      {required AddressEntity address});
 }

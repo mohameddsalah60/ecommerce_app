@@ -1,6 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:ecommerce_app/core/helper_functions/get_user.dart';
 import 'package:ecommerce_app/core/service/api_service.dart';
+import 'package:ecommerce_app/features/addresses/data/models/address_model.dart';
+import 'package:ecommerce_app/features/addresses/domain/entites/address_entity.dart';
 
 class EcommerceApiService {
   final ApiService apiService;
@@ -192,6 +194,42 @@ class EcommerceApiService {
         endPoint: 'addresses',
         headers: Options(
           headers: {
+            'Authorization': getUser().token,
+          },
+        ),
+      );
+      return data;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<Map<String, dynamic>> updateAddressUser(
+      {required AddressEntity address}) async {
+    try {
+      var data = await apiService.put(
+        endPoint: 'addresses/${address.id}',
+        data: AddressModel.fromEntity(addressEntity: address).toMap(),
+        headers: Options(
+          headers: {
+            'lang': 'en',
+            'Authorization': getUser().token,
+          },
+        ),
+      );
+      return data;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<Map<String, dynamic>> deleteAddressUser({required int id}) async {
+    try {
+      var data = await apiService.delete(
+        endPoint: 'addresses/$id',
+        headers: Options(
+          headers: {
+            'lang': 'en',
             'Authorization': getUser().token,
           },
         ),

@@ -1,3 +1,4 @@
+import 'package:ecommerce_app/core/utils/app_text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -5,7 +6,7 @@ import '../../../../core/service/get_it_service.dart';
 import '../../../../core/widgets/custom_app_bar.dart';
 import '../../domain/entites/address_entity.dart';
 import '../../domain/repos/addresses_repo.dart';
-import '../cubits/add_new_address_cubit/add_new_address_cubit.dart';
+import '../cubits/address_actions_cubit/address_actions_cubit.dart';
 import 'widgets/new_address_view_bloc_consumer.dart';
 
 class AddressDetilesView extends StatelessWidget {
@@ -14,15 +15,59 @@ class AddressDetilesView extends StatelessWidget {
   final AddressEntity addressEntity;
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: buildAppBar(
-        context,
-        title: 'New Address',
-        onTap: () => Navigator.of(context).pop(),
+    return BlocProvider(
+      create: (context) => AddressActionsCubit(getIt<AddressesRepo>()),
+      child: Scaffold(
+        appBar: buildAppBar(
+          context,
+          title: 'New Address',
+          onTap: () => Navigator.of(context).pop(),
+          actions: [
+            addressEntity.id != null
+                ? BlocProvider(
+                    create: (context) =>
+                        AddressActionsCubit(getIt<AddressesRepo>()),
+                    child: DeleteAddressButton(addressEntity: addressEntity),
+                  )
+                : const SizedBox(),
+          ],
+        ),
+        body: AddressDetilesViewBlocConsumer(addressEntity: addressEntity),
       ),
-      body: BlocProvider(
-        create: (context) => AddNewAddressCubit(getIt<AddressesRepo>()),
-        child: AddressDetilesViewBlocConsumer(addressEntity: addressEntity),
+    );
+  }
+}
+
+class DeleteAddressButton extends StatelessWidget {
+  const DeleteAddressButton({
+    super.key,
+    required this.addressEntity,
+  });
+
+  final AddressEntity addressEntity;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        context
+            .read<AddressActionsCubit>()
+            .deleteAddressUser(addressEntity: addressEntity);
+      },
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(24),
+          border: Border.all(
+            color: Colors.black,
+            width: 1.5,
+          ),
+        ),
+        padding: const EdgeInsets.all(8),
+        margin: const EdgeInsets.only(right: 16),
+        child: Text(
+          'Delete',
+          style: AppTextStyles.bold13.copyWith(color: Colors.red),
+        ),
       ),
     );
   }

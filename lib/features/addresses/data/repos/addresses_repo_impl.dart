@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'dart:developer';
 
 import 'package:dartz/dartz.dart';
@@ -6,7 +5,6 @@ import 'package:dio/dio.dart';
 import 'package:ecommerce_app/core/errors/exceptions.dart';
 import 'package:ecommerce_app/core/errors/failures.dart';
 import 'package:ecommerce_app/core/service/ecommerce_api_service.dart';
-import 'package:ecommerce_app/core/service/shared_preferences_service.dart';
 import 'package:ecommerce_app/features/addresses/data/models/address_model.dart';
 import 'package:ecommerce_app/features/addresses/data/services/location_service.dart';
 import 'package:ecommerce_app/features/addresses/domain/entites/address_entity.dart';
@@ -22,7 +20,7 @@ class AddressesRepoImpl extends AddressesRepo {
     required this.ecommerceApiService,
     required this.locationService,
   });
-
+  List<AddressEntity> savedAddresses = [];
   @override
   Future<Either<Failure, LatLng>> getCurrentLocation() async {
     try {
@@ -62,23 +60,28 @@ class AddressesRepoImpl extends AddressesRepo {
       {required AddressEntity addressEntity}) async {
     try {
       if (await canAddNewAddress()) {
-        var response = await ecommerceApiService.addNewAddressUser(
-          name: addressEntity.nameAddress,
-          city: addressEntity.city,
-          region: addressEntity.region,
-          details: addressEntity.details,
-          notes: addressEntity.notes,
-          latitude: addressEntity.latitude,
-          longitude: addressEntity.longitude,
-        );
+        if (savedAddresses.any((savedAddress) =>
+            savedAddress.nameAddress == addressEntity.nameAddress)) {
+          var response = await ecommerceApiService.addNewAddressUser(
+            name: addressEntity.nameAddress,
+            city: addressEntity.city,
+            region: addressEntity.region,
+            details: addressEntity.details,
+            notes: addressEntity.notes,
+            latitude: addressEntity.latitude,
+            longitude: addressEntity.longitude,
+          );
 
-        if (response['status'] == false) {
-          throw CustomException(message: response['message']);
+          if (response['status'] == false) {
+            throw CustomException(message: response['message']);
+          } else {
+            AddressEntity addressEntity =
+                AddressModel.fromJson(response['data']);
+            await getAddressesUser();
+            return right(addressEntity);
+          }
         } else {
-          AddressEntity addressEntity = AddressModel.fromJson(response['data']);
-          await saveAddressData(addressEntity: addressEntity);
-          await getAddressesUser();
-          return right(addressEntity);
+          throw CustomException(message: "The address already exists.");
         }
       } else {
         throw CustomException(message: "You cannot add more than 3 addresses.");
@@ -96,25 +99,13 @@ class AddressesRepoImpl extends AddressesRepo {
     }
   }
 
-  @override
-  Future<void> saveAddressData({required AddressEntity addressEntity}) async {
-    var jsonData = json
-        .encode(AddressModel.fromEntity(addressEntity: addressEntity).toMap());
-    List<String> addresses =
-        SharedPreferencesService.getData(key: 'addresses') ?? [];
-    if (await canAddNewAddress()) {
-      addresses.add(jsonData);
-      await SharedPreferencesService.saveData(
-        key: 'addresses',
-        value: addresses,
-      );
-    }
+  Future<bool> canAddNewAddress() async {
+    return savedAddresses.length < 3;
   }
 
-  Future<bool> canAddNewAddress() async {
-    List<String> addresses =
-        SharedPreferencesService.getData(key: 'addresses') ?? [];
-    return addresses.length < 3;
+  Future<bool> isExists(AddressEntity addressEntity) async {
+    return savedAddresses
+        .any((savedAddress) => savedAddress.id == addressEntity.id);
   }
 
   @override
@@ -125,20 +116,87 @@ class AddressesRepoImpl extends AddressesRepo {
       if (response['status'] == false) {
         throw CustomException(message: response['message']);
       } else {
-        List savedAddresses =
-            SharedPreferencesService.getData(key: 'addresses') ?? [];
-        List responseOfAddresses = response['data']['data'];
-        if (savedAddresses.isEmpty ||
-            responseOfAddresses.length != savedAddresses.length) {
-          for (var element in responseOfAddresses) {
-            AddressEntity addressEntity = AddressModel.fromJson(element);
+        for (var address in response['data']['data']) {
+          AddressEntity addressEntity = AddressModel.fromJson(address);
 
-            await saveAddressData(addressEntity: addressEntity);
+          if (!await isExists(addressEntity)) {
+            savedAddresses.add(addressEntity);
           }
         }
-        return right(savedAddresses
-            .map((e) => AddressModel.fromJson(jsonDecode(e)))
-            .toList());
+
+        return right(savedAddresses);
+      }
+    } on DioException catch (e) {
+      log('DioException in AddressesRepo : ${e.toString()}');
+      return left(ServerFailure.fromDioError(e));
+    } on CustomException catch (e) {
+      log('CustomException in AddressesRepo : ${e.toString()}');
+
+      return left(ServerFailure(e.message));
+    } catch (e) {
+      log('Exception in AuthRepoImpl: ${e.toString()}');
+      return left(ServerFailure('Oops There was an error, try again!'));
+    }
+  }
+
+  @override
+  Future<Either<Failure, AddressEntity>> updateAddressUser(
+      {required AddressEntity address}) async {
+    try {
+      var response =
+          await ecommerceApiService.updateAddressUser(address: address);
+
+      if (response['status'] == false) {
+        throw CustomException(message: response['message']);
+      } else {
+        AddressEntity addressEntity = AddressModel.fromJson(response['data']);
+        if (await isExists(address)) {
+          for (int i = 0; i < savedAddresses.length; i++) {
+            if (savedAddresses[i].id == address.id) {
+              // إذا كانت الـ id مطابقة، قم بتحديث العنصر مباشرة
+              savedAddresses[i] = AddressEntity(
+                id: savedAddresses[i].id,
+                nameAddress: address.nameAddress,
+                city: address.city,
+                region: address.region,
+                details: address.details,
+                latitude: address.latitude,
+                longitude: address.longitude,
+                notes: address.notes,
+              );
+              break; // يمكن إنهاء الحلقة بعد التحديث
+            }
+          }
+        }
+        return right(addressEntity);
+      }
+    } on DioException catch (e) {
+      log('DioException in AddressesRepo : ${e.toString()}');
+      return left(ServerFailure.fromDioError(e));
+    } on CustomException catch (e) {
+      log('CustomException in AddressesRepo : ${e.toString()}');
+
+      return left(ServerFailure(e.message));
+    } catch (e) {
+      log('Exception in AuthRepoImpl: ${e.toString()}');
+      return left(ServerFailure('Oops There was an error, try again!'));
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> deleteAddressUser(
+      {required AddressEntity address}) async {
+    try {
+      var response =
+          await ecommerceApiService.deleteAddressUser(id: address.id!);
+
+      if (response['status'] == false) {
+        throw CustomException(message: response['message']);
+      } else {
+        if (await isExists(address)) {
+          savedAddresses.remove(address);
+        }
+        return right(null);
       }
     } on DioException catch (e) {
       log('DioException in AddressesRepo : ${e.toString()}');
