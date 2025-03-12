@@ -10,9 +10,12 @@ class NewAddressTextEditingControllers {
   late TextEditingController directionsController;
   late TextEditingController phoneController;
   late TextEditingController labelController;
+  late TextEditingController cityController;
 
   NewAddressTextEditingControllers(AddressEntity addressEntity) {
-    addressController = TextEditingController(text: addressEntity.city);
+    addressController = TextEditingController(text: addressEntity.details);
+
+    cityController = TextEditingController(text: addressEntity.city);
     floorController = TextEditingController(
         text: addressEntity.id != null
             ? (addressEntity.floor ?? 0).toString()
@@ -21,9 +24,7 @@ class NewAddressTextEditingControllers {
         text: addressEntity.id != null
             ? (addressEntity.apartment ?? 0).toString()
             : null);
-    directionsController = TextEditingController(
-        text:
-            "${addressEntity.city},${addressEntity.details},${addressEntity.region}");
+    directionsController = TextEditingController(text: addressEntity.region);
     phoneController = TextEditingController(text: getUser().phone.toString());
     labelController = TextEditingController(text: addressEntity.nameAddress);
   }
@@ -38,6 +39,8 @@ class NewAddressTextEditingControllers {
         return apartmentController;
       case 'directions':
         return directionsController;
+      case 'city':
+        return cityController;
       case 'phone':
         return phoneController;
       case 'label':
@@ -50,6 +53,7 @@ class NewAddressTextEditingControllers {
   void dispose() {
     addressController.dispose();
     floorController.dispose();
+    cityController.dispose();
     apartmentController.dispose();
     directionsController.dispose();
     phoneController.dispose();

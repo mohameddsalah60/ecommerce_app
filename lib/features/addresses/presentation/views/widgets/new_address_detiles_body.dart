@@ -52,12 +52,12 @@ class _AddressDetilesBodyState extends State<AddressDetilesBody> {
                 height: 16,
               ),
               CustomTextFromField(
-                controller: controllers.getController('details'),
+                controller: controllers.getController('city'),
                 hintText: 'Address details',
                 fillColor: Colors.white,
                 onChanged: (value) {
                   setState(() {
-                    controllers.getController('details').text = value!;
+                    controllers.getController('city').text = value!;
                   });
                 },
               ),
@@ -169,7 +169,7 @@ class _AddressDetilesBodyState extends State<AddressDetilesBody> {
                               id: widget.addressEntity.id,
                               nameAddress:
                                   controllers.getController('label').text,
-                              city: controllers.getController('details').text,
+                              city: controllers.getController('city').text,
                               region:
                                   controllers.getController('directions').text,
                               notes: controllers.getController('phone').text,

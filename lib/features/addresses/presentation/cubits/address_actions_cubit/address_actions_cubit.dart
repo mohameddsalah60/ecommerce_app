@@ -1,3 +1,4 @@
+import 'package:ecommerce_app/core/helper_functions/get_addresses_user.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../domain/entites/address_entity.dart';
@@ -8,7 +9,7 @@ part 'address_actions_state.dart';
 class AddressActionsCubit extends Cubit<AddressActionsState> {
   AddressActionsCubit(this.addressesRepo) : super(AddNewAddressInitial());
   final AddressesRepo addressesRepo;
-
+  String address = getAddresses().nameAddress;
   Future<void> addNewAddressUser({required AddressEntity addressEntity}) async {
     emit(AddressActionsLoading());
     var result =
@@ -24,7 +25,7 @@ class AddressActionsCubit extends Cubit<AddressActionsState> {
     var result = await addressesRepo.updateAddressUser(address: addressEntity);
     result.fold(
       (failure) => emit(AddressActionsFailure(message: failure.errorMessage)),
-      (address) => emit(AddNewAddressSuccsess()),
+      (address) => emit(UpdateAddressSuccsess()),
     );
   }
 

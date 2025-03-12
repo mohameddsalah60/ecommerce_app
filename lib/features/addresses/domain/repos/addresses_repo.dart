@@ -15,4 +15,5 @@ abstract class AddressesRepo {
       {required AddressEntity address});
   Future<Either<Failure, void>> deleteAddressUser(
       {required AddressEntity address});
+  Future<void> setAddressDefault({required AddressEntity address});
 }

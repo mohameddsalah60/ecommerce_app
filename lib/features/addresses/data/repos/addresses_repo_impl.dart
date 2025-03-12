@@ -1,14 +1,18 @@
+import 'dart:convert';
 import 'dart:developer';
 
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:ecommerce_app/core/errors/exceptions.dart';
 import 'package:ecommerce_app/core/errors/failures.dart';
+import 'package:ecommerce_app/core/helper_functions/get_addresses_user.dart';
 import 'package:ecommerce_app/core/service/ecommerce_api_service.dart';
+import 'package:ecommerce_app/core/service/shared_preferences_service.dart';
 import 'package:ecommerce_app/features/addresses/data/models/address_model.dart';
 import 'package:ecommerce_app/features/addresses/data/services/location_service.dart';
 import 'package:ecommerce_app/features/addresses/domain/entites/address_entity.dart';
 import 'package:ecommerce_app/features/addresses/domain/repos/addresses_repo.dart';
+import 'package:ecommerce_app/features/home/presentetion/views/widgets/address_user_home_view.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:latlong2/latlong.dart';
@@ -60,28 +64,22 @@ class AddressesRepoImpl extends AddressesRepo {
       {required AddressEntity addressEntity}) async {
     try {
       if (await canAddNewAddress()) {
-        if (savedAddresses.any((savedAddress) =>
-            savedAddress.nameAddress == addressEntity.nameAddress)) {
-          var response = await ecommerceApiService.addNewAddressUser(
-            name: addressEntity.nameAddress,
-            city: addressEntity.city,
-            region: addressEntity.region,
-            details: addressEntity.details,
-            notes: addressEntity.notes,
-            latitude: addressEntity.latitude,
-            longitude: addressEntity.longitude,
-          );
+        var response = await ecommerceApiService.addNewAddressUser(
+          name: addressEntity.nameAddress,
+          city: addressEntity.city,
+          region: addressEntity.region,
+          details: addressEntity.details,
+          notes: addressEntity.notes,
+          latitude: addressEntity.latitude,
+          longitude: addressEntity.longitude,
+        );
 
-          if (response['status'] == false) {
-            throw CustomException(message: response['message']);
-          } else {
-            AddressEntity addressEntity =
-                AddressModel.fromJson(response['data']);
-            await getAddressesUser();
-            return right(addressEntity);
-          }
+        if (response['status'] == false) {
+          throw CustomException(message: response['message']);
         } else {
-          throw CustomException(message: "The address already exists.");
+          AddressEntity addressEntity = AddressModel.fromJson(response['data']);
+          savedAddresses.add(addressEntity);
+          return right(addressEntity);
         }
       } else {
         throw CustomException(message: "You cannot add more than 3 addresses.");
@@ -111,21 +109,22 @@ class AddressesRepoImpl extends AddressesRepo {
   @override
   Future<Either<Failure, List<AddressEntity>>> getAddressesUser() async {
     try {
-      var response = await ecommerceApiService.getAddressesUser();
+      if (savedAddresses.isEmpty) {
+        var response = await ecommerceApiService.getAddressesUser();
 
-      if (response['status'] == false) {
-        throw CustomException(message: response['message']);
-      } else {
-        for (var address in response['data']['data']) {
-          AddressEntity addressEntity = AddressModel.fromJson(address);
+        if (response['status'] == false) {
+          throw CustomException(message: response['message']);
+        } else {
+          for (var address in response['data']['data']) {
+            AddressEntity addressEntity = AddressModel.fromJson(address);
 
-          if (!await isExists(addressEntity)) {
-            savedAddresses.add(addressEntity);
+            if (!await isExists(addressEntity)) {
+              savedAddresses.add(addressEntity);
+            }
           }
         }
-
-        return right(savedAddresses);
       }
+      return right(savedAddresses);
     } on DioException catch (e) {
       log('DioException in AddressesRepo : ${e.toString()}');
       return left(ServerFailure.fromDioError(e));
@@ -153,7 +152,6 @@ class AddressesRepoImpl extends AddressesRepo {
         if (await isExists(address)) {
           for (int i = 0; i < savedAddresses.length; i++) {
             if (savedAddresses[i].id == address.id) {
-              // إذا كانت الـ id مطابقة، قم بتحديث العنصر مباشرة
               savedAddresses[i] = AddressEntity(
                 id: savedAddresses[i].id,
                 nameAddress: address.nameAddress,
@@ -164,10 +162,17 @@ class AddressesRepoImpl extends AddressesRepo {
                 longitude: address.longitude,
                 notes: address.notes,
               );
-              break; // يمكن إنهاء الحلقة بعد التحديث
+              break;
             }
           }
+
+          if (getAddresses().id == address.id) {
+            await setAddressDefault(address: address);
+
+            addressNotifier.value = address.nameAddress;
+          }
         }
+
         return right(addressEntity);
       }
     } on DioException catch (e) {
@@ -195,6 +200,8 @@ class AddressesRepoImpl extends AddressesRepo {
       } else {
         if (await isExists(address)) {
           savedAddresses.remove(address);
+          await SharedPreferencesService.removeData(key: 'myAddress');
+          addressNotifier.value = getAddresses().nameAddress;
         }
         return right(null);
       }
@@ -208,6 +215,21 @@ class AddressesRepoImpl extends AddressesRepo {
     } catch (e) {
       log('Exception in AuthRepoImpl: ${e.toString()}');
       return left(ServerFailure('Oops There was an error, try again!'));
+    }
+  }
+
+  @override
+  Future<void> setAddressDefault({required AddressEntity address}) async {
+    AddressEntity myAddress = getAddresses();
+    var jsonData =
+        jsonEncode(AddressModel.fromEntity(addressEntity: address).toMap());
+
+    if (myAddress.id != address.id ||
+        myAddress.nameAddress != address.nameAddress) {
+      await SharedPreferencesService.saveData(
+        key: 'myAddress',
+        value: jsonData,
+      );
     }
   }
 }

@@ -12,6 +12,8 @@ final class UpdateAddressSuccsess extends AddressActionsState {}
 
 final class DeleteAddressSuccsess extends AddressActionsState {}
 
+final class SetAddressDefultSuccsess extends AddressActionsState {}
+
 final class AddressActionsFailure extends AddressActionsState {
   final String message;
 

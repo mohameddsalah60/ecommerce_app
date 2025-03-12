@@ -28,13 +28,6 @@ class AddressDetilesViewBlocConsumer extends StatelessWidget {
             text: 'Added New Address Successfully',
             color: Colors.green,
           );
-        } else if (state is DeleteAddressSuccsess) {
-          Navigator.of(context).pop();
-          customSnackBar(
-            context,
-            text: 'Deleted Successfully',
-            color: Colors.green,
-          );
         } else if (state is UpdateAddressSuccsess) {
           Navigator.of(context).pop();
           customSnackBar(
