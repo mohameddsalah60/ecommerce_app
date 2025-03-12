@@ -1,4 +1,5 @@
 import 'package:ecommerce_app/features/home/presentetion/cubits/cart_item_cubit/cart_item_cubit.dart';
+import 'package:ecommerce_app/features/orders/presentation/views/checkout_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -25,6 +26,8 @@ class CartViewCheckoutButton extends StatelessWidget {
         child: BlocBuilder<CartItemCubit, CartItemState>(
           builder: (context, state) {
             return CustomButton(
+              onPressed: () =>
+                  Navigator.of(context).pushNamed(CheckoutView.routeName),
               text: "Checkout",
               radius: 24,
               isLoading: state is CartItemLoading ? true : false,
