@@ -3,6 +3,7 @@ import 'dart:developer';
 
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
+import 'package:ecommerce_app/constantis.dart';
 import 'package:ecommerce_app/core/errors/exceptions.dart';
 import 'package:ecommerce_app/core/errors/failures.dart';
 import 'package:ecommerce_app/core/helper_functions/get_addresses_user.dart';
@@ -200,7 +201,7 @@ class AddressesRepoImpl extends AddressesRepo {
       } else {
         if (await isExists(address)) {
           savedAddresses.remove(address);
-          await SharedPreferencesService.removeData(key: 'myAddress');
+          await SharedPreferencesService.removeData(key: kAddressUserCache);
           addressNotifier.value = getAddresses().nameAddress;
         }
         return right(null);
@@ -227,7 +228,7 @@ class AddressesRepoImpl extends AddressesRepo {
     if (myAddress.id != address.id ||
         myAddress.nameAddress != address.nameAddress) {
       await SharedPreferencesService.saveData(
-        key: 'myAddress',
+        key: kAddressUserCache,
         value: jsonData,
       );
     }

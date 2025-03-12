@@ -3,6 +3,7 @@ import 'dart:developer';
 
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
+import 'package:ecommerce_app/constantis.dart';
 import 'package:ecommerce_app/core/errors/exceptions.dart';
 import 'package:ecommerce_app/core/errors/failures.dart';
 import 'package:ecommerce_app/core/service/ecommerce_api_service.dart';
@@ -87,7 +88,7 @@ class AuthRepoImpl extends AuthRepo {
   Future<void> saveUserData({required UserEntity userEntity}) async {
     var jsonData = jsonEncode(UserModel.fromEntity(userEntity).toMap());
     await SharedPreferencesService.saveData(
-      key: 'userData',
+      key: kUserDataCache,
       value: jsonData,
     );
   }

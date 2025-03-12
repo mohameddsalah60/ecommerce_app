@@ -1,11 +1,12 @@
 import 'dart:convert';
 
+import 'package:ecommerce_app/constantis.dart';
 import 'package:ecommerce_app/core/service/shared_preferences_service.dart';
 import 'package:ecommerce_app/features/addresses/data/models/address_model.dart';
 import 'package:ecommerce_app/features/addresses/domain/entites/address_entity.dart';
 
 AddressEntity getAddresses() {
-  var jsonData = SharedPreferencesService.getData(key: 'myAddress');
+  var jsonData = SharedPreferencesService.getData(key: kAddressUserCache);
 
   if (jsonData == null || jsonData.isEmpty) {
     return AddressEntity(

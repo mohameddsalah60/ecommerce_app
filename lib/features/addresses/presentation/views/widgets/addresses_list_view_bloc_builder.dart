@@ -4,7 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../../../core/utils/app_images.dart';
 import '../../../../../core/utils/app_text_styles.dart';
-import '../../../../../core/widgets/custom_loading_indicator.dart';
+import '../../../../../core/widgets/custom_text_and_loading.dart';
 import '../../cubits/get_addresses_user_cubit/get_addresses_user_cubit.dart';
 import 'addresses_list_view.dart';
 
@@ -46,18 +46,7 @@ class AddressesListViewBlocBuilder extends StatelessWidget {
         } else if (state is GetAddressesUserFailure) {
           return Text(state.message);
         } else {
-          return const Column(
-            children: [
-              CustomLoadingIndicator(),
-              SizedBox(
-                height: 16,
-              ),
-              Text(
-                "Loading...",
-                style: AppTextStyles.semiBold16,
-              ),
-            ],
-          );
+          return const CustomTextAndLoading();
         }
       },
     );
