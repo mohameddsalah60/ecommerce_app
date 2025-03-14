@@ -2,6 +2,8 @@ import 'package:ecommerce_app/core/widgets/custom_app_bar.dart';
 import 'package:ecommerce_app/features/orders/presentation/views/widgets/checkout_view_body.dart';
 import 'package:flutter/material.dart';
 
+import 'widgets/checkout_place_order_button.dart';
+
 class CheckoutView extends StatelessWidget {
   const CheckoutView({super.key});
   static const routeName = 'new_order_view';
@@ -13,6 +15,7 @@ class CheckoutView extends StatelessWidget {
         title: 'Checkout',
         onTap: () => Navigator.of(context).pop(),
       ),
+      bottomNavigationBar: const CheckoutPlaceOrderButton(),
       body: const SafeArea(child: CheckoutViewBody()),
     );
   }

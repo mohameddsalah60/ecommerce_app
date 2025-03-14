@@ -61,5 +61,9 @@ class Assets {
   /// Assets for imagesVisa
   /// assets/images/visa.svg
   static const String imagesVisa = "assets/images/visa.svg";
+
+  /// Assets for imagesVoucher
+  /// assets/images/voucher.svg
+  static const String imagesVoucher = "assets/images/voucher.svg";
 }
 

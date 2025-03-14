@@ -4,6 +4,7 @@ import '../../../../../core/helper_functions/get_addresses_user.dart';
 import '../../../../../core/utils/app_text_styles.dart';
 import '../../../../addresses/presentation/views/select_delivery_address_view.dart';
 import '../../../../home/presentetion/views/widgets/address_user_home_view.dart';
+import 'checkout_border_widgets.dart';
 
 class CheckoutSelectedAddress extends StatefulWidget {
   const CheckoutSelectedAddress({
@@ -24,15 +25,7 @@ class _CheckoutSelectedAddressState extends State<CheckoutSelectedAddress> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        border: Border.all(
-          width: 1,
-          color: Colors.black26,
-        ),
-        borderRadius: BorderRadius.circular(6),
-      ),
-      padding: const EdgeInsets.all(12),
+    return CheckoutBorderWidgets(
       child: Row(
         children: [
           const Icon(
