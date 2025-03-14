@@ -11,6 +11,8 @@ import 'package:ecommerce_app/features/auth/data/repos/auth_repo_impl.dart';
 import 'package:ecommerce_app/features/auth/domain/repos/auth_repo.dart';
 import 'package:ecommerce_app/features/categories/domin/repo/categories_repo.dart';
 import 'package:ecommerce_app/features/home/domin/repos/home_repo.dart';
+import 'package:ecommerce_app/features/orders/data/repos/orders_repo_impl.dart';
+import 'package:ecommerce_app/features/orders/domin/repo/orders_repo.dart';
 
 import 'package:get_it/get_it.dart';
 
@@ -50,6 +52,11 @@ void setupGetIt() {
   getIt.registerSingleton<AddressesRepo>(
     AddressesRepoImpl(
       locationService: getIt<LocationService>(),
+      ecommerceApiService: getIt<EcommerceApiService>(),
+    ),
+  );
+  getIt.registerSingleton<OrdersRepo>(
+    OrdersRepoImpl(
       ecommerceApiService: getIt<EcommerceApiService>(),
     ),
   );

@@ -239,4 +239,30 @@ class EcommerceApiService {
       rethrow;
     }
   }
+
+  Future<Map<String, dynamic>> addNewOrderUser(
+    int addressID,
+    int paymentMethod,
+    bool usePoints,
+  ) async {
+    try {
+      var data = await apiService.post(
+        endPoint: 'orders',
+        data: {
+          'address_id': addressID,
+          'payment_method': paymentMethod,
+          'use_points': usePoints,
+        },
+        headers: Options(
+          headers: {
+            'lang': 'en',
+            'Authorization': getUser().token,
+          },
+        ),
+      );
+      return data;
+    } catch (e) {
+      rethrow;
+    }
+  }
 }
