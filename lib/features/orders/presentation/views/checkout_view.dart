@@ -8,8 +8,12 @@ class CheckoutView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: buildAppBar(context, title: 'Checkout'),
-      body: const CheckoutViewBody(),
+      appBar: buildAppBar(
+        context,
+        title: 'Checkout',
+        onTap: () => Navigator.of(context).pop(),
+      ),
+      body: const SafeArea(child: CheckoutViewBody()),
     );
   }
 }
