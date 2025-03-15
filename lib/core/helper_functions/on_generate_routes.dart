@@ -12,6 +12,7 @@ import '../../features/categories/presentation/views/categories_details_view.dar
 import '../../features/home/presentetion/views/cart_view.dart';
 import '../../features/orders/presentation/views/checkout_view.dart';
 import '../../features/orders/presentation/views/order_successfully_view.dart';
+import '../../features/orders/presentation/views/orders_items_view.dart';
 import '../entites/product_entity.dart';
 import '../../features/home/presentetion/views/product_detiles_view.dart';
 
@@ -67,6 +68,8 @@ Route<dynamic> onGenerateRoutes(RouteSettings routeSettings) {
           builder: (context) => OrderSuccessfullyView(
                 orderId: args,
               ));
+    case OrdersItemsView.routeName:
+      return MaterialPageRoute(builder: (context) => const OrdersItemsView());
     default:
       return MaterialPageRoute(builder: (context) => const Scaffold());
   }
