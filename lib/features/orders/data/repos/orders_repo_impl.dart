@@ -24,7 +24,7 @@ class OrdersRepoImpl implements OrdersRepo {
       if (response['status'] = false) {
         throw CustomException(message: response['message']);
       }
-      return right(response['id']);
+      return right(response["data"]['id']);
     } on DioException catch (e) {
       log('DioException in OrdersRepo : ${e.toString()}');
       return left(ServerFailure.fromDioError(e));

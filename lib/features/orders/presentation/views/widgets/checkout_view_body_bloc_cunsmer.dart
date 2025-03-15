@@ -1,3 +1,4 @@
+import 'package:ecommerce_app/features/orders/presentation/views/order_successfully_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -21,6 +22,9 @@ class CheckoutViewBodyBlocConsumer extends StatelessWidget {
         } else if (state is AddNewOrderSuccsess) {
           context.read<CartItemCubit>().cartEntity.cartItems.clear();
           context.read<CartItemCubit>().fetchAllProductsInCart();
+          Navigator.of(context).pushReplacementNamed(
+              OrderSuccessfullyView.routeName,
+              arguments: state.orderId);
         }
       },
       builder: (context, state) {
