@@ -265,4 +265,20 @@ class EcommerceApiService {
       rethrow;
     }
   }
+
+  Future<Map<String, dynamic>> getOrdersUser() async {
+    try {
+      var data = await apiService.get(
+        endPoint: 'orders',
+        headers: Options(
+          headers: {
+            'Authorization': getUser().token,
+          },
+        ),
+      );
+      return data;
+    } catch (e) {
+      rethrow;
+    }
+  }
 }

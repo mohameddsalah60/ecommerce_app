@@ -7,7 +7,6 @@ class AddNewOrderCubit extends Cubit<AddNewOrderState> {
   AddNewOrderCubit(this.ordersRepo) : super(AddNewOrderInitial());
   final OrdersRepo ordersRepo;
   int paymentMethod = 1;
-
   Future<void> addNewOrderUser(
       {required int addressID, required bool usePoints}) async {
     emit(AddNewOrderLoading());
@@ -17,8 +16,8 @@ class AddNewOrderCubit extends Cubit<AddNewOrderState> {
         usePoints: usePoints);
     result.fold(
       (failure) => emit(AddNewOrderFailure(message: failure.errorMessage)),
-      (id) {
-        emit(AddNewOrderSuccsess(orderId: id));
+      (order) {
+        emit(AddNewOrderSuccsess(orderId: order.id));
       },
     );
   }

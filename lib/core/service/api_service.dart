@@ -86,4 +86,17 @@ class ApiService {
 
     return responseData;
   }
+
+  Stream<Map<String, dynamic>> getStream({
+    required String endPoint,
+    Options? headers,
+  }) async* {
+    final Response<dynamic> response;
+
+    response = await dio.get(
+      '$_baseLink$endPoint',
+      options: headers ?? options,
+    );
+    yield response.data;
+  }
 }

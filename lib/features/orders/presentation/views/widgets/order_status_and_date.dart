@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../../../core/helper_functions/get_status_order_color.dart';
 import '../../../../../core/utils/app_colors.dart';
 import '../../../../../core/utils/app_text_styles.dart';
 
@@ -22,7 +23,8 @@ class OrderStatusAndDate extends StatelessWidget {
           ),
           child: Text(
             orderStatus,
-            style: AppTextStyles.bold19.copyWith(color: Colors.black45),
+            style: AppTextStyles.bold19
+                .copyWith(color: getStatusColor(orderStatus)),
           ),
         ),
         const SizedBox(

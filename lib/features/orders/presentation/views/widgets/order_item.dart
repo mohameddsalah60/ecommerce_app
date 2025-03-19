@@ -1,5 +1,7 @@
+import 'package:ecommerce_app/features/orders/domin/entites/order_item_entity.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../../core/helper_functions/format_date.dart';
 import '../../../../../core/utils/app_text_styles.dart';
 import 'order_item_button.dart';
 import 'order_status_and_date.dart';
@@ -8,8 +10,9 @@ import 'rating_order.dart';
 class OrderItem extends StatelessWidget {
   const OrderItem({
     super.key,
+    required this.orderItemEntity,
   });
-
+  final OrderItemEntity orderItemEntity;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -31,9 +34,9 @@ class OrderItem extends StatelessWidget {
                 const SizedBox(
                   height: 16,
                 ),
-                const OrderStatusAndDate(
-                  orderStatus: 'New',
-                  orderDate: '14 / 03 / 2025',
+                OrderStatusAndDate(
+                  orderStatus: orderItemEntity.status!,
+                  orderDate: formatDate(orderItemEntity.date),
                 ),
                 const SizedBox(
                   height: 8,
@@ -46,7 +49,7 @@ class OrderItem extends StatelessWidget {
                   height: 8,
                 ),
                 Text(
-                  'Order ID: #145555',
+                  'Order ID: #${orderItemEntity.id}',
                   style: AppTextStyles.bold19.copyWith(color: Colors.black45),
                 ),
                 const SizedBox(
@@ -54,8 +57,8 @@ class OrderItem extends StatelessWidget {
                 ),
                 ListTile(
                   contentPadding: const EdgeInsets.all(0),
-                  title: const Text(
-                    'EGP 585',
+                  title: Text(
+                    'EGP ${orderItemEntity.total}',
                     style: AppTextStyles.bold16,
                   ),
                   subtitle: GestureDetector(
@@ -66,7 +69,9 @@ class OrderItem extends StatelessWidget {
                       ),
                     ),
                   ),
-                  trailing: const OrderItemButton(),
+                  trailing: OrderItemButton(
+                    status: orderItemEntity.status!,
+                  ),
                 ),
                 const SizedBox(
                   height: 8,

@@ -1,6 +1,6 @@
 import 'package:ecommerce_app/core/service/get_it_service.dart';
 import 'package:ecommerce_app/core/widgets/custom_app_bar.dart';
-import 'package:ecommerce_app/features/orders/presentation/cubits/add_new_order_cubit/add_new_order_cubit.dart';
+import 'package:ecommerce_app/features/orders/presentation/cubits/get_orders_cubit/get_orders_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -14,7 +14,7 @@ class CheckoutView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => AddNewOrderCubit(getIt<OrdersRepo>()),
+      create: (context) => GetOrdersCubit(getIt<OrdersRepo>()),
       child: Scaffold(
         appBar: buildAppBar(
           context,
