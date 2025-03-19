@@ -281,4 +281,20 @@ class EcommerceApiService {
       rethrow;
     }
   }
+
+  Future<Map<String, dynamic>> getOrderDetilsUser({required int iD}) async {
+    try {
+      var data = await apiService.get(
+        endPoint: 'orders/$iD',
+        headers: Options(
+          headers: {
+            'Authorization': getUser().token,
+          },
+        ),
+      );
+      return data;
+    } catch (e) {
+      rethrow;
+    }
+  }
 }

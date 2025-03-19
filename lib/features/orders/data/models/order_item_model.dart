@@ -65,6 +65,11 @@ class OrderItemModel extends OrderItemEntity {
       'address': addressEntity != null
           ? (addressEntity as AddressModel).toMap()
           : null,
+      'products': products != null
+          ? (products as List<ProductModel>)
+              .map((product) => product.toMap())
+              .toList()
+          : null,
     };
   }
 }

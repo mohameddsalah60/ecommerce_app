@@ -1,4 +1,5 @@
 import 'package:ecommerce_app/features/orders/domin/entites/order_item_entity.dart';
+import 'package:ecommerce_app/features/orders/presentation/views/order_detils_view.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../core/helper_functions/format_date.dart';
@@ -62,6 +63,13 @@ class OrderItem extends StatelessWidget {
                     style: AppTextStyles.bold16,
                   ),
                   subtitle: GestureDetector(
+                    onTap: () {
+                      Navigator.pushNamed(
+                        context,
+                        OrderDetailsView.routeName,
+                        arguments: orderItemEntity.id,
+                      );
+                    },
                     child: Text(
                       'View details',
                       style: AppTextStyles.semiBold16.copyWith(

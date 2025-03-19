@@ -3,6 +3,7 @@ class ProductEntity {
   final int id, discount, oldPrice, price;
   bool inFavorites, inCart;
   final List<dynamic> images;
+  int? quantity;
 
   ProductEntity({
     required this.name,
@@ -15,5 +16,6 @@ class ProductEntity {
     required this.inFavorites,
     required this.inCart,
     required this.images,
+    this.quantity,
   });
 }

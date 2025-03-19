@@ -11,4 +11,5 @@ abstract class OrdersRepo {
     required bool usePoints,
   });
   Future<Either<Failure, List<OrderItemEntity>>> getOrdersUser();
+  Future<Either<Failure, OrderItemModel>> getOrderDetilsUser({required int iD});
 }

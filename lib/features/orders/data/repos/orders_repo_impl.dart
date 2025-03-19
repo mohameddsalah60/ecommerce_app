@@ -12,7 +12,6 @@ import '../../domin/entites/order_item_entity.dart';
 
 class OrdersRepoImpl implements OrdersRepo {
   final EcommerceApiService ecommerceApiService;
-  List<OrderItemModel> orders = [];
   OrdersRepoImpl({required this.ecommerceApiService});
   @override
   Future<Either<Failure, OrderItemModel>> addNewOrderUser(
@@ -25,7 +24,6 @@ class OrdersRepoImpl implements OrdersRepo {
       if (response['status'] == false) {
         throw CustomException(message: response['message']);
       }
-      orders.add(OrderItemModel.fromJson(response['data']));
 
       return right(OrderItemModel.fromJson(response["data"]));
     } on DioException catch (e) {
@@ -53,6 +51,28 @@ class OrdersRepoImpl implements OrdersRepo {
           .toList();
 
       return right(orders);
+    } on DioException catch (e) {
+      log('DioException in OrdersRepo : ${e.toString()}');
+      return left(ServerFailure.fromDioError(e));
+    } on CustomException catch (e) {
+      log('CustomException in OrdersRepo : ${e.toString()}');
+      return left(ServerFailure(e.message));
+    } catch (e) {
+      log('Exception in OrdersRepo: ${e.toString()}');
+      return left(ServerFailure('Oops There was an error, try again!'));
+    }
+  }
+
+  @override
+  Future<Either<Failure, OrderItemModel>> getOrderDetilsUser(
+      {required int iD}) async {
+    try {
+      var response = await ecommerceApiService.getOrderDetilsUser(iD: iD);
+      if (response['status'] == false) {
+        throw CustomException(message: response['message']);
+      }
+
+      return right(OrderItemModel.fromJson(response["data"]));
     } on DioException catch (e) {
       log('DioException in OrdersRepo : ${e.toString()}');
       return left(ServerFailure.fromDioError(e));

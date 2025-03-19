@@ -12,6 +12,7 @@ class ProductModel extends ProductEntity {
     required super.inFavorites,
     required super.inCart,
     required super.images,
+    super.quantity,
   });
 
   factory ProductModel.fromJson(Map<String, dynamic> data) {
@@ -26,6 +27,23 @@ class ProductModel extends ProductEntity {
       inFavorites: data['in_favorites'] ?? false,
       inCart: data['in_cart'] ?? false,
       images: data['images'] ?? [],
+      quantity: (data['quantity'] ?? 0 as num).toInt(),
     );
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'name': name,
+      'description': description,
+      'image': image,
+      'id': id,
+      'discount': discount,
+      'price': price,
+      'old_price': oldPrice,
+      'in_favorites': inFavorites,
+      'in_cart': inCart,
+      'images': images,
+      'quantity': quantity,
+    };
   }
 }
