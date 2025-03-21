@@ -42,6 +42,22 @@ class CartEntity {
     );
   }
 
+  double calculateServiceFee() {
+    double serviceFee = 0;
+
+    serviceFee = totalAmount() * 0.14;
+
+    return serviceFee;
+  }
+
+  double totalAmountAfterServiceFee() {
+    double serviceFee = 0;
+
+    serviceFee = totalAmount() * 0.14;
+
+    return totalAmount() + serviceFee;
+  }
+
   double totalAmount() {
     double totalPrice = 0;
     for (var carItem in cartItems) {

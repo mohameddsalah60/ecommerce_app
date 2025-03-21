@@ -44,15 +44,23 @@ class CheckoutViewBody extends StatelessWidget {
           ),
         ),
         CartViewPaymentSummary(
+          serviceFee: context
+              .watch<CartItemCubit>()
+              .cartEntity
+              .calculateServiceFee()
+              .round(),
           cartTotal:
-              context.watch<CartItemCubit>().cartEntity.totalAmount().toInt(),
+              context.watch<CartItemCubit>().cartEntity.totalAmount().round(),
           discountTotal: context
               .watch<CartItemCubit>()
               .cartEntity
               .totalCartDiscount()
-              .toInt(),
-          totalAmount:
-              context.watch<CartItemCubit>().cartEntity.totalAmount().toInt(),
+              .round(),
+          totalAmount: context
+              .watch<CartItemCubit>()
+              .cartEntity
+              .totalAmountAfterServiceFee()
+              .round(),
         ),
         const SliverToBoxAdapter(
           child: SizedBox(

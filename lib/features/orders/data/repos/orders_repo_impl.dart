@@ -84,4 +84,25 @@ class OrdersRepoImpl implements OrdersRepo {
       return left(ServerFailure('Oops There was an error, try again!'));
     }
   }
+
+  @override
+  Future<Either<Failure, void>> cancelOrderUser({required int iD}) async {
+    try {
+      var response = await ecommerceApiService.cancelOrderUser(iD: iD);
+      if (response['status'] == false) {
+        throw CustomException(message: response['message']);
+      }
+
+      return right(null);
+    } on DioException catch (e) {
+      log('DioException in OrdersRepo : ${e.toString()}');
+      return left(ServerFailure.fromDioError(e));
+    } on CustomException catch (e) {
+      log('CustomException in OrdersRepo : ${e.toString()}');
+      return left(ServerFailure(e.message));
+    } catch (e) {
+      log('Exception in OrdersRepo: ${e.toString()}');
+      return left(ServerFailure('Oops There was an error, try again!'));
+    }
+  }
 }

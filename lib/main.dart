@@ -9,9 +9,9 @@ import 'core/service/get_it_service.dart';
 import 'features/home/domin/repos/home_repo.dart';
 import 'features/home/presentetion/cubits/cart_item_cubit/cart_item_cubit.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  SharedPreferencesService.init();
+  await SharedPreferencesService.init();
   setupGetIt();
   Bloc.observer = CustomBlocObserver();
 

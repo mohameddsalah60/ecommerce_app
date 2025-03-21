@@ -37,7 +37,7 @@ class GetOrdersCubit extends Cubit<GetOrdersState> {
       (orders) {
         if (_hasChanges(orders)) {
           savedOrders = orders;
-          emit(GetOrdersSuccsess(orders: orders));
+          emit(GetOrdersSuccsess(orders: savedOrders));
         }
       },
     );
@@ -61,5 +61,14 @@ class GetOrdersCubit extends Cubit<GetOrdersState> {
   Future<void> close() {
     stopPolling();
     return super.close();
+  }
+
+  updateStatus(OrderItemEntity updatedOrder) {
+    updatedOrder.status = 'Cancelled';
+    savedOrders = savedOrders.map((order) {
+      return order.id == updatedOrder.id ? updatedOrder : order;
+    }).toList();
+
+    emit(GetOrdersSuccsess(orders: savedOrders));
   }
 }

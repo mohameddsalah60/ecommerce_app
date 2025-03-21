@@ -78,7 +78,7 @@ class OrderItem extends StatelessWidget {
                     ),
                   ),
                   trailing: OrderItemButton(
-                    status: orderItemEntity.status!,
+                    orderItemEntity: orderItemEntity,
                   ),
                 ),
                 const SizedBox(

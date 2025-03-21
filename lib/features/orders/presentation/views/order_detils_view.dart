@@ -45,7 +45,14 @@ class OrderDetilsViewBlocBuilder extends StatelessWidget {
               orderItemEntity: state.orderItemEntity,
             );
           } else {
-            return const CustomTextAndLoading();
+            return const Column(
+              children: [
+                SizedBox(
+                  height: 36,
+                ),
+                CustomTextAndLoading(),
+              ],
+            );
           }
         },
       ),

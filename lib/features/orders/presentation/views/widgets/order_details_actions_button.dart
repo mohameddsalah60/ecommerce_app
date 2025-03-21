@@ -1,8 +1,11 @@
-import 'package:ecommerce_app/core/utils/app_colors.dart';
+import 'package:ecommerce_app/core/service/get_it_service.dart';
 import 'package:ecommerce_app/features/orders/domin/entites/order_item_entity.dart';
+import 'package:ecommerce_app/features/orders/domin/repo/orders_repo.dart';
+import 'package:ecommerce_app/features/orders/presentation/cubits/cancel_order_cubit/cancel_order_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../../core/widgets/custom_button.dart';
+import 'order_details_actions_button_bloc_builder.dart';
 
 class OrderDetailsActionsButton extends StatelessWidget {
   const OrderDetailsActionsButton({
@@ -13,18 +16,11 @@ class OrderDetailsActionsButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SliverToBoxAdapter(
-      child: Padding(
-        padding: const EdgeInsets.only(top: 24.0),
-        child:
-            orderItemEntity.status == 'New' || orderItemEntity.status == 'جديد'
-                ? const CustomButton(
-                    text: 'Cancel Order',
-                    backgroundColor: Colors.white,
-                  )
-                : const CustomButton(
-                    text: 'Get Help',
-                    backgroundColor: AppColors.primaryColor,
-                  ),
+      child: BlocProvider(
+        create: (context) => CancelOrderCubit(getIt<OrdersRepo>()),
+        child: OrderDetailsActionsButtonBlocBuilder(
+          orderItemEntity: orderItemEntity,
+        ),
       ),
     );
   }

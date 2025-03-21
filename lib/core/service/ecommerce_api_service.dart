@@ -8,7 +8,10 @@ class EcommerceApiService {
   final ApiService apiService;
 
   EcommerceApiService({required this.apiService});
-
+  Map<String, dynamic> headers = {
+    'lang': 'en',
+    'Authorization': getUser().token,
+  };
   Future<Map<String, dynamic>> createUserWithEmailAndPassword(
     String email,
     String password,
@@ -271,9 +274,7 @@ class EcommerceApiService {
       var data = await apiService.get(
         endPoint: 'orders',
         headers: Options(
-          headers: {
-            'Authorization': getUser().token,
-          },
+          headers: headers,
         ),
       );
       return data;
@@ -286,6 +287,20 @@ class EcommerceApiService {
     try {
       var data = await apiService.get(
         endPoint: 'orders/$iD',
+        headers: Options(
+          headers: headers,
+        ),
+      );
+      return data;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<Map<String, dynamic>> cancelOrderUser({required int iD}) async {
+    try {
+      var data = await apiService.get(
+        endPoint: 'orders/$iD/cancel',
         headers: Options(
           headers: {
             'Authorization': getUser().token,

@@ -12,4 +12,5 @@ abstract class OrdersRepo {
   });
   Future<Either<Failure, List<OrderItemEntity>>> getOrdersUser();
   Future<Either<Failure, OrderItemModel>> getOrderDetilsUser({required int iD});
+  Future<Either<Failure, void>> cancelOrderUser({required int iD});
 }

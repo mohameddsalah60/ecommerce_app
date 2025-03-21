@@ -41,6 +41,11 @@ class CartViewBody extends StatelessWidget {
                 cartEntity: context.read<CartItemCubit>().cartEntity,
               ),
               CartViewPaymentSummary(
+                serviceFee: context
+                    .watch<CartItemCubit>()
+                    .cartEntity
+                    .calculateServiceFee()
+                    .toInt(),
                 cartTotal: context
                     .watch<CartItemCubit>()
                     .cartEntity
@@ -54,7 +59,7 @@ class CartViewBody extends StatelessWidget {
                 totalAmount: context
                     .watch<CartItemCubit>()
                     .cartEntity
-                    .totalAmount()
+                    .totalAmountAfterServiceFee()
                     .toInt(),
               ),
             ],

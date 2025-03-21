@@ -9,8 +9,9 @@ class CartViewPaymentSummary extends StatelessWidget {
     required this.cartTotal,
     required this.discountTotal,
     required this.totalAmount,
+    required this.serviceFee,
   });
-  final int cartTotal, discountTotal, totalAmount;
+  final num cartTotal, discountTotal, totalAmount, serviceFee;
   @override
   Widget build(BuildContext context) {
     return SliverToBoxAdapter(
@@ -57,6 +58,17 @@ class CartViewPaymentSummary extends StatelessWidget {
                     color: discountTotal > 0
                         ? AppColors.primaryColor
                         : Colors.black),
+              ),
+            ),
+            ListTile(
+              contentPadding: const EdgeInsets.all(0),
+              leading: const Text(
+                'Service Fee (14%)',
+                style: AppTextStyles.semiBold16,
+              ),
+              trailing: Text(
+                'EGP ${serviceFee.toString()}',
+                style: AppTextStyles.semiBold16,
               ),
             ),
             ListTile(

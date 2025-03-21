@@ -20,4 +20,10 @@ class GetOrderDetilsCubit extends Cubit<GetOrderDetilsState> {
       },
     );
   }
+
+  updateStatus(OrderItemEntity updatedOrder) {
+    updatedOrder.status = 'Cancelled';
+
+    emit(GetOrderDetilsSuccess(orderItemEntity: updatedOrder));
+  }
 }
