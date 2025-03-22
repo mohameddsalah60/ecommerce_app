@@ -312,4 +312,21 @@ class EcommerceApiService {
       rethrow;
     }
   }
+
+  Future<Map<String, dynamic>> searchProducts({required String product}) async {
+    try {
+      var data = await apiService.post(
+        endPoint: 'products/search',
+        data: {
+          'text': product,
+        },
+        headers: Options(
+          headers: headers,
+        ),
+      );
+      return data;
+    } catch (e) {
+      rethrow;
+    }
+  }
 }

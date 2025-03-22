@@ -54,6 +54,14 @@ class Assets {
   /// assets/images/Profile.svg
   static const String imagesProfile = "assets/images/Profile.svg";
 
+  /// Assets for imagesSerach
+  /// assets/images/serach.svg
+  static const String imagesSerach = "assets/images/serach.svg";
+
+  /// Assets for imagesSetting4
+  /// assets/images/setting-4.svg
+  static const String imagesSetting4 = "assets/images/setting-4.svg";
+
   /// Assets for imagesSuccessfully
   /// assets/images/successfully.svg
   static const String imagesSuccessfully = "assets/images/successfully.svg";

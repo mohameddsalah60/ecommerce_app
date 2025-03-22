@@ -29,7 +29,7 @@ class EcommerceApp extends StatelessWidget {
       child: MaterialApp(
         theme: ThemeData(
           fontFamily: 'Cairo',
-          scaffoldBackgroundColor: Colors.white,
+          scaffoldBackgroundColor: const Color(0xffFEFEFE),
           brightness: Brightness.light,
         ),
         debugShowCheckedModeBanner: false,

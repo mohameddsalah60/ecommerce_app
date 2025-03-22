@@ -1,3 +1,4 @@
+import 'package:ecommerce_app/features/home/presentetion/views/search_product_view.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../core/utils/app_colors.dart';
@@ -21,18 +22,23 @@ class HomeViewBodyHeader extends StatelessWidget {
         horizontal: 8,
         vertical: 8,
       ),
-      child: const Column(
+      child: Column(
         children: [
-          HomeViewBodyAppBar(),
-          SizedBox(
+          const HomeViewBodyAppBar(),
+          const SizedBox(
             height: 16,
           ),
-          CustomTextfieldSearch(),
-          SizedBox(
+          GestureDetector(
+            onTap: () => Navigator.of(context).pushNamed(
+              SearchProductView.routeName,
+            ),
+            child: const CustomTextfieldSearch(enabled: false),
+          ),
+          const SizedBox(
             height: 16,
           ),
-          HomeViewBodyBanners(),
-          SizedBox(
+          const HomeViewBodyBanners(),
+          const SizedBox(
             height: 16,
           ),
         ],

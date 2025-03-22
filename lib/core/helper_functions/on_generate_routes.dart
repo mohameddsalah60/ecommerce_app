@@ -10,6 +10,7 @@ import '../../features/addresses/presentation/views/new_address_view.dart';
 import '../../features/addresses/presentation/views/address_map_view.dart';
 import '../../features/categories/presentation/views/categories_details_view.dart';
 import '../../features/home/presentetion/views/cart_view.dart';
+import '../../features/home/presentetion/views/search_product_view.dart';
 import '../../features/orders/presentation/views/checkout_view.dart';
 import '../../features/orders/presentation/views/order_detils_view.dart';
 import '../../features/orders/presentation/views/orders_items_view.dart';
@@ -71,6 +72,8 @@ Route<dynamic> onGenerateRoutes(RouteSettings routeSettings) {
           builder: (context) => OrderDetailsView(
                 iD: args,
               ));
+    case SearchProductView.routeName:
+      return MaterialPageRoute(builder: (context) => const SearchProductView());
     default:
       return MaterialPageRoute(builder: (context) => const Scaffold());
   }

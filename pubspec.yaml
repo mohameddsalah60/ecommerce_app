@@ -37,6 +37,7 @@ dependencies:
     sdk: flutter
   flutter_badged: ^2.0.3
   flutter_bloc: ^8.1.6
+  flutter_debouncer: ^2.0.0
   flutter_map: ^7.0.2
   flutter_rating: ^2.0.2
   flutter_svg: ^2.0.10+1
