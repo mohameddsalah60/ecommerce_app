@@ -1,4 +1,3 @@
-import 'package:ecommerce_app/core/utils/app_colors.dart';
 import 'package:flutter/material.dart';
 
 Color getStatusColor(String status) {
@@ -19,6 +18,6 @@ Color getStatusColor(String status) {
     case 'مكتمل':
       return Colors.green;
     default:
-      return AppColors.secnderyColor;
+      return Colors.black;
   }
 }

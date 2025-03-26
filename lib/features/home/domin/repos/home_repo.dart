@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:ecommerce_app/core/entites/product_entity.dart';
 import 'package:ecommerce_app/features/home/domin/entites/cart_entity.dart';
+import 'package:ecommerce_app/features/home/domin/entites/notifications_entity.dart';
 
 import '../../../../core/errors/failures.dart';
 import '../entites/banners_entity.dart';
@@ -17,4 +18,5 @@ abstract class HomeRepo {
   Future<Either<Failure, CartEntity>> getItemsCart();
   Future<Either<Failure, List<ProductEntity>>> searchProducts(
       {required String text});
+  Future<Either<Failure, List<NotificationsEntity>>> getNotifications();
 }

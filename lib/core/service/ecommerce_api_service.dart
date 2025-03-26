@@ -329,4 +329,18 @@ class EcommerceApiService {
       rethrow;
     }
   }
+
+  Future<Map<String, dynamic>> getNotifications() async {
+    try {
+      var data = await apiService.get(
+        endPoint: 'notifications',
+        headers: Options(
+          headers: headers,
+        ),
+      );
+      return data;
+    } catch (e) {
+      rethrow;
+    }
+  }
 }

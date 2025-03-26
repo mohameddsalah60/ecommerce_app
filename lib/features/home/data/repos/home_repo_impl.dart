@@ -11,12 +11,14 @@ import 'package:ecommerce_app/features/categories/data/models/categories_model.d
 import 'package:ecommerce_app/features/home/data/models/car_item_model.dart';
 import 'package:ecommerce_app/features/home/domin/entites/banners_entity.dart';
 import 'package:ecommerce_app/features/home/domin/entites/cart_entity.dart';
+import 'package:ecommerce_app/features/home/domin/entites/notifications_entity.dart';
 
 import '../../../../core/errors/exceptions.dart';
 import '../../domin/entites/car_item_entity.dart';
 import '../../domin/repos/home_repo.dart';
 import '../models/banners_model.dart';
 import '../models/cart_items_model.dart';
+import '../models/notifications_model.dart';
 
 class HomeRepoImpl implements HomeRepo {
   final EcommerceApiService ecommerceApiService;
@@ -161,6 +163,32 @@ class HomeRepoImpl implements HomeRepo {
         }
 
         return right(products);
+      }
+    } on DioException catch (e) {
+      log('DioException in HomeRepoImpl : ${e.toString()}');
+      return left(ServerFailure.fromDioError(e));
+    } on CustomException catch (e) {
+      log('CustomException in HomeRepoImpl : ${e.toString()}');
+      return left(ServerFailure(e.message));
+    } catch (e) {
+      log('Exception in HomeRepoImpl: ${e.toString()}');
+      return left(ServerFailure('Oops There was an error, try again!'));
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<NotificationsEntity>>> getNotifications() async {
+    try {
+      var response = await ecommerceApiService.getNotifications();
+      if (response['status'] == false) {
+        throw CustomException(message: response['message']);
+      } else {
+        List<NotificationsEntity> notifications = [];
+        for (var notification in response['data']['data']) {
+          notifications.add(NotificationsModel.fromJson(data: notification));
+        }
+
+        return right(notifications);
       }
     } on DioException catch (e) {
       log('DioException in HomeRepoImpl : ${e.toString()}');
