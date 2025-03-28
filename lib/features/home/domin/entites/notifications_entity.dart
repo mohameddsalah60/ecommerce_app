@@ -33,7 +33,7 @@ class NotificationsEntity {
 
   Color getColorsStatus(String text) {
     String? status = extractOrderStatus(text);
-    Color color = getStatusColor(status!);
+    Color color = getStatusColor(status ?? '');
     return color;
   }
 }

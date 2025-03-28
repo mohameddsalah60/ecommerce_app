@@ -86,6 +86,10 @@ class NotificationItem extends StatelessWidget {
         contentPadding: const EdgeInsets.all(0),
         leading: SvgPicture.asset(
           Assets.imagesNotification,
+          colorFilter: ColorFilter.mode(
+            notificationsEntity.getColorsStatus(notificationsEntity.message),
+            BlendMode.srcIn,
+          ),
         ),
         title: Text(
           notificationsEntity.title,
