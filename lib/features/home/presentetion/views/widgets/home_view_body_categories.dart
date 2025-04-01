@@ -1,10 +1,11 @@
-import 'package:ecommerce_app/core/widgets/custom_loading_indicator.dart';
+import 'package:ecommerce_app/features/categories/domin/entites/categories_entity.dart';
 import 'package:ecommerce_app/features/categories/domin/repo/categories_repo.dart';
 import 'package:ecommerce_app/features/categories/presentation/categories_cubit/categories_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../core/service/get_it_service.dart';
+import '../../../../../core/widgets/custom_skeletonizer_loading.dart';
 import 'custom_action_home_view.dart';
 import '../../../../categories/presentation/views/widgets/custom_grid_view_categories.dart';
 
@@ -47,7 +48,15 @@ class CategoriesBlocBuilder extends StatelessWidget {
         } else if (state is CategoriesFailure) {
           return Text(state.message);
         } else {
-          return const CustomLoadingIndicator();
+          return CustomSkeletonizerLoading(
+              isLoading: state is CategoriesLoading ? true : false,
+              child: CustomGridViewCategories(
+                categories: List.generate(
+                  6,
+                  (index) =>
+                      CategoriesEntity(name: 'Loading....', img: '', id: 0),
+                ),
+              ));
         }
       },
     );

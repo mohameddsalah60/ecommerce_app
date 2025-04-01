@@ -1,7 +1,8 @@
 import 'package:ecommerce_app/core/helper_functions/custom_snack_bar.dart';
 import 'package:ecommerce_app/core/service/get_it_service.dart';
-import 'package:ecommerce_app/core/utils/app_colors.dart';
-import 'package:ecommerce_app/core/widgets/custom_loading_indicator.dart';
+
+import 'package:ecommerce_app/core/widgets/custom_skeletonizer_loading.dart';
+import 'package:ecommerce_app/features/home/domin/entites/banners_entity.dart';
 import 'package:ecommerce_app/features/home/presentetion/cubits/banners_cubit/banners_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -30,15 +31,15 @@ class HomeViewBodyBanners extends StatelessWidget {
           } else if (state is BannersFailure) {
             return const SizedBox();
           } else {
-            return Container(
-              height: MediaQuery.sizeOf(context).height * .228,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(16),
-              ),
-              child: const Center(
-                child: CustomLoadingIndicator(color: AppColors.greyLightColor),
-              ),
-            );
+            return CustomSkeletonizerLoading(
+                isLoading: state is BannersLoading ? true : false,
+                child: BannerItem(
+                  list: List.generate(
+                    3,
+                    (index) => BannersEntity(
+                        id: 10, img: '', category: {}, product: {}),
+                  ),
+                ));
           }
         },
       ),

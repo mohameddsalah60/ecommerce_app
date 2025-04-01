@@ -20,7 +20,9 @@ class OrderDetilsHeader extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const OrderStoreLogo(),
+          OrderStoreLogo(
+            isEnabeldBorder: orderItemEntity.id,
+          ),
           const SizedBox(
             width: 16,
           ),

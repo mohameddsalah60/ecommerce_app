@@ -18,9 +18,9 @@ class UserModel extends UserEntity {
       email: data['email'] as String? ?? '',
       image: data['image'] as String? ?? '',
       token: data['token'] as String? ?? '',
-      id: data['id'] as int? ?? 0,
-      credit: data['credit'] as int? ?? 0,
-      points: data['points'] as int? ?? 0,
+      id: data['id'] as num? ?? 0,
+      credit: data['credit'] as num? ?? 0,
+      points: (data['points'] as num?) ?? 0,
     );
   }
 

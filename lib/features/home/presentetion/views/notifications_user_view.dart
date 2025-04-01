@@ -1,14 +1,14 @@
 import 'package:ecommerce_app/core/service/get_it_service.dart';
-import 'package:ecommerce_app/core/utils/app_images.dart';
 import 'package:ecommerce_app/core/utils/app_text_styles.dart';
 import 'package:ecommerce_app/core/widgets/custom_app_bar.dart';
-import 'package:ecommerce_app/core/widgets/custom_text_and_loading.dart';
+import 'package:ecommerce_app/core/widgets/custom_skeletonizer_loading.dart';
 import 'package:ecommerce_app/features/home/domin/entites/notifications_entity.dart';
 import 'package:ecommerce_app/features/home/domin/repos/home_repo.dart';
 import 'package:ecommerce_app/features/home/presentetion/cubits/notifications_cubit/notifications_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+
+import 'widgets/notification_item.dart';
 
 class NotificationsUserView extends StatelessWidget {
   const NotificationsUserView({super.key});
@@ -53,7 +53,9 @@ class NotificationsUserView extends StatelessWidget {
                       style: AppTextStyles.bold19,
                     ));
                   } else {
-                    return const CustomTextAndLoading();
+                    return CustomSkeletonizerLoading(
+                        isLoading: state is NotificationsLoading ? true : false,
+                        child: const NotificationItemLoading());
                   }
                 },
               )
@@ -65,41 +67,24 @@ class NotificationsUserView extends StatelessWidget {
   }
 }
 
-class NotificationItem extends StatelessWidget {
-  const NotificationItem({
+class NotificationItemLoading extends StatelessWidget {
+  const NotificationItemLoading({
     super.key,
-    required this.notificationsEntity,
   });
-  final NotificationsEntity notificationsEntity;
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 6),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(6),
-        border: Border.all(
-          color: Colors.black26,
-          width: 1,
-        ),
-      ),
-      child: ListTile(
-        contentPadding: const EdgeInsets.all(0),
-        leading: SvgPicture.asset(
-          Assets.imagesNotification,
-          colorFilter: ColorFilter.mode(
-            notificationsEntity.getColorsStatus(notificationsEntity.message),
-            BlendMode.srcIn,
+    return Column(
+      children: List.generate(
+        6,
+        (index) => Padding(
+          padding: const EdgeInsets.only(top: 16.0),
+          child: NotificationItem(
+            notificationsEntity: NotificationsEntity(
+                id: 0,
+                title: 'title Loading..',
+                message: "message Loading............"),
           ),
-        ),
-        title: Text(
-          notificationsEntity.title,
-          style: AppTextStyles.bold16,
-        ),
-        subtitle: Text(
-          notificationsEntity.message,
-          style: AppTextStyles.semiBold16.copyWith(
-              color: notificationsEntity
-                  .getColorsStatus(notificationsEntity.message)),
         ),
       ),
     );

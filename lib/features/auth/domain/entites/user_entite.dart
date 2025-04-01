@@ -3,7 +3,7 @@ class UserEntity {
   final String phone;
   final String email;
   final String token;
-  final int points, credit, id;
+  final num points, credit, id;
   String image;
 
   UserEntity({

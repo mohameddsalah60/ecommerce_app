@@ -28,7 +28,7 @@ class CustomImageNetwork extends StatelessWidget {
         ),
       ),
       placeholder: (context, url) =>
-          const Center(child: CustomLoadingIndicator()),
+          const Center(child: Center(child: CustomLoadingIndicator())),
       errorWidget: (context, url, error) => const Icon(Icons.error),
     );
   }

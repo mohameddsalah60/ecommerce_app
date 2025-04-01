@@ -1,8 +1,9 @@
-import 'package:ecommerce_app/core/widgets/custom_text_and_loading.dart';
 import 'package:ecommerce_app/core/widgets/your_data_is_empty.dart';
+import 'package:ecommerce_app/features/orders/domin/entites/order_item_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../../core/widgets/custom_skeletonizer_loading.dart';
 import '../../cubits/get_orders_cubit/get_orders_cubit.dart';
 import 'orders_items_view_body.dart';
 
@@ -23,7 +24,17 @@ class OrdersItemsViewBlocBuilder extends StatelessWidget {
         } else if (state is GetOrdersFailure) {
           return Center(child: Text(state.message));
         } else {
-          return const CustomTextAndLoading();
+          return CustomSkeletonizerLoading(
+              isLoading: state is GetOrdersSuccsess ? true : false,
+              child: OrdersItemsViewBody(
+                orders: List.generate(
+                    10,
+                    (index) => OrderItemEntity(
+                        id: 0,
+                        total: 0,
+                        date: '22 / 03 / 2025',
+                        status: 'New')),
+              ));
         }
       },
     );
