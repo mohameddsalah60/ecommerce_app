@@ -1,4 +1,5 @@
 import 'package:ecommerce_app/core/helper_functions/on_generate_routes.dart';
+import 'package:ecommerce_app/core/service/awesome_notifications_service.dart';
 import 'package:ecommerce_app/core/service/shared_preferences_service.dart';
 import 'package:ecommerce_app/features/splash/presentetion/views/splash_view.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +15,9 @@ void main() async {
   await SharedPreferencesService.init();
   setupGetIt();
   Bloc.observer = CustomBlocObserver();
-
+  final notificationService = getIt<AwesomeNotificationsService>();
+  await notificationService.initialize();
+  await notificationService.requestPermission();
   runApp(const EcommerceApp());
 }
 

@@ -184,8 +184,12 @@ class HomeRepoImpl implements HomeRepo {
         throw CustomException(message: response['message']);
       } else {
         List<NotificationsEntity> notifications = [];
+
         for (var notification in response['data']['data']) {
-          notifications.add(NotificationsModel.fromJson(data: notification));
+          NotificationsEntity notificationsEntity =
+              NotificationsModel.fromJson(data: notification);
+
+          notifications.add(notificationsEntity);
         }
 
         return right(notifications);

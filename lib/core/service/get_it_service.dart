@@ -18,11 +18,14 @@ import 'package:get_it/get_it.dart';
 
 import '../../features/categories/data/repos/categories_repo_impl.dart';
 import '../../features/home/data/repos/home_repo_impl.dart';
+import 'awesome_notifications_service.dart';
 
 final getIt = GetIt.instance;
 
 void setupGetIt() {
   getIt.registerSingleton<ApiService>(ApiService(dio: Dio()));
+  getIt.registerSingleton<AwesomeNotificationsService>(
+      AwesomeNotificationsService());
   getIt.registerSingleton<LocationService>(OpenStreetMapService());
   getIt.registerSingleton<EcommerceApiService>(
     EcommerceApiService(
