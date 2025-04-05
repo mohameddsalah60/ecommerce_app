@@ -22,6 +22,10 @@ class Assets {
   /// assets/images/banner1.png
   static const String imagesBanner1 = "assets/images/banner1.png";
 
+  /// Assets for imagesBox
+  /// assets/images/box.svg
+  static const String imagesBox = "assets/images/box.svg";
+
   /// Assets for imagesCart
   /// assets/images/cart.svg
   static const String imagesCart = "assets/images/cart.svg";
@@ -34,13 +38,37 @@ class Assets {
   /// assets/images/data_is_empty.svg
   static const String imagesDataIsEmpty = "assets/images/data_is_empty.svg";
 
+  /// Assets for imagesEdit
+  /// assets/images/Edit.svg
+  static const String imagesEdit = "assets/images/Edit.svg";
+
   /// Assets for imagesEllipse
   /// assets/images/ellipse.svg
   static const String imagesEllipse = "assets/images/ellipse.svg";
 
+  /// Assets for imagesHeart
+  /// assets/images/heart.svg
+  static const String imagesHeart = "assets/images/heart.svg";
+
   /// Assets for imagesHome
   /// assets/images/home.svg
   static const String imagesHome = "assets/images/home.svg";
+
+  /// Assets for imagesInfoCircle
+  /// assets/images/info-circle.svg
+  static const String imagesInfoCircle = "assets/images/info-circle.svg";
+
+  /// Assets for imagesLogout
+  /// assets/images/logout.svg
+  static const String imagesLogout = "assets/images/logout.svg";
+
+  /// Assets for imagesMagicpen
+  /// assets/images/magicpen.svg
+  static const String imagesMagicpen = "assets/images/magicpen.svg";
+
+  /// Assets for imagesMan
+  /// assets/images/man.png
+  static const String imagesMan = "assets/images/man.png";
 
   /// Assets for imagesNotification
   /// assets/images/notification.svg

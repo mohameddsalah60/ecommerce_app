@@ -343,4 +343,48 @@ class EcommerceApiService {
       rethrow;
     }
   }
+
+  Future<Map<String, dynamic>> personalInformationUpdate({
+    required String name,
+    required String email,
+    required String phone,
+  }) async {
+    try {
+      var data = await apiService.put(
+        endPoint: 'update-profile',
+        data: {
+          "name": name,
+          "phone": phone,
+          "email": email,
+        },
+        headers: Options(
+          headers: headers,
+        ),
+      );
+      return data;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<Map<String, dynamic>> changePassword({
+    required String currentPassword,
+    required String newPassword,
+  }) async {
+    try {
+      var data = await apiService.post(
+        endPoint: 'change-password',
+        data: {
+          "current_password": currentPassword,
+          "new_password": newPassword,
+        },
+        headers: Options(
+          headers: headers,
+        ),
+      );
+      return data;
+    } catch (e) {
+      rethrow;
+    }
+  }
 }

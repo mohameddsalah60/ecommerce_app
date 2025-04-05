@@ -15,6 +15,8 @@ import '../../features/home/presentetion/views/search_product_view.dart';
 import '../../features/orders/presentation/views/checkout_view.dart';
 import '../../features/orders/presentation/views/order_detils_view.dart';
 import '../../features/orders/presentation/views/orders_items_view.dart';
+import '../../features/profile/presentation/views/my_account_view.dart';
+import '../../features/profile/presentation/views/profile_view.dart';
 import '../entites/product_entity.dart';
 import '../../features/home/presentetion/views/product_detiles_view.dart';
 
@@ -78,6 +80,10 @@ Route<dynamic> onGenerateRoutes(RouteSettings routeSettings) {
     case NotificationsUserView.routeName:
       return MaterialPageRoute(
           builder: (context) => const NotificationsUserView());
+    case ProfileView.routeName:
+      return MaterialPageRoute(builder: (context) => const ProfileView());
+    case MyAccountView.routeName:
+      return MaterialPageRoute(builder: (context) => const MyAccountView());
     default:
       return MaterialPageRoute(builder: (context) => const Scaffold());
   }

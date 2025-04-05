@@ -15,7 +15,13 @@ class OrdersItemsView extends StatelessWidget {
     return BlocProvider(
       create: (context) => GetOrdersCubit(getIt<OrdersRepo>())..getOrders(),
       child: Scaffold(
-        appBar: buildAppBar(context, title: 'My Orders'),
+        appBar: buildAppBar(
+          context,
+          title: 'My Orders',
+          onTap: () {
+            Navigator.maybePop(context);
+          },
+        ),
         body: const SafeArea(child: OrdersItemsViewBlocBuilder()),
       ),
     );

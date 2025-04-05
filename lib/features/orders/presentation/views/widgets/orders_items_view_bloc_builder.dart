@@ -25,7 +25,7 @@ class OrdersItemsViewBlocBuilder extends StatelessWidget {
           return Center(child: Text(state.message));
         } else {
           return CustomSkeletonizerLoading(
-              isLoading: state is GetOrdersSuccsess ? true : false,
+              isLoading: state is GetOrdersLoading ? true : false,
               child: OrdersItemsViewBody(
                 orders: List.generate(
                     10,

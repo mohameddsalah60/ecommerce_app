@@ -4,9 +4,13 @@ import 'custom_text_field.dart';
 
 class CustomPasswordField extends StatefulWidget {
   const CustomPasswordField(
-      {super.key, required this.onSaved, required this.hintText});
+      {super.key,
+      required this.onSaved,
+      required this.hintText,
+      this.textEditingController});
   final void Function(String?) onSaved;
   final String hintText;
+  final TextEditingController? textEditingController;
   @override
   State<CustomPasswordField> createState() => _CustomPasswordFieldState();
 }
@@ -16,6 +20,7 @@ class _CustomPasswordFieldState extends State<CustomPasswordField> {
   @override
   Widget build(BuildContext context) {
     return CustomTextFromField(
+      controller: widget.textEditingController,
       onSaved: widget.onSaved,
       hintText: widget.hintText,
       obscureText: isVisible,

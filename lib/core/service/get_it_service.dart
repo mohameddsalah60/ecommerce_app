@@ -13,6 +13,8 @@ import 'package:ecommerce_app/features/categories/domin/repo/categories_repo.dar
 import 'package:ecommerce_app/features/home/domin/repos/home_repo.dart';
 import 'package:ecommerce_app/features/orders/data/repos/orders_repo_impl.dart';
 import 'package:ecommerce_app/features/orders/domin/repo/orders_repo.dart';
+import 'package:ecommerce_app/features/profile/data/repos/profile_repo_impl.dart';
+import 'package:ecommerce_app/features/profile/domin/profile_repo.dart';
 
 import 'package:get_it/get_it.dart';
 
@@ -60,6 +62,11 @@ void setupGetIt() {
   );
   getIt.registerSingleton<OrdersRepo>(
     OrdersRepoImpl(
+      ecommerceApiService: getIt<EcommerceApiService>(),
+    ),
+  );
+  getIt.registerSingleton<ProfileRepo>(
+    ProfileRepoImpl(
       ecommerceApiService: getIt<EcommerceApiService>(),
     ),
   );

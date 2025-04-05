@@ -1,4 +1,5 @@
 import 'package:ecommerce_app/features/orders/presentation/views/orders_items_view.dart';
+import 'package:ecommerce_app/features/profile/presentation/views/profile_view.dart';
 import 'package:flutter/material.dart';
 
 import 'cart_view.dart';
@@ -35,6 +36,7 @@ class _MainViewState extends State<MainView> {
           SafeArea(child: HomeViewBody()),
           CartView(),
           OrdersItemsView(),
+          ProfileView(),
         ],
       ),
     );
