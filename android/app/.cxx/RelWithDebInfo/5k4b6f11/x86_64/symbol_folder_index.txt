@@ -1,0 +1,1 @@
+D:\Android Studio\Projects\ecommerce_app\build\app\intermediates\cxx\RelWithDebInfo\5k4b6f11\obj\x86_64
