@@ -33,7 +33,12 @@ class GetOrdersCubit extends Cubit<GetOrdersState> {
 
     var result = await ordersRepo.getOrdersUser();
     result.fold(
-      (failure) => emit(GetOrdersFailure(message: failure.errorMessage)),
+      (failure) {
+        if (failure.errorMessage == 'Not Authorized') {
+          stopPolling();
+        }
+        emit(GetOrdersFailure(message: failure.errorMessage));
+      },
       (orders) {
         if (_hasChanges(orders)) {
           savedOrders = orders;

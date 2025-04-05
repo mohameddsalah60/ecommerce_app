@@ -68,4 +68,25 @@ class ProfileRepoImpl implements ProfileRepo {
       return left(ServerFailure('Oops There was an error, try again!'));
     }
   }
+
+  @override
+  Future<Either<Failure, void>> logoutUser() async {
+    try {
+      var response = await ecommerceApiService.logoutUser();
+      if (response['status'] == false) {
+        throw CustomException(message: response['message']);
+      }
+      SharedPreferencesService.removeData(key: kUserDataCache);
+      return right(null);
+    } on DioException catch (e) {
+      log('DioException in ProfileRepoImpl : ${e.toString()}');
+      return left(ServerFailure.fromDioError(e));
+    } on CustomException catch (e) {
+      log('CustomException in ProfileRepoImpl : ${e.toString()}');
+      return left(ServerFailure(e.message));
+    } catch (e) {
+      log('Exception in ProfileRepoImpl: ${e.toString()}');
+      return left(ServerFailure('Oops There was an error, try again!'));
+    }
+  }
 }

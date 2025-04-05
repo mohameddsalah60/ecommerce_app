@@ -6,6 +6,7 @@ import 'package:dio/dio.dart';
 import 'package:ecommerce_app/constantis.dart';
 import 'package:ecommerce_app/core/errors/exceptions.dart';
 import 'package:ecommerce_app/core/errors/failures.dart';
+import 'package:ecommerce_app/core/helper_functions/get_user.dart';
 import 'package:ecommerce_app/core/service/ecommerce_api_service.dart';
 import 'package:ecommerce_app/core/service/shared_preferences_service.dart';
 import 'package:ecommerce_app/features/auth/data/models/user_model.dart';
@@ -62,6 +63,7 @@ class AuthRepoImpl extends AuthRepo {
         throw CustomException(message: response['message']);
       } else {
         UserEntity userEntity = UserModel.fromJsonData(response['data']);
+        getUser().token = userEntity.token;
         await saveUserData(userEntity: userEntity);
         return right(userEntity);
       }

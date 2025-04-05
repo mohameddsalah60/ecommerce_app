@@ -2,7 +2,7 @@ class UserEntity {
   final String name;
   final String phone;
   final String email;
-  final String token;
+  String token;
   final num points, credit, id;
   String image;
 

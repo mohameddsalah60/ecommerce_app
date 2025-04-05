@@ -5,6 +5,7 @@ import 'package:ecommerce_app/features/profile/domin/profile_item_entity.dart';
 import 'package:ecommerce_app/features/profile/presentation/views/my_account_view.dart';
 import 'package:flutter/material.dart';
 import '../../../../../core/utils/app_images.dart';
+import 'logout_view.dart';
 import 'profile_body_header.dart';
 import 'profile_item.dart';
 
@@ -55,10 +56,13 @@ class ProfileViewBody extends StatelessWidget {
             const SizedBox(
               height: 24,
             ),
-            const ProfileItem(
+            ProfileItem(
               img: Assets.imagesLogout,
               text: 'Logout',
               color: AppColors.primaryColor,
+              onTap: () {
+                showLogoutConfirmationDialog(context);
+              },
             ),
           ],
         ),

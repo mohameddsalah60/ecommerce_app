@@ -274,7 +274,10 @@ class EcommerceApiService {
       var data = await apiService.get(
         endPoint: 'orders',
         headers: Options(
-          headers: headers,
+          headers: {
+            'lang': 'en',
+            'Authorization': getUser().token,
+          },
         ),
       );
       return data;
@@ -380,6 +383,23 @@ class EcommerceApiService {
         },
         headers: Options(
           headers: headers,
+        ),
+      );
+      return data;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<Map<String, dynamic>> logoutUser() async {
+    try {
+      var data = await apiService.post(
+        endPoint: 'logout',
+        headers: Options(
+          headers: {
+            'lang': 'en',
+            'Authorization': getUser().token,
+          },
         ),
       );
       return data;
